@@ -268,7 +268,7 @@ const Map = ({ children, zoom }) => {
 											featureProjection: get("EPSG:3857"),
 										}),
 									})}
-									style={FeatureStyles.MultiPolygon(getPCIColor(feature.properties.Section_PCI))} zIndex={2}
+									style={FeatureStyles.MultiPolygon(getPCIColor(feature.properties.Branch_PCI))} zIndex={2}
 								/>
 							))}
 
