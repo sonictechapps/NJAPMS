@@ -10,6 +10,12 @@ import { GeoJSON } from "ol/format";
 import { fromLonLat, get } from "ol/proj";
 import FeatureStyles from '../../Features/Styles'
 import Tile from "ol/layer/Tile";
+import { Zoom } from "ol/control";
+import {
+	DragRotateAndZoom, PinchZoom, DragPan, MouseWheelZoom,
+	defaults as defaultInteractions,
+} from 'ol/interaction';
+import { platformModifierKeyOnly } from 'ol/events/condition';
 
 const Map = ({ children, zoom }) => {
 	const mapRef = useRef();
@@ -108,11 +114,20 @@ const Map = ({ children, zoom }) => {
 
 	useEffect(() => {
 		let options = {
-			view: new ol.View({ zoom, minZoom: zoom }),
+			view: new ol.View({ zoom, minZoom: zoom, constrainOnlyCenter: true, }),
 			layers: [],
-			controls: [],
+			controls: [new Zoom()],
 			overlays: [],
-
+			interactions: defaultInteractions({ dragPan: false, mouseWheelZoom: false }).extend([new DragRotateAndZoom(), new PinchZoom(),
+			new DragPan({
+				condition: function (event) {
+					return this.getPointerCount() === 2 || platformModifierKeyOnly(event);
+				},
+			}),
+			new MouseWheelZoom({
+				condition: platformModifierKeyOnly,
+			}),
+			]),
 		};
 
 		mapObject = new ol.Map(options);
@@ -128,7 +143,6 @@ const Map = ({ children, zoom }) => {
 			overlayLayer.setPosition(undefined)
 			mapObject.forEachFeatureAtPixel(e.pixel, (feature, layer) => {
 				let clickeCordinate = e.coordinate
-				console.log('feature--->0', feature, feature.get('Branch_PCI'), layer.get('title'))
 				overLayPCIValue.innerHTML = `PCI: ${feature.get('Branch_PCI')}`
 				overLayBranchID.innerHTML = `Branch Id: ${feature.get('Branch_ID')}`
 				overlayLayer.setPosition(clickeCordinate)
@@ -210,21 +224,20 @@ const Map = ({ children, zoom }) => {
 
 					<div class="airport-options">
 						<p>Choose Airport:</p>
-						<div onChange={(e) => onAirportChange(e)}>
-							{
+						<div>
+							<select name="airport" id="airport" className="airport" onChange={(e) => onAirportChange(e)}>
+								{
 
-								airtPortDetails.map(airport => (
-									<>
-										<input type="radio" id={airport.value} name="airport-radio" value={airport.value} checked={airport.value === airportValueSelect} />
-										<label for="html">{airport.name}</label><br />
-									</>
-								))
+									airtPortDetails.map(airport => (
+										<option value={airport.value}>{airport.name}</option>
+									))
 
-							}
+								}
+							</select>
 						</div>
 					</div>
 					<div className="basemap-options">
-						<p>Choose Airport:</p>
+						<p>Choose Basemap:</p>
 						<select name="baseMap" id="baseMap" className="basemap" onChange={(e) => onBasemapDropdoenChange(e)}>
 							{
 								baseMapArr.map(basemap => (
