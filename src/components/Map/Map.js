@@ -118,15 +118,7 @@ const Map = ({ children, zoom }) => {
 			layers: [],
 			controls: [new Zoom()],
 			overlays: [],
-			interactions: defaultInteractions({ dragPan: false, mouseWheelZoom: false }).extend([new DragRotateAndZoom(), new PinchZoom(),
-			new DragPan({
-				condition: function (event) {
-					return this.getPointerCount() === 2 || platformModifierKeyOnly(event);
-				},
-			}),
-			new MouseWheelZoom({
-				condition: platformModifierKeyOnly,
-			}),
+			interactions: defaultInteractions().extend([new DragRotateAndZoom(), new PinchZoom()
 			]),
 		};
 
@@ -217,6 +209,13 @@ const Map = ({ children, zoom }) => {
 		getAirportAPICall(e.target.value)
 	}
 
+	const onPanClick = () => {
+		map.getView().animate({
+			center: center,
+			duration: 2000,
+		})
+	}
+
 	return (
 		<>
 			<div className="map-container">
@@ -259,6 +258,7 @@ const Map = ({ children, zoom }) => {
 				</div>
 				<div className="map-details">
 					<MapContext.Provider value={{ map }}>
+						<img src='./images/pan.png' alt='pan' onClick={onPanClick} />
 						<div ref={mapRef} className="ol-map">
 							{children}
 							{featureList.map(feature => (
