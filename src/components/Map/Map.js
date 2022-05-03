@@ -23,6 +23,8 @@ const Map = ({ children, zoom }) => {
 	const [center, setCenter] = useState(fromLonLat([0, 0]))
 	const [featureList, setFeatureList] = useState([])
 
+	const [showLayer, setShowLayer] = useState(true)
+
 	let mapObject
 	const baseMapArr = [
 		{
@@ -255,6 +257,10 @@ const Map = ({ children, zoom }) => {
 							))
 						}
 					</div>
+					<div className="pci-options">
+					Show Layer : <input type="checkbox" defaultChecked={showLayer} onChange={()=>(setShowLayer(!showLayer))} />
+					</div>
+					
 				</div>
 				<div className="map-details">
 					<MapContext.Provider value={{ map }}>
@@ -269,6 +275,7 @@ const Map = ({ children, zoom }) => {
 										}),
 									})}
 									style={FeatureStyles.MultiPolygon(getPCIColor(feature.properties.Branch_PCI))} zIndex={2}
+									visible= {showLayer}
 								/>
 							))}
 

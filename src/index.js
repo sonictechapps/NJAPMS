@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import Home from './components/Home';
+import BarChart from './components/BarChart';
+import BubbleChart from './components/BubbleChart';
 
 ReactDOM.render(
-  
-      <App />
+ <App />
    ,
   document.getElementById('root')
 );

@@ -2,16 +2,16 @@ import { useContext, useEffect } from "react";
 import MapContext from "../Map/MapContext";
 import OLVectorLayer from "ol/layer/Vector";
 
-const VectorLayer = ({ source, style, zIndex = 0 }) => {
+const VectorLayer = ({ source, style, zIndex = 0 , visible}) => {
 	const { map } = useContext(MapContext);
-
 	useEffect(() => {
 		if (!map) return;
 
 		let vectorLayer = new OLVectorLayer({
 			source,
 			style,
-			title: 'abc'
+			title: 'abc',
+			visible,
 		});
 
 		map.addLayer(vectorLayer);
@@ -22,7 +22,7 @@ const VectorLayer = ({ source, style, zIndex = 0 }) => {
 				map.removeLayer(vectorLayer);
 			}
 		};
-	}, [map]);
+	}, [map, visible]);
 
 	return null;
 };
