@@ -17,6 +17,10 @@ import {
 } from 'ol/interaction';
 import { platformModifierKeyOnly } from 'ol/events/condition';
 
+import Tabs from "../Tabs";
+import BarChart from "../BarChart";
+import BubbleChart from "../BubbleChart";
+
 const Map = ({ children, zoom }) => {
 	const mapRef = useRef();
 	const [map, setMap] = useState(null)
@@ -263,7 +267,9 @@ const Map = ({ children, zoom }) => {
 					
 				</div>
 				<div className="map-details">
-					<MapContext.Provider value={{ map }}>
+				<Tabs>
+        <div label="Home">
+		<MapContext.Provider value={{ map }}>
 						<img src='./images/pan.png' alt='pan' onClick={onPanClick} />
 						<div ref={mapRef} className="ol-map">
 							{children}
@@ -284,6 +290,15 @@ const Map = ({ children, zoom }) => {
 
 
 					</MapContext.Provider>
+        </div>
+        <div label="Current">
+		<BarChart />
+        </div>
+        <div label="Future">
+		<BubbleChart />
+        </div>
+      </Tabs>
+					
 				</div>
 			</div>
 			<div className="overlay-container">

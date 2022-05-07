@@ -13,7 +13,7 @@ function App() {
     <div className="App">
     
  
-    <BrowserRouter>
+    {/* <BrowserRouter>
 <nav
         style={{
           borderBottom: "solid 1px",
@@ -38,7 +38,8 @@ function App() {
     <Route path="barchart" element={<BarChart />} exact />
     <Route path="bubblechart" element={<BubbleChart />} exact />
   </Routes>
-</BrowserRouter>
+</BrowserRouter> */}
+<Home/>
     </div>
   );
 }

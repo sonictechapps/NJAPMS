@@ -11,6 +11,8 @@ import {
   } from 'chart.js';
 import { useState, useEffect } from "react"
 import { Bar, Bubble } from 'react-chartjs-2';
+import axios from 'axios';
+import { PieChart } from './PieChart';
 
 function BarChart() {
     ChartJS.register(
@@ -23,41 +25,73 @@ function BarChart() {
         Legend
       );
 
-    const [chartData, setChartData] = useState({})
+ 
 
-    
-      
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+   
 
- const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: [10, 5, 2, 7 , 4],
-      backgroundColor: [
-        "#ffbb11",
-        "#ecf0f1",
-        "#50AF95",
-        "#f3ba2f",
-        "#2a71d0"
-      ],
-    }
-  ],
-};
+const [data, setData] = useState({
+    "labels":[],
+    datasets: [
+      {
+        label: 'Airports',
+        data: [],
+        backgroundColor: [
+          "#ffbb11",
+          "#ecf0f1",
+          "#50AF95",
+          "#f3ba2f",
+          "#2a71d0"
+        ],
+      }
+    ],
+  });
 
 
 
+const getdataCall = () => {
+    let labels = [];
+    let data = [];
+    axios.get(`https://airportswebapi.azurewebsites.net/api/ExistingCondition/overall/Greater%20Than/0`)
+    .then((res) => {
+        res.data.forEach(obj=>{            
+         labels.push(obj.name);
+         data.push(obj.y);
+        })
+        setData({
+            labels:labels,
+            datasets: [
+              {
+                label: 'Airports',
+                data: data,
+                backgroundColor: [
+                  "#ffbb11",
+                  "#ecf0f1",
+                  "#50AF95",
+                  "#f3ba2f",
+                  "#2a71d0"
+                ],
+              }
+            ],
+          })
+    });
+}
+
+
+useEffect(() => {
+    getdataCall();
+  }, []);
 
       return (
         <React.Fragment>
+            <div style={{"width":"1000px"}}>
+        {data !== {} &&        
          <Bar
             data={data}
             options={{
             plugins: {
                 title: {
                 display: true,
-                text: "Cryptocurrency prices"
+                text: "All airports Weighted Average PCI for overall(2014)"
                 },
                 legend: {
                 display: true,
@@ -65,7 +99,11 @@ const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
             }
             }
             }}
-        />
+        />} 
+        </div>
+        <div style={{"width":"500px"}}>
+        <PieChart/>
+        </div>
         </React.Fragment>
       );
 }
