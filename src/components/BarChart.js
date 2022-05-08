@@ -45,31 +45,49 @@ const [data, setData] = useState({
       }
     ],
   });
+  
 
-
+const setColorArray = (data) => {
+    let backGrdounArr = []
+    data.forEach(d => {
+      let color
+      console.log('d', d)
+      if (d >= 0 && d <= 40) {
+        color = 'red'
+      } else if (d >= 41 && d <= 55) {
+        color = 'orange'
+      } else if (d >= 56 && d <= 70) {
+        color = 'yellow'
+      } else if (d >= 71 && d <= 85) {
+        color = 'green'
+      } else if (d >= 86 && d <= 100) {
+        color = 'pink'
+      }
+      backGrdounArr.push(color)
+    })
+    return backGrdounArr
+  }
 
 const getdataCall = () => {
     let labels = [];
     let data = [];
+    let backGroundColor = [];
     axios.get(`https://airportswebapi.azurewebsites.net/api/ExistingCondition/overall/Greater%20Than/0`)
     .then((res) => {
-        res.data.forEach(obj=>{            
+        res.data.forEach(obj=>{    
+          console.log('obj', obj)        
          labels.push(obj.name);
          data.push(obj.y);
         })
+        backGroundColor = setColorArray(data)
+        console.log('backGroundColor', backGroundColor)
         setData({
             labels:labels,
             datasets: [
               {
                 label: 'Airports',
                 data: data,
-                backgroundColor: [
-                  "#ffbb11",
-                  "#ecf0f1",
-                  "#50AF95",
-                  "#f3ba2f",
-                  "#2a71d0"
-                ],
+                backgroundColor: backGroundColor
               }
             ],
           })

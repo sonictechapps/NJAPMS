@@ -269,6 +269,7 @@ const Map = ({ children, zoom }) => {
 				<div className="map-details">
 				<Tabs>
         <div label="Home">
+			{console.log('map', map)}
 		<MapContext.Provider value={{ map }}>
 						<img src='./images/pan.png' alt='pan' onClick={onPanClick} />
 						<div ref={mapRef} className="ol-map">
