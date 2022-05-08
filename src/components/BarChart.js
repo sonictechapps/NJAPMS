@@ -120,7 +120,7 @@ useEffect(() => {
         />} 
         </div>
         <div style={{"width":"500px"}}>
-        <PieChart/>
+        <PieChart data={data}/>
         </div>
         </React.Fragment>
       );
