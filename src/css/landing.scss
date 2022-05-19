@@ -1,0 +1,40 @@
+@import '../css/map.scss';
+
+.landing {
+    height: 100vh;
+    .airport-layer {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .airport-div {
+        height: 100%;
+        flex-basis: 30%;
+        margin-top: 20px;
+        text-align: left;
+        margin-right: 20px;
+        .airport-options-inner {
+            height: 50%;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+        .airport {
+            background-color: cadetblue;
+            color: white;
+            height: 40px;
+            width: 100%;
+            option {
+                background-color: white;
+                height: 30px;
+                color: black;
+                width: 100%;
+                border-bottom: 1px solid black;
+            }
+        }
+    }
+    .airport-map {
+        height: 100%;
+        flex-basis: 70%;
+    }
+    
+}

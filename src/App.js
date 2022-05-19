@@ -4,6 +4,8 @@ import { BrowserRouter, Link, Outlet, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import BarChart from './components/BarChart';
 import BubbleChart from './components/BubbleChart';
+import Header from './components/Header/Header';
+import Landing from './components/Landing/Landing';
 
 
 
@@ -11,9 +13,9 @@ import BubbleChart from './components/BubbleChart';
 function App() {
   return (
     <div className="App">
-    
- 
-    {/* <BrowserRouter>
+
+
+      {/* <BrowserRouter>
 <nav
         style={{
           borderBottom: "solid 1px",
@@ -39,7 +41,8 @@ function App() {
     <Route path="bubblechart" element={<BubbleChart />} exact />
   </Routes>
 </BrowserRouter> */}
-<Home/>
+      <Header />
+      <Landing />
     </div>
   );
 }

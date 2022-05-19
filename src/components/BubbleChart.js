@@ -36,7 +36,7 @@ function BubbleChart() {
 
         ticks: {
           beginAtZero: true,
-        stepSize: 10,
+          stepSize: 10,
           callback: function (value, index, ticks) {
             return xaXisLabel[index];
           }
@@ -110,7 +110,7 @@ function BubbleChart() {
     let backGroundColor = [];
     axios.get(`https://airportswebapi.azurewebsites.net/api/FutureCondition/graph/2017/NoFunding`)
       .then((res) => {
-        SetXAxislabel(['',...res.data.categories])
+        SetXAxislabel(['', ...res.data.categories])
         let xx = []
         const dataSet = [{ data: [], backgroundColor: 'red' }, { data: [], backgroundColor: 'orange' },
         { data: [], backgroundColor: 'yellow' }, { data: [], backgroundColor: 'green' }, { data: [], backgroundColor: 'pink' }]
@@ -121,6 +121,7 @@ function BubbleChart() {
             dataSet[0].data.push({ x: a, y: pci, r: 10 })
           } else if (pci >= 41 && pci <= 55) {
             dataSet[1].data.push({ x: a, y: pci, r: 10 })
+            
           } else if (pci >= 56 && pci <= 70) {
             dataSet[2].data.push({ x: a, y: pci, r: 10 })
           } else if (pci >= 71 && pci <= 85) {
@@ -128,7 +129,7 @@ function BubbleChart() {
           } else if (pci >= 86 && pci <= 100) {
             dataSet[4].data.push({ x: a, y: pci, r: 10 })
           }
-          
+
         })
         console.log('dataSet', dataSet)
         setData(

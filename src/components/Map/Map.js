@@ -120,7 +120,7 @@ const Map = ({ children, zoom }) => {
 
 	useEffect(() => {
 		let options = {
-			view: new ol.View({ zoom, minZoom: zoom, constrainOnlyCenter: true, }),
+			view: new ol.View({ zoom, minZoom: zoom}),
 			layers: [],
 			controls: [new Zoom()],
 			overlays: [],
@@ -153,7 +153,7 @@ const Map = ({ children, zoom }) => {
 		olms(mapObject, 'https://basemaps-api.arcgis.com/arcgis/rest/services/styles/ArcGIS:Streets?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd');
 		setMap(mapObject);
 		getAirportAPICall(airtPortDetails[0].value)
-
+		setTimeout(() => { mapObject.updateSize(); mapObject.calculateBounds(); },300);
 		return () => mapObject.setTarget(undefined);
 	}, []);
 
@@ -224,83 +224,31 @@ const Map = ({ children, zoom }) => {
 
 	return (
 		<>
-			<div className="map-container">
-				<div className="map-options">
+			<div className="map-details">
+				
+						{console.log('map', map)}
+						<MapContext.Provider value={{ map }}>
+							{/* <img src='./images/pan.png' alt='pan' onClick={onPanClick} /> */}
+							<div ref={mapRef} className="ol-map">
+								{children}
+								{featureList.map(feature => (
+									<VectorLayer
+										source={vectorObject({
+											features: new GeoJSON().readFeatures(feature, {
+												featureProjection: get("EPSG:3857"),
+											}),
+										})}
+										style={FeatureStyles.MultiPolygon(getPCIColor(feature.properties.Branch_PCI))} zIndex={2}
+										visible={showLayer}
+									/>
+								))}
 
-					<div class="airport-options">
-						<p>Choose Airport:</p>
-						<div>
-							<select name="airport" id="airport" className="airport" onChange={(e) => onAirportChange(e)}>
-								{
-
-									airtPortDetails.map(airport => (
-										<option value={airport.value}>{airport.name}</option>
-									))
-
-								}
-							</select>
-						</div>
-					</div>
-					<div className="basemap-options">
-						<p>Choose Basemap:</p>
-						<select name="baseMap" id="baseMap" className="basemap" onChange={(e) => onBasemapDropdoenChange(e)}>
-							{
-								baseMapArr.map(basemap => (
-									<option value={basemap.value}>{basemap.name}</option>
-								))
-							}
-						</select>
-					</div>
-					<div className="pci-options">
-						{
-							pciColor.map(color => (
-								<div className="pci-color-options">
-									<div style={{ backgroundColor: color.color }}></div>
-									<p>{color.pci}</p>
-								</div>
-							))
-						}
-					</div>
-					<div className="pci-options">
-					Show Layer : <input type="checkbox" defaultChecked={showLayer} onChange={()=>(setShowLayer(!showLayer))} />
-					</div>
-					
-				</div>
-				<div className="map-details">
-				<Tabs>
-        <div label="Home">
-			{console.log('map', map)}
-		<MapContext.Provider value={{ map }}>
-						<img src='./images/pan.png' alt='pan' onClick={onPanClick} />
-						<div ref={mapRef} className="ol-map">
-							{children}
-							{featureList.map(feature => (
-								<VectorLayer
-									source={vectorObject({
-										features: new GeoJSON().readFeatures(feature, {
-											featureProjection: get("EPSG:3857"),
-										}),
-									})}
-									style={FeatureStyles.MultiPolygon(getPCIColor(feature.properties.Branch_PCI))} zIndex={2}
-									visible= {showLayer}
-								/>
-							))}
-
-						</div>
+							</div>
 
 
 
-					</MapContext.Provider>
-        </div>
-        <div label="Current">
-		<BarChart />
-        </div>
-        <div label="Future">
-		<BubbleChart />
-        </div>
-      </Tabs>
-					
-				</div>
+						</MapContext.Provider>
+				
 			</div>
 			<div className="overlay-container">
 				<span className="overlay-text-pci"></span><br />

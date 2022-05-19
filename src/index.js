@@ -7,10 +7,11 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import BarChart from './components/BarChart';
 import BubbleChart from './components/BubbleChart';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
+import 'bootstrap/dist/js/bootstrap.js';
 ReactDOM.render(
- <App />
-   ,
+ <App />,
   document.getElementById('root')
 );
 
