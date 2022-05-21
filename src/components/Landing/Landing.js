@@ -1,5 +1,7 @@
-import React, { useState } from "react"
+import axios from "axios"
+import React, { useEffect, useState } from "react"
 import OptGroupSelect from "../../atomiccomponent/OptGroupSelect"
+import OptionSelect from "../../atomiccomponent/OptionSelect"
 import '../../css/landing.scss'
 import Controls from "../controls/Controls"
 import FullScreenControl from "../controls/FullScreenControl"
@@ -8,84 +10,89 @@ import Layers from "../Layer/Layers"
 import Map from "../Map/Map"
 
 const Landing = () => {
-    const [zoom, setZoom] = useState(15)
-    const airtPortDetails = [
-        {
-            name: 'Central Jersey Regional Airport(47N)',
-            value: '47N'
-        },
-        {
-            name: 'Essex County Airport(CDW)',
-            value: 'CDW'
-        },
-        {
-            name: 'Greenwood Lake Airport(4N1)',
-            value: '4N1'
-        },
-    ]
-    const optionsGroup = [
-        {
+    const [zoom, setZoom] = useState(9)
+    const [airtPortDetails, setAirtPortDetails] = useState([])
+    const [airtPortFeatureDetails, setAirtPortFeatureDetails] = useState([])
+    const [optionsGroup, setOptionsGroup] = useState([])
+    const [branchOption, setBranchOption] = useState([])
+    const [aggregationOption, setAggregationOption] = useState([])
+    const [legend, setLegend] = useState([])
+
+    const getAllDetails = () => {
+        axios.all([axios.get('https://services7.arcgis.com/N4ykIOFU2FfLoqPT/arcgis/rest/services/N87Prototype/FeatureServer/0/query?f=pgeojson&geometry=%7B%22spatialReference%22:%7B%22latestWkid%22:3857,%22wkid%22:102100%7D,%22xmin%22:-8766409.899970992,%22ymin%22:4383204.949986987,%22xmax%22:-8140237.764258992,%22ymax%22:5009377.085698988%7D&maxRecordCountFactor=3&outFields=*&outSR=102100&resultType=tile&returnExceededLimitFeatures=false&spatialRel=esriSpatialRelIntersects&where=1=1&geometryType=esriGeometryEnvelope&inSR=102100'),
+        axios.get('http://localhost:3004/input'),
+        axios.get('http://localhost:3004/input_pci')
+    ]).then(axios.spread((...res) => {
+        console.log('res-->', res)
+        const assessmentYearList = res[1].data.response.body.assessmentyear
+        optionsGroup.push({
             label: 'INSPECTED',
-            options: [{
-                value: '2009',
-                name: '2009'
-            }, {
-                value: '2012',
-                name: '2012'
-            }, {
-                value: '2015',
-                name: '2015'
-            }, {
-                value: '2018',
-                name: '2018'
-            }]
-        },
-        {
-            label: 'INSPECTED',
-            options: [{
-                value: '2019',
-                name: '2019'
-            }, {
-                value: '2020',
-                name: '2020'
-            }, {
-                value: '2021',
-                name: '2021'
-            }, {
-                value: '2022',
-                name: '2022'
-            }, {
-                value: '2023',
-                name: '2023'
-            }, {
-                value: '2024',
-                name: '2024'
-            }, {
-                value: '2025',
-                name: '2025'
-            }, {
-                value: '2026',
-                name: '2026'
-            }, {
-                value: '2027',
-                name: '2027'
-            }, {
-                value: '2028',
-                name: '2028'
-            }]
+            options: []
+        })
+        optionsGroup.push({
+            label: 'PREDICTED',
+            options: []
+        })
+        for (let year of assessmentYearList) {
+            console.log('year', year)
+            if (year.isfuture === 'true') {
+                optionsGroup[1].options.push({
+                    value: year.year,
+                    name: year.year
+                })
+            } else {
+                optionsGroup[0].options.push({
+                    value: year.year,
+                    name: year.year
+                })
+            }
         }
-    ]
+        let featureList = []
+        console.log('ddd1', res[0]?.data?.features.length, res[2].data.response.body.currentdetails.length)
+        if (res[0]?.data?.features.length > 0 && res[2].data.response.body.currentdetails.length > 0) {
+            console.log('hhhh111', res[2].data.response.body.currentdetails)
+            res[0].data.features.map(feature => {
+                let obj
+                for(let current of res[2].data.response.body.currentdetails) {
+                    let networkId = Object.keys(current)
+                    if (networkId[0] === feature.properties.Network_ID) {
+                        obj = {
+                            ...feature,
+                            apron: current[networkId[0]].apron,
+                            overall: current[networkId[0]].overall,
+                            runway: current[networkId[0]].runway,
+                            taxiway: current[networkId[0]].taxiway,
+                        }
+                    }
+                }
+                return obj
+            })
+        }
+        console.log('optionsGroup', featureList)
+        setOptionsGroup(optionsGroup)
+        setBranchOption(res[1].data.response.body.branchlist)
+        setAirtPortDetails(res[1].data.response.body.airportlist)
+        setAggregationOption(res[1].data.response.body.aggregationlist)
+        setAirtPortFeatureDetails(featureList)
+        setLegend(res[1].data.response.body.legend)
+    }))
+    }
+
+    useEffect(() => {
+        getAllDetails()
+    }, [])
     return (
         <section className="landing">
             <div className="container airport-layer">
                 <div className="airport-div">
-                    <div class="airport-options">
+                    <div class="airport-options">   
                         <div className="airport-options-inner">
+                            {console.log('optionsGroup11', optionsGroup)}
                             <select name="airport" id="airport" className="airport" >
                                 {
 
                                     airtPortDetails.map(airport => (
-                                        <option value={airport.value}>{airport.name}</option>
+                                        <option value={airport.networkId}>{airport.description}</option>
                                     ))
 
                                 }
@@ -94,8 +101,16 @@ const Landing = () => {
                     </div>
                 </div>
                 <div className="airport-map">
-                    <OptGroupSelect optGroup={optionsGroup} id={'select-year'} />
-                    <Map zoom={zoom}>
+                    {console.log('ddd', optionsGroup.length)}
+                    <div style={{height: '50px'}}>
+                        {
+                            optionsGroup.length > 0 && <OptGroupSelect optGroup={optionsGroup} id={'select-year'} defaultOption= {'Assessment Year'}/>
+                        }
+                    
+                    <OptionSelect options={branchOption} id={'select-branch'} defaultOption= 'Branch'/>
+                    <OptionSelect options={aggregationOption} id={'select-aggregation'} defaultOption= 'Aggregation'/>
+                    </div>
+                    <Map zoom={zoom} legend={legend} airportFeatureList={airtPortFeatureDetails}>
                         <Layers>
                         </Layers>
                         <Controls>

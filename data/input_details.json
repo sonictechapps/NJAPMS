@@ -1,0 +1,367 @@
+{
+    "input": {
+        "apiVersion": "0.0.1",
+        "found": true,
+        "status": {
+            "code": "200",
+            "description": "OK"
+        },
+        "response": {
+                "body": {
+                    "brandvalues":{
+                                "color":"grey",
+                                "logo":"http://urltoaidpmelogo",
+                                "font":"calibri"
+                                },
+                    "legend":[
+                               {
+                                    "id":"1",
+                                    "min":"0",
+                                    "max":"10",
+                                    "description":"Failed"
+                               },
+                               {
+                                    "id":"2",
+                                    "min":"11",
+                                    "max":"25",
+                                    "description":"Failed"
+                               },
+                               {
+                                    "id":"3",
+                                    "min":"26",
+                                    "max":"40",
+                                    "description":"Very Poor"
+                               },
+                               {
+                                    "id":"4",
+                                    "min":"41",
+                                    "max":"55",
+                                    "description":"Poor"
+                               },
+                               {
+                                    "id":"5",
+                                    "min":"56",
+                                    "max":"70",
+                                    "description":"Fair"
+                               },
+                               {
+                                    "id":"6",
+                                    "min":"71",
+                                    "max":"85",
+                                    "description":"Satisfactory"
+                               },
+                               {
+                                    "id":"7",
+                                    "min":"86",
+                                    "max":"100",
+                                    "description":"Good"
+                               }
+                    ],
+                    "airportlist":[
+                        {
+                            "id":"1",
+                            "description":"Ocean City Municpal Airport (26N)",
+                            "networkId":"26N"
+                        },
+                        {
+                            "id":"2",
+                            "description":"Princeton Airport (39N)",
+                            "networkId":"39N"
+                        },
+                        {
+                            "id":"3",
+                            "description":"Central Jersey Regional Airport (47N)",
+                            "networkId":"47N"
+                        },
+                        {
+                            "id":"4",
+                            "description":"Essex County Airport (CDW)",
+                            "networkId":"CDW"
+                        },
+                        {
+                            "id":"5",
+                            "description":"Linden Airport (LDJ)",
+                            "networkId":"LDJ"
+                        },
+                        {
+                            "id":"6",
+                            "description":"Ocean County Airport (MJX)",
+                            "networkId":"MJX"
+                        },
+                        {
+                            "id":"7",
+                            "description":"Morristown Municipal Airport (MMU)",
+                            "networkId":"MMU"
+                        },
+                        {
+                            "id":"8",
+                            "description":"Lincoln Park Airport (N07)",
+                            "networkId":"N07"
+                        },
+                        {
+                            "id":"9",
+                            "description":"Lakewood Airport (N12)",
+                            "networkId":"N12"
+                        },
+                        {
+                            "id":"10",
+                            "description":"Solberg-Hunterdon Airport (N51)",
+                            "networkId":"N51"
+                        },
+                        {
+                            "id":"11",
+                            "description":"Hammonton Municipal Airport (N81)",
+                            "networkId":"N81"
+                        },
+                        {
+                            "id":"12",
+                            "description":"Trenton-Robbinsville Airport (N87)",
+                            "networkId":"N87"
+                        },
+                        {
+                            "id":"13",
+                            "description":"Woodbine Municipal Airport (OBI)",
+                            "networkId":"OBI"
+                        },
+                        {
+                            "id":"14",
+                            "description":"Somerset Airport (SMQ)",
+                            "networkId":"SMQ"
+                        },
+                        {
+                            "id":"15",
+                            "description":"Trenton-Mercer Airport (TTN)",
+                            "networkId":"TTN"
+                        },
+                        {
+                            "id":"16",
+                            "description":"South Jersey Regional Airport (VAY)",
+                            "networkId":"VAY"
+                        }
+                    ],
+                    "assessmentyear":[
+                        {
+                            "year":"2014",
+                            "isfuture":"false"
+                        },
+                        {
+                            "year":"2015",
+                            "isfuture":"false"
+                        },
+                        {
+                            "year":"2016",
+                            "isfuture":"false"
+                        },
+                        {
+                            "year":"2017",
+                            "isfuture":"false"
+                        },
+                        {
+                            "year":"2018",
+                            "isfuture":"false"
+                        },
+                        {
+                            "year":"2019",
+                            "isfuture":"false"
+                        },
+                        {
+                            "year":"2020",
+                            "isfuture":"false"
+                        },
+                        {
+                            "year":"2021",
+                            "iscurrent":"true",
+                            "isfuture":"false"
+                        },
+                        {
+                            "year":"2022",
+                            "isfuture":"true"
+                        },
+                        {
+                            "year":"2023",
+                            "isfuture":"true"
+                        },
+                        {
+                            "year":"2024",
+                            "isfuture":"true"
+                        },
+                        {
+                            "year":"2025",
+                            "isfuture":"true"
+                        }
+                    ],
+                    "branchlist":[
+                        {
+                            "id":"1",
+                            "description":"Overall",
+                            "value":"overall"
+                        },
+                        {
+                            "id":"2",
+                            "description":"Apron",
+                            "value":"apron" 
+                        },
+                        {
+                            "id":"3",
+                            "description":"Runway",
+                            "value":"runway" 
+                        },
+                        {
+                            "id":"4",
+                            "description":"Taxiway",
+                            "value":"taxiway" 
+                        }
+                    ],
+                    "aggregationlist":[
+                        {
+                            "id":"1",
+                            "description":"No Funding",
+                            "value":"nofunding" 
+                        },
+                        {
+                            "id":"2",
+                            "description":"Unlimited",
+                            "value":"unlimited" 
+                        },
+                        {
+                            "id":"3",
+                            "description":"Backlog 3 year",
+                            "value":"backlog3year" 
+                        },
+                        {
+                            "id":"4",
+                            "description":"Backlog 6 year",
+                            "value":"backlog6year" 
+                        },
+                        {
+                            "id":"5",
+                            "description":"Backlog 10 year",
+                            "value":"backlog10year" 
+                        }
+                    ]
+                }
+        }      
+    },
+    "input_pci" : {
+        "apiVersion": "0.0.1",
+        "found": true,
+        "status": {
+            "code": "200",
+            "description": "OK"
+        },
+        "response": {
+            "body": {
+                "input": "current",
+                "airportid":"ALL",
+                "isfuture": false,
+            "isCurrent": true,
+                "currentdetails": {
+                    "26N":{
+                            "overall":"80",
+                            "apron":"75",
+                            "runway":"82",
+                            "taxiway":"92"
+                          },
+                    "39N":{
+                            "overall":"75",
+                            "apron":"71",
+                            "runway":"77",
+                            "taxiway":"78"
+                          },
+                    "47N":{
+                            "overall":"66",
+                            "apron":"82",
+                            "runway":"64",
+                            "taxiway":"46"
+                          },
+                    "4N1":{
+                            "overall":"66",
+                            "apron":"42",
+                            "runway":"73",
+                            "taxiway":"68"
+                          },
+                    "CDW":{
+                            "overall":"63",
+                            "apron":"66",
+                            "runway":"53",
+                            "taxiway":"67"
+                          },
+                    "LDJ":{
+                            "overall":"62",
+                            "apron":"55",
+                            "runway":"74",
+                            "taxiway":"70"
+                          },
+                    "MJX":{
+                            "overall":"81",
+                            "apron":"79",
+                            "runway":"76",
+                            "taxiway":"89"
+                          },
+                    "MMU":{
+                            "overall":"72",
+                            "apron":"100",
+                            "runway":"59",
+                            "taxiway":"81"
+                          },
+                    "N07":{
+                            "overall":"62",
+                            "apron":"56",
+                            "runway":"66",
+                            "taxiway":"61"
+                          },
+                    "N12":{
+                            "overall":"76",
+                            "apron":"81",
+                            "runway":"75",
+                            "taxiway":"76"
+                          },
+                    "N51":{
+                            "overall":"51",
+                            "apron":"52",
+                            "runway":"52",
+                            "taxiway":"49"
+                          },
+                    "N81":{
+                            "overall":"76",
+                            "apron":"79",
+                            "runway":"93",
+                            "taxiway":"46"
+                          },
+                    "N87":{
+                            "overall":"55",
+                            "apron":"58",
+                            "runway":"53",
+                            "taxiway":"56"
+                          },
+                    "OBI":{
+                            "overall":"77",
+                            "apron":"83",
+                            "runway":"85",
+                            "taxiway":"62"
+                          },
+                    "SMQ":{
+                            "overall":"67",
+                            "apron":"75",
+                            "runway":"60",
+                            "taxiway":"67"
+                          },
+                    "TTN":{
+                            "overall":"63",
+                            "apron":"54",
+                            "runway":"68",
+                            "taxiway":"62"
+                          },
+                    "VAY":{
+                            "overall":"62",
+                            "apron":"58",
+                            "runway":"69",
+                            "taxiway":"64"
+                          }
+                }
+            }
+                
+    
+        }
+    }
+}
