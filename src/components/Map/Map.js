@@ -13,34 +13,21 @@ import { fromLonLat, get, toLonLat } from "ol/proj";
 import FeatureStyles from '../../Features/Styles'
 import Tile from "ol/layer/Tile";
 import { Zoom } from "ol/control";
-import { Tile as TileLayer, Vector as VectorLayer1 } from 'ol/layer';
 import {
 	DragRotateAndZoom, PinchZoom, DragPan, MouseWheelZoom,
 	defaults as defaultInteractions,
 } from 'ol/interaction';
 import Feature from 'ol/Feature'
 import { Fill, Icon, Stroke, Style, Text } from 'ol/style';
-import { platformModifierKeyOnly } from 'ol/events/condition';
-
-import Tabs from "../Tabs";
-import BarChart from "../BarChart";
-import BubbleChart from "../BubbleChart";
 import VectorLayerPoint from "../Layer/VectorLayerPoint"
 
 const Map = ({ children, zoom, legend, airportFeatureList }) => {
-	console.log('airportFeatureList1', airportFeatureList)
 	const mapRef = useRef();
 	const [map, setMap] = useState(null)
 	const [center, setCenter] = useState(fromLonLat([0, 0]))
 	const [featureList, setFeatureList] = useState([])
 	const [coordinateList, setCoordinateList] = useState([])
 	const [showLayer, setShowLayer] = useState(true)
-	// const rome = new Feature({
-	// 	geometry: new Point(fromLonLat([12.5, 41.9])),
-	// 	name: 'Null Island',
-	// });
-
-
 
 	const getIconStyle = (feature, zoom = 0) => {
 		let iconImg
@@ -100,80 +87,7 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 		}
 		return iconStyle
 	}
-
-	//rome.setStyle(iconStyle);
 	let mapObject
-	const baseMapArr = [
-		{
-			name: 'Streets',
-			value: 'ArcGIS:Streets'
-		},
-		{
-			name: 'Navigation',
-			value: 'ArcGIS:Navigation'
-		},
-		{
-			name: 'Topographic',
-			value: 'ArcGIS:Topographic'
-		},
-		{
-			name: 'Light Gray',
-			value: 'ArcGIS:LightGray'
-		},
-		{
-			name: 'Dark gray',
-			value: 'ArcGIS:DarkGray'
-		},
-		{
-			name: 'Streets Relief',
-			value: 'ArcGIS:StreetsRelief'
-		},
-		{
-			name: 'Imagery',
-			value: 'ArcGIS:Imagery:Standard'
-		},
-		{
-			name: 'ChartedTerritory',
-			value: 'ArcGIS:ChartedTerritory'
-		},
-		{
-			name: 'ColoredPencil',
-			value: 'ArcGIS:ColoredPencil'
-		},
-		{
-			name: 'Nova',
-			value: 'ArcGIS:Nova'
-		},
-		{
-			name: 'Midcentury',
-			value: 'ArcGIS:Midcentury'
-		},
-		{
-			name: 'OSM',
-			value: 'OSM:Standard'
-		},
-		{
-			name: 'OSM:Streets',
-			value: 'OSM:Streets'
-		},
-	]
-
-	const pciColor = [{
-		color: 'red',
-		pci: '0-40'
-	}, {
-		color: 'orange',
-		pci: '41-55'
-	}, {
-		color: 'yellow',
-		pci: '56-70'
-	}, {
-		color: 'green',
-		pci: '71-85'
-	}, {
-		color: 'pink',
-		pci: '86-100'
-	}]
 
 	const airtPortDetails = [
 		{
@@ -219,7 +133,6 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 		const overLayPCIValue = document.getElementsByClassName('overlay-text-pci')[0]
 		const overLayBranchID = document.getElementsByClassName('overlay-branch-id')[0]
 		mapObject.on('pointermove', (e) => {
-			console.log('pointermove')
 			overlayLayer.setPosition(undefined)
 			mapObject.forEachFeatureAtPixel(e.pixel, (feature, layer) => {
 				let clickeCordinate = e.coordinate
@@ -232,23 +145,13 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 				}
 			})
 		})
-		var currZoom = mapObject.getView().getZoom();
 		
 		olms(mapObject, 'https://basemaps-api.arcgis.com/arcgis/rest/services/styles/ArcGIS:Streets?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd');
-		//console.log('vectorLayer', vectorLayer)
-		// setTimeout(() => {
-		// 	mapObject.addLayer(vectorLayer)
-		// }, 5000)
-		//mapObject.addLayer(vectorLayer)
 		setMap(mapObject);
 		getAirportAPICall(airtPortDetails[0].value)
-		//airportFeatureList.length > 0 && getAirportDetails()
-		//	setTimeout(() => { mapObject.updateSize(); mapObject.calculateBounds(); },300);
-		return () => mapObject.setTarget(undefined);
 	}, []);
 
 	useEffect(() => {
-		console.log('kkk',airportFeatureList, mapObject )
 		if (airportFeatureList.length > 0) {
 			getAirportDetails()
 			setCenter(fromLonLat(toLonLat(airportFeatureList[0].geometry?.coordinates)))
@@ -257,16 +160,7 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 		if (airportFeatureList.length > 0 && map) {
 			map.on('moveend', (e) => {
 				var newZoom = map.getView().getZoom();
-				console.log('zoom end, new zoom: ' + newZoom);
-				// if (currZoom != newZoom) {
-				// 	console.log('zoom end, new zoom: ' + newZoom);
-				// 	currZoom = newZoom
-				// }
 				getAirportDetails(newZoom)
-				// if (newZoom >= 11) {
-				// 	console.log('ttt', airportFeatureList)
-					
-				// }
 			});
 		}
 		
@@ -277,8 +171,6 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 		axios.get(`https://services7.arcgis.com/N4ykIOFU2FfLoqPT/ArcGIS/rest/services/N87Prototype/FeatureServer/0/query?outFields=*&spatialRel=esriSpatialRelIntersects&where=Network_ID=%27${value}%27&f=geojson`)]
 		).then(axios.spread((...res) => {
 			setFeatureList(res[0].data.features)
-			console.log('latlng', toLonLat([-8312257.30208827, 4957348.5768442]))
-			//setCenter(fromLonLat(toLonLat([-8312257.30208827, 4957348.5768442])))
 		}))
 	}
 
@@ -293,21 +185,6 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 		}))
 	}
 
-	// const getAirportDetails = () => {
-	// 	axios.get('https://services7.arcgis.com/N4ykIOFU2FfLoqPT/arcgis/rest/services/N87Prototype/FeatureServer/0/query?f=pgeojson&geometry=%7B%22spatialReference%22:%7B%22latestWkid%22:3857,%22wkid%22:102100%7D,%22xmin%22:-8766409.899970992,%22ymin%22:4383204.949986987,%22xmax%22:-8140237.764258992,%22ymax%22:5009377.085698988%7D&maxRecordCountFactor=3&outFields=*&outSR=102100&resultType=tile&returnExceededLimitFeatures=false&spatialRel=esriSpatialRelIntersects&where=1=1&geometryType=esriGeometryEnvelope&inSR=102100').then(response => {
-	// 		console.log('response-->', response.data.features)
-	// 		setCenter(fromLonLat(toLonLat(response.data.features[0].geometry?.coordinates)))
-	// 		setCoordinateList(response.data.features.map(featureItem => {
-	// 			const feature = new Feature({
-	// 				geometry: new Point(fromLonLat(toLonLat(featureItem.geometry?.coordinates))),
-	// 			})
-	// 			feature.setStyle(iconStyle);
-	// 			return feature
-	// 		}))
-	// 	})
-	// }
-
-	// zoom change handler
 	useEffect(() => {
 		if (!map) return;
 
@@ -317,7 +194,6 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 	// center change handler
 	useEffect(() => {
 		if (!map) return;
-		console.log('center', center)
 		map.getView().setCenter(center)
 
 	}, [center])
@@ -369,7 +245,6 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 				textColor: '#000'
 			}
 		} else if (pci.min === '86' && pci.max === '100') {
-			console.log('oo')
 			return {
 				color: '#225313',
 				textColor: '#fff'
@@ -412,12 +287,10 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 		<>
 			<div className="map-details">
 
-				{console.log('map', coordinateList)}
 				<MapContext.Provider value={{ map }}>
 					{/* <img src='./images/pan.png' alt='pan' onClick={onPanClick} /> */}
 					<div ref={mapRef} className="ol-map">
 						{children}
-						{console.log('featureList', featureList)}
 						{featureList.map(feature => (
 							<VectorLayer
 								source={vectorObject({
@@ -444,7 +317,6 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 								})}
 								visible={true}
 							/> */}
-						{console.log('999', map?.getLayers())}
 						<div className="pci-details">
 							{
 								legend.map(pci => (

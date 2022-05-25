@@ -3,10 +3,17 @@ import '../../css/header.scss'
 
 const Header =() => {
     return (
-        <div className='header'>
+        <header>
+            <div className='header'>
+            <div className='header-container'>
+            <div class="logo-section">                
             <img className='logo-banner' src='images/banner.png' alt='logo' />
-            <p className='logo-info'>New Jersey Department of Transportation</p>
-        </div>
+                <span className='logo-info'>New Jersey Department of Transportation</span>
+            </div>
+            
+            </div>
+            </div>
+        </header>
     )
 }
 

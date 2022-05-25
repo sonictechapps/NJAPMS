@@ -1,32 +1,29 @@
 import React, { useEffect, useRef } from "react";
+import '../css/dropdown.scss'
 
 const OptGroupSelect = ({ options, id, defaultOption, selectedRootIndex, selectedIndex, onItemSelectedCallback }) => {
-    console.log('selectedRootIndex', selectedRootIndex, selectedIndex)
     let ul, span, dropdownDiv
     const dropDownDivOuter = useRef()
     useEffect(() => {
         ul = document.querySelector(`#${id}`)
         dropdownDiv = document.querySelector(`#dropdown-div-outer-${id}`)
         span = document.querySelector(`#dropdown-placeholder-${id}`)
-        console.log('options-->', options.length)
-        // if (selectedRootIndex >= 0 && selectedIndex>=0 && options.length > 0)
-        //     span.innerHTML = options[selectedIndex].options[selectedRootIndex].name
+        let acc = document.getElementsByClassName("option-header-list");
+        let collapseArr = acc
     }, [])
 
-    useEffect(()=> {
+    useEffect(() => {
         span = document.querySelector(`#dropdown-placeholder-${id}`)
-        if (selectedRootIndex >= 0 && selectedIndex>=0 && options.length > 0)
+        if (selectedRootIndex >= 0 && selectedIndex >= 0 && options.length > 0)
             span.innerHTML = options[selectedRootIndex].options[selectedIndex].name
     }, [selectedRootIndex, selectedIndex])
 
     const onULClick = (e) => {
         ul = document.querySelector(`#${id}`)
         ul.classList.toggle('active')
-        //dropDownDivOuter.current.style.borderColor = getColor()
     }
 
     const onItemSelectd = (event, rootIndex, index) => {
-        console.log('enter')
         event.stopPropagation()
         span = document.querySelector(`#dropdown-placeholder-${id}`)
         span.innerHTML = options[rootIndex].options[index].name
@@ -47,6 +44,25 @@ const OptGroupSelect = ({ options, id, defaultOption, selectedRootIndex, selecte
         elem.classList.remove('dropdown')
     }
 
+    const onAccordionClick = (e) => {
+        e.stopPropagation()
+        let collapseArr = document.getElementsByClassName("option-header-list");
+        const elem = e.target
+        elem.classList.toggle("active-accordion");
+        let panel = elem.nextElementSibling;
+        if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+        } else {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+        for (let j = 0; j < collapseArr.length; j++) {
+            if (collapseArr[j] === elem) continue
+            collapseArr[j].classList.remove("active-accordion")
+            let panel = collapseArr[j].nextElementSibling;
+            panel.style.maxHeight = null
+        }
+    }
+
     return (
         <>
             <div id={`dropdown-${id}`} className='dropdown-root'>
@@ -57,12 +73,14 @@ const OptGroupSelect = ({ options, id, defaultOption, selectedRootIndex, selecte
                             {
                                 options.map((optG, rootIndex) => (
                                     <>
-                                        <li value={optG.label} disabled='true' className={'option-header-list'}>{optG.label}</li>
-                                        {
-                                            optG.options.map((option, index) => (
-                                                <li className={'option-list'} value={option.value} onClick={(e) => onItemSelectd(e, rootIndex, index)}>{option.name}</li>
-                                            ))
-                                        }
+                                        <button className={'option-header-list'} onClick={(e) => onAccordionClick(e)}>{optG.label}</button>
+                                        <div className='panel'>
+                                            {
+                                                optG.options.map((option, index) => (
+                                                    <li className={'option-list'} value={option.value} onClick={(e) => onItemSelectd(e, rootIndex, index)}>{option.name}</li>
+                                                ))
+                                            }
+                                        </div>
                                     </>
                                 ))
                             }

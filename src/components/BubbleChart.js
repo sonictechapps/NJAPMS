@@ -4,7 +4,6 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
-  Title,
   Tooltip,
   Legend,
   PointElement,
@@ -55,23 +54,7 @@ function BubbleChart() {
         }
       }
     }
-  };
-
-  // const data_bubble = {
-  //     datasets: [
-  //       {
-  //         label: 'Red dataset',
-  //         data: [{x:10,y:16,r:10},{x:20,y:13,r:10},{x:30,y:7,r:10},{x:40,y:9,r:10},{x:50,y:10,r:10},{x:60,y:11,r:10},{x:70,y:5,r:10}],
-  //         backgroundColor: [
-  //             "#ffbb11",
-  //             "#ecf0f1",
-  //             "#50AF95",
-  //             "#f3ba2f",
-  //             "#2a71d0"
-  //           ],
-  //       }
-  //     ],
-  //   };
+  }
 
   const [data, setData] = useState({
     datasets: [
@@ -87,7 +70,6 @@ function BubbleChart() {
     let backGrdounArr = []
     data.forEach(d => {
       let color
-      console.log('d', d)
       if (d >= 0 && d <= 40) {
         color = 'red'
       } else if (d >= 41 && d <= 55) {
@@ -131,7 +113,6 @@ function BubbleChart() {
           }
 
         })
-        console.log('dataSet', dataSet)
         setData(
           {
             datasets: dataSet,

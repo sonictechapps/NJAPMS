@@ -1,15 +1,20 @@
-import axios from "axios"
 import React, { useEffect, useState } from "react"
+import axios from "axios"
+import SwitchSelector from "react-switch-selector"
 import OptGroupSelect from "../../atomiccomponent/OptGroupSelect"
 import OptionSelect from "../../atomiccomponent/OptionSelect"
 import '../../css/landing.scss'
+import BarChart from "../BarChart"
 import Controls from "../controls/Controls"
 import FullScreenControl from "../controls/FullScreenControl"
 import ZoomSliderControl from "../controls/ZoomSiderControl"
 import Layers from "../Layer/Layers"
 import Map from "../Map/Map"
+import ToggleButton from "../../atomiccomponent/ToggleButton"
+import BubbleChart from "../BubbleChart"
 
 const Landing = () => {
+    const [currentTab, setCurrentTab] = useState("map")
     const [zoom, setZoom] = useState(9)
     const [airtPortDetails, setAirtPortDetails] = useState([])
     const [airtPortFeatureDetails, setAirtPortFeatureDetails] = useState([])
@@ -24,7 +29,6 @@ const Landing = () => {
         axios.get('http://localhost:3004/input'),
         axios.get('http://localhost:3004/input_pci')
         ]).then(axios.spread((...res) => {
-            console.log('res-->', res)
             optionsGroup = []
             const assessmentYearList = res[1].data.response.body.assessmentyear
             optionsGroup.push({
@@ -36,7 +40,6 @@ const Landing = () => {
                 options: []
             })
             for (let year of assessmentYearList) {
-                console.log('year', year)
                 if (year.isfuture === 'true') {
                     optionsGroup[1].options.push({
                         value: year.year,
@@ -49,13 +52,10 @@ const Landing = () => {
                     })
                 }
             }
-            let featureList = []
             const airportPCIDetails = res[2].data.response.body.currentdetails
             const airportPciKeys = Object.keys(airportPCIDetails)
-            console.log('ddd1', res[0]?.data?.features.length, airportPciKeys.length)
             let newFeature
             if (res[0]?.data?.features.length > 0 && airportPciKeys.length > 0) {
-                console.log('hhhh111', airportPCIDetails)
                 newFeature = res[0].data.features.map(feature => {
                     let obj
                     for (let key of airportPciKeys) {
@@ -70,13 +70,10 @@ const Landing = () => {
                             }
                             break
                         }
-
-
                     }
                     return obj
                 })
             }
-            console.log('optionsGroup', newFeature)
             setOptionsGroup(optionsGroup)
             setSelectedDefaultYear(getCurrentAssessmentYear())
             setBranchOption(res[1].data.response.body.branchlist.map(branch => {
@@ -102,15 +99,12 @@ const Landing = () => {
     }, [])
 
     const onBranchDropDownChange = (index) => {
-        console.log('index-->', index)
     }
 
     const onAggregationChange = (index) => {
-        console.log('index1-->', index)
     }
 
     const onAssessmentYearChange = (rootIndex, index) => {
-        console.log('index1-->', index, rootIndex)
         setSelectedDefaultYear([rootIndex, index])
     }
 
@@ -118,25 +112,32 @@ const Landing = () => {
         const date = new Date()
         const year = date.getFullYear()
         for (let i = 0; i < optionsGroup.length; i++) {
-            // console.log('options', options)
             let j = optionsGroup[i].options.findIndex(opt => {
-                console.log('opt', opt)
                 return opt.value === year.toString()
             })
             if (j !== -1) {
                 return [i, j]
             }
-            console.log('999911', i, j)
         }
+    }
+    const toggleOptions = [{
+        name: 'Map',
+        value: 'map'
+    }, {
+        name: 'Data',
+        value: 'data'
+    }]
+
+    const onToggleValue = (value) => {
+        setCurrentTab(value)
     }
 
     return (
         <section className="landing">
-            <div className="container airport-layer">
+            <div className="airport-layer">
                 <div className="airport-div">
                     <div class="airport-options">
                         <div className="airport-options-inner">
-                            {console.log('optionsGroup11', optionsGroup)}
                             <select name="airport" id="airport" className="airport" >
                                 {
 
@@ -150,7 +151,6 @@ const Landing = () => {
                     </div>
                 </div>
                 <div className="airport-map">
-                    {console.log('ddd', optionsGroup.length)}
                     <div style={{ height: '50px' }}>
                         {
                             optionsGroup.length > 0 && <OptGroupSelect options={optionsGroup} id={'select-year'} onItemSelectedCallback={onAssessmentYearChange}
@@ -160,21 +160,31 @@ const Landing = () => {
                             branchOption.length > 0 && <OptionSelect options={branchOption} selectedIndex={0} onItemSelectedCallback={onBranchDropDownChange} id='select-branch'
                             />
                         }
+
                         {
                             aggregationOption.length > 0 && <OptionSelect options={aggregationOption} selectedIndex={0} id={'select-aggregation'} onItemSelectedCallback={onAggregationChange} />
                         }
 
-                        {/* <OptionSelect options={branchOption} id={'select-branch'} defaultOption='Branch' /> */}
-
+                        <ToggleButton toggleoptions={toggleOptions} onToggleValue={onToggleValue} />
                     </div>
-                    <Map zoom={zoom} legend={legend} airportFeatureList={airtPortFeatureDetails}>
-                        <Layers>
-                        </Layers>
-                        <Controls>
-                            <FullScreenControl />
-                            <ZoomSliderControl />
-                        </Controls>
-                    </Map>
+
+                    <div style={{ position: 'relative', display: `${currentTab === 'map' ? 'block' : 'none'}` }}>
+                        <Map zoom={zoom} legend={legend} airportFeatureList={airtPortFeatureDetails}>
+                            <Layers>
+                            </Layers>
+                            <Controls>
+                                <FullScreenControl />
+                                <ZoomSliderControl />
+                            </Controls>
+                        </Map>
+                    </div>
+
+
+
+                    <div style={{ position: 'relative', display: `${currentTab === 'data' ? 'block' : 'none'}` }}>
+                        <BarChart />
+                    </div>
+
                 </div>
             </div>
         </section>

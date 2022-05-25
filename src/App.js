@@ -12,7 +12,7 @@ import Landing from './components/Landing/Landing';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App container-fluid main-container">
 
 
       {/* <BrowserRouter>
@@ -42,7 +42,11 @@ function App() {
   </Routes>
 </BrowserRouter> */}
       <Header />
-      <Landing />
+      <div className='main-body'>
+      <div className='body-content'>
+        <Landing />
+        </div>
+      </div>
     </div>
   );
 }

@@ -95,8 +95,41 @@
             }
 
             .option-header-list {
+                background-color: white;
                 color: gray;
                 margin-top: 10px;
+                cursor: pointer;
+                padding: 18px;
+                width: 100%;
+                border: none;
+                border-bottom: 1px solid #EEE;
+                text-align: left;
+                outline: none;
+                font-size: 15px;
+
+                &::after {
+                    content: '\002B';
+                    color: black;
+                    font-weight: bold;
+                    float: right;
+                    margin-left: 5px;
+                }
+            }
+
+            .active-accordion {
+                &::after {
+                    content: "\2212" !important;
+                }
+
+            }
+
+            .panel {
+                padding: 0 18px;
+                max-height: 0;
+                text-align: center;
+                overflow: hidden;
+                transition: max-height 0.2s ease-out;
+                color: black;
             }
         }
 

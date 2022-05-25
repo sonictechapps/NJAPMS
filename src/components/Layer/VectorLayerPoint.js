@@ -9,7 +9,6 @@ const VectorLayerPoint = ({ source, zIndex = 0 }) => {
 		let vectorLayer = new VectorLayer({
 			source,
 		});
-        console.log('vectorLayer', vectorLayer)
         map.addLayer(vectorLayer);
 		
 		vectorLayer.setZIndex(zIndex);

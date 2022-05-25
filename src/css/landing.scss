@@ -4,14 +4,16 @@
     .airport-layer {
         display: flex;
         flex-direction: row;
+        padding: 0;
+        margin: 20px;
     }
     
     .airport-div {
         height: 86vh;
         flex-basis: 30%;
         text-align: left;
-        margin-right: 20px;
-        border: 1px solid black;
+        //margin-right: 20px;
+        //border: 1px solid black;
         .airport-options {
             margin-top: 10px;
         }

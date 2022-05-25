@@ -1,6 +1,5 @@
 .App {
-  
-  
+  padding: 0 !important;
 }
 
 .App-logo {
@@ -56,4 +55,39 @@
   background-color: white;
   border: solid #ccc;
   border-width: 1px 1px 0 1px;
+}
+
+
+.main-body{
+  padding-top: 32px;
+    margin: 0;
+    background: linear-gradient(180deg, rgba(207,206,204,0.6) 0%, #FFFFFF 100%);
+
+}
+
+.body-content {
+  margin: 0 32px 32px 32px;
+  box-sizing: border-box;
+  border: 1px solid #CFCECC;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 25%);
+}
+
+.switch-container {
+  height: 50px;
+  width: 300px;
+  float: right;
+  margin-bottom: 20px;
+}
+
+.react-switch-selector-wrapper{
+ border-radius: 10px !important;
+ width: 200px !important;
+ height: 40px !important;
+ float: right !important;
+}
+
+.react-switch-selector-wrapper::before{
+  border-radius: 10px !important;
 }

@@ -11,13 +11,10 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 export function PieChart({data}) {
   const counts = {};
   if(data!==undefined && data.datasets!==undefined && data.datasets[0].backgroundColor!==undefined && data.datasets[0].backgroundColor.length>0){
-    console.log(data.datasets[0].backgroundColor)
-    
     if(data.datasets[0].backgroundColor.length>0){
       for (const num of data.datasets[0].backgroundColor) {
         counts[num] = counts[num] ? counts[num] + 1 : 1;
       }
-      console.log(counts)
     }
   }
   

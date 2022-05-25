@@ -1,26 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import '../css/dropdown.scss'
 
-const OptionSelect = ({ options, id, defaultOption, selectedIndex, onItemSelectedCallback }) => {
+const OptionSelect = ({ options, id, selectedIndex, onItemSelectedCallback }) => {
     let ul, span, dropdownDiv
     const dropDownDivOuter = useRef()
     useEffect(() => {
         ul = document.querySelector(`#${id}`)
         dropdownDiv = document.querySelector(`#dropdown-div-outer-${id}`)
         span = document.querySelector(`#dropdown-placeholder-${id}`)
-        console.log('options-->', options.length)
         if (selectedIndex >= 0 && options.length > 0)
             span.innerHTML = options[selectedIndex].name
     }, [])
 
-    useEffect(() => {
-
-    }, [JSON.stringify(options)])
 
     const onULClick = (e) => {
         ul = document.querySelector(`#${id}`)
         ul.classList.toggle('active')
-        //dropDownDivOuter.current.style.borderColor = getColor()
     }
 
     const onItemSelectd = (event, index) => {
@@ -29,7 +24,6 @@ const OptionSelect = ({ options, id, defaultOption, selectedIndex, onItemSelecte
         span.innerHTML = options[index].name
         ul.classList.toggle('active')
         onItemSelectedCallback(index)
-
         if (ul.classList.contains('active')) {
             ul.classList.remove('active')
         }

@@ -10,7 +10,7 @@ import {
     PointElement,
   } from 'chart.js';
 import { useState, useEffect } from "react"
-import { Bar, Bubble } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import axios from 'axios';
 import { PieChart } from './PieChart';
 
@@ -51,7 +51,6 @@ const setColorArray = (data) => {
     let backGrdounArr = []
     data.forEach(d => {
       let color
-      console.log('d', d)
       if (d >= 0 && d <= 40) {
         color = 'red'
       } else if (d >= 41 && d <= 55) {
@@ -75,12 +74,10 @@ const getdataCall = () => {
     axios.get(`https://airportswebapi.azurewebsites.net/api/ExistingCondition/overall/Greater%20Than/0`)
     .then((res) => {
         res.data.forEach(obj=>{    
-          console.log('obj', obj)        
          labels.push(obj.name);
          data.push(obj.y);
         })
         backGroundColor = setColorArray(data)
-        console.log('backGroundColor', backGroundColor)
         setData({
             labels:labels,
             datasets: [
