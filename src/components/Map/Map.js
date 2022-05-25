@@ -19,15 +19,16 @@ import {
 	defaults as defaultInteractions,
 } from 'ol/interaction';
 import Feature from 'ol/Feature'
-import { Icon, Style } from 'ol/style';
+import { Fill, Icon, Stroke, Style, Text } from 'ol/style';
 import { platformModifierKeyOnly } from 'ol/events/condition';
 
 import Tabs from "../Tabs";
 import BarChart from "../BarChart";
 import BubbleChart from "../BubbleChart";
-import VectorLayerPoint from "../Layer/VectorLayerPoint";
+import VectorLayerPoint from "../Layer/VectorLayerPoint"
 
 const Map = ({ children, zoom, legend, airportFeatureList }) => {
+	console.log('airportFeatureList1', airportFeatureList)
 	const mapRef = useRef();
 	const [map, setMap] = useState(null)
 	const [center, setCenter] = useState(fromLonLat([0, 0]))
@@ -39,20 +40,64 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 	// 	name: 'Null Island',
 	// });
 
-	
 
-	const getIconStyle = (img) => {
-		const iconStyle = new Style({
+
+	const getIconStyle = (feature, zoom = 0) => {
+		let iconImg
+		const pciValue = parseInt(feature.overall)
+		if (pciValue >= 0 && pciValue <= 10) {
+			iconImg = '/images/pci_0_10.png'
+		} else if (pciValue >= 11 && pciValue <= 25) {
+			iconImg = '/images/pci_11_25.png'
+		} else if (pciValue >= 26 && pciValue <= 40) {
+			iconImg = '/images/pci_26_40.png'
+		} else if (pciValue >= 41 && pciValue <= 55) {
+			iconImg = '/images/pci_41_55.png'
+		} else if (pciValue >= 56 && pciValue <= 70) {
+			iconImg = '/images/pci_56_70.png'
+		} else if (pciValue >= 71 && pciValue <= 85) {
+			iconImg = '/images/pci_71_85.png'
+		} else if (pciValue >= 86 && pciValue <= 100) {
+			iconImg = '/images/pci_86_100.png'
+		}
+		const iconStyle = [new Style({
 			image: new Icon({
 				color: '#FF0000',
 				anchor: [24, 48],
 				anchorXUnits: 'pixels',
 				anchorYUnits: 'pixels',
 				imgSize: [48, 48],
-	
-				src: '/images/marker.png',
-			}),
-		});
+				src: iconImg,
+			})
+		}),
+		];
+		if (zoom > 11 && iconStyle.length <= 1) {
+			let airtportName = feature.properties.Name
+			if (airtportName.includes('- ')) {
+				airtportName = airtportName.split('- ')[1]
+			}
+			iconStyle.push(new Style({
+				text: new Text({
+					font: '12px Calibri,sans-serif',
+					text: airtportName,
+					overflow: true,
+					textBaseline: 'top',
+					offsetY: 5,
+					scale: [1.5, 1.5],
+					fill: new Fill({
+						color: '#FF0000',
+					}),
+					stroke: new Stroke({
+						color: '#fff',
+						width: 3,
+					}),
+				})
+			}))
+		} else {
+			if (iconStyle.length === 2) {
+				iconStyle.pop()
+			}
+		}
 		return iconStyle
 	}
 
@@ -187,6 +232,8 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 				}
 			})
 		})
+		var currZoom = mapObject.getView().getZoom();
+		
 		olms(mapObject, 'https://basemaps-api.arcgis.com/arcgis/rest/services/styles/ArcGIS:Streets?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd');
 		//console.log('vectorLayer', vectorLayer)
 		// setTimeout(() => {
@@ -200,11 +247,30 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 		return () => mapObject.setTarget(undefined);
 	}, []);
 
-	useEffect(()=> {
+	useEffect(() => {
+		console.log('kkk',airportFeatureList, mapObject )
 		if (airportFeatureList.length > 0) {
 			getAirportDetails()
+			setCenter(fromLonLat(toLonLat(airportFeatureList[0].geometry?.coordinates)))
 		}
-	},[JSON.stringify(airportFeatureList)])
+
+		if (airportFeatureList.length > 0 && map) {
+			map.on('moveend', (e) => {
+				var newZoom = map.getView().getZoom();
+				console.log('zoom end, new zoom: ' + newZoom);
+				// if (currZoom != newZoom) {
+				// 	console.log('zoom end, new zoom: ' + newZoom);
+				// 	currZoom = newZoom
+				// }
+				getAirportDetails(newZoom)
+				// if (newZoom >= 11) {
+				// 	console.log('ttt', airportFeatureList)
+					
+				// }
+			});
+		}
+		
+	}, [JSON.stringify(airportFeatureList), map])
 
 	const getAirportAPICall = (value) => {
 		axios.all([axios.get(`https://services7.arcgis.com/N4ykIOFU2FfLoqPT/ArcGIS/rest/services/N87Prototype/FeatureServer/1/query?outFields=*&spatialRel=esriSpatialRelIntersects&where=Network_ID=%27${value}%27&f=geojson`),
@@ -216,14 +282,13 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 		}))
 	}
 
-	const getAirportDetails = () => {
-		console.log('airportFeatureList', airportFeatureList)
-		setCenter(fromLonLat(toLonLat(airportFeatureList[0].geometry?.coordinates)))
+	const getAirportDetails = (zoomLevel = zoom) => {
+		
 		setCoordinateList(airportFeatureList.map(featureItem => {
 			const feature = new Feature({
 				geometry: new Point(fromLonLat(toLonLat(featureItem.geometry?.coordinates))),
 			})
-			feature.setStyle(getIconStyle());
+			feature.setStyle(getIconStyle(featureItem, zoomLevel));
 			return feature
 		}))
 	}
