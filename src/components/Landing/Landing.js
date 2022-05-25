@@ -1,8 +1,10 @@
 import axios from "axios"
 import React, { useEffect, useState } from "react"
+import SwitchSelector from "react-switch-selector"
 import OptGroupSelect from "../../atomiccomponent/OptGroupSelect"
 import OptionSelect from "../../atomiccomponent/OptionSelect"
 import '../../css/landing.scss'
+import BarChart from "../BarChart"
 import Controls from "../controls/Controls"
 import FullScreenControl from "../controls/FullScreenControl"
 import ZoomSliderControl from "../controls/ZoomSiderControl"
@@ -10,6 +12,7 @@ import Layers from "../Layer/Layers"
 import Map from "../Map/Map"
 
 const Landing = () => {
+    const [currentTab, setCurrentTab] = useState("data")
     const [zoom, setZoom] = useState(9)
     const [airtPortDetails, setAirtPortDetails] = useState([])
     const [airtPortFeatureDetails, setAirtPortFeatureDetails] = useState([])
@@ -77,13 +80,34 @@ const Landing = () => {
         setLegend(res[1].data.response.body.legend)
     }))
     }
+    const options = [
+        {
+          label: "Map",
+          value: "map",
+          selectedBackgroundColor: "#E52A33",
+          innerHeight: 50
+        },
+        {
+          label: "Data",
+          value: "data",
+          selectedBackgroundColor: "#E52A33"
+        }
+      ];
+
+    const initialSelectedIndex = options.findIndex(({ value }) => value === "data");
 
     useEffect(() => {
         getAllDetails()
     }, [])
+
+    const onChange = newValue => {
+        console.log(newValue);
+        setCurrentTab(newValue);
+      };
+
     return (
         <section className="landing">
-            <div className="container airport-layer">
+            <div className="airport-layer">
                 <div className="airport-div">
                     <div class="airport-options">   
                         <div className="airport-options-inner">
@@ -109,7 +133,17 @@ const Landing = () => {
                     
                     <OptionSelect options={branchOption} id={'select-branch'} defaultOption= 'Branch'/>
                     <OptionSelect options={aggregationOption} id={'select-aggregation'} defaultOption= 'Aggregation'/>
+                    <span className="switch-container">
+                    <SwitchSelector
+                        onChange={onChange}
+                        options={options}
+                        initialSelectedIndex={initialSelectedIndex}
+                        backgroundColor={"#efefee"}
+                        fontColor={"#3B3B3B"}
+                        />
+                    </span>
                     </div>
+                    {currentTab ==='map' && 
                     <Map zoom={zoom} legend={legend} airportFeatureList={airtPortFeatureDetails}>
                         <Layers>
                         </Layers>
@@ -117,7 +151,10 @@ const Landing = () => {
                             <FullScreenControl />
                             <ZoomSliderControl />
                         </Controls>
-                    </Map>
+                    </Map>}
+                    {currentTab ==='data' && 
+                        <BarChart/>
+                    }
                 </div>
             </div>
         </section>
