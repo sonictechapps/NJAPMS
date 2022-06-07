@@ -1,5 +1,10 @@
+.toggle-inner-div {
+    margin: 0px 10px;
+    height: 100%;
+}
+
 .btn1 {
-    border: 3px solid gray;
+    border: 3px solid green;
     display: inline-block;
     text-align: center;
 
@@ -11,11 +16,12 @@ input[type="radio"].toggle {
 
     &+label {
         cursor: pointer;
-        background-color: white;
-        min-width: 60px;
+        background-color: #A5A5A5;
+        min-width: 50%;
         position: relative;
-        top: -9px;
-
+        height: 100%;
+        padding-top: 2px;
+        font-weight: bold;
         // &:hover {
         //     background: none;
         //     color: #1a1a1a;

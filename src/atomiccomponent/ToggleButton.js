@@ -9,7 +9,7 @@ const ToggleButton = ({ toggleoptions, onToggleValue }) => {
         onToggleValue(value)
     }
     return (
-        <>
+        <div className="toggle-inner-div">
             {
                 toggleoptions.map((toggle, index) => (
                     <>
@@ -18,7 +18,7 @@ const ToggleButton = ({ toggleoptions, onToggleValue }) => {
                     </>
                 ))
             }
-        </>
+        </div>
     )
 }
 

@@ -82,7 +82,13 @@ const Landing = () => {
                     name: branch.description
                 }
             }))
-            setAirtPortDetails(res[1].data.response.body.airportlist)
+            setAirtPortDetails(res[1].data.response.body.airportlist.map(airport => {
+                return {
+                    ...airport,
+                    value: airport.networkId,
+                    name: airport.description
+                }
+            }))
             setAggregationOption(res[1].data.response.body.aggregationlist.map(aggregation => {
                 return {
                     ...aggregation,
@@ -106,6 +112,10 @@ const Landing = () => {
 
     const onAssessmentYearChange = (rootIndex, index) => {
         setSelectedDefaultYear([rootIndex, index])
+    }
+
+    const onAirportValueChange = (index) => {
+
     }
 
     const getCurrentAssessmentYear = () => {
@@ -133,61 +143,72 @@ const Landing = () => {
     }
 
     return (
-        <section className="landing">
-            <div className="airport-layer">
-                <div className="airport-div">
-                    <div class="airport-options">
-                        <div className="airport-options-inner">
-                            <select name="airport" id="airport" className="airport" >
-                                {
-
-                                    airtPortDetails.map(airport => (
-                                        <option value={airport.networkId}>{airport.description}</option>
-                                    ))
-
-                                }
-                            </select>
+        <>
+            <div className="dropdown-section">
+                {
+                    airtPortDetails.length > 0 && (
+                        <div className="airport-div-inner">
+                            <OptionSelect options={airtPortDetails} id={'select-airport-details'} onItemSelectedCallback={onAirportValueChange}
+                                selectedIndex={0} />
                         </div>
-                    </div>
-                </div>
-                <div className="airport-map">
-                    <div style={{ height: '50px' }}>
-                        {
-                            optionsGroup.length > 0 && <OptGroupSelect options={optionsGroup} id={'select-year'} onItemSelectedCallback={onAssessmentYearChange}
+                    )
+                }
+                {
+                    optionsGroup.length > 0 && (
+                        <div className="assessment-year-div-inner">
+                            <OptGroupSelect options={optionsGroup} id={'select-year'} onItemSelectedCallback={onAssessmentYearChange}
                                 selectedRootIndex={selectedDefaultYear[0]} selectedIndex={selectedDefaultYear[1]} />
-                        }
-                        {
-                            branchOption.length > 0 && <OptionSelect options={branchOption} selectedIndex={0} onItemSelectedCallback={onBranchDropDownChange} id='select-branch'
-                            />
-                        }
-
-                        {
-                            aggregationOption.length > 0 && <OptionSelect options={aggregationOption} selectedIndex={0} id={'select-aggregation'} onItemSelectedCallback={onAggregationChange} />
-                        }
-
-                        <ToggleButton toggleoptions={toggleOptions} onToggleValue={onToggleValue} />
-                    </div>
-
-                    <div style={{ position: 'relative', display: `${currentTab === 'map' ? 'block' : 'none'}` }}>
-                        <Map zoom={zoom} legend={legend} airportFeatureList={airtPortFeatureDetails}>
-                            <Layers>
-                            </Layers>
-                            <Controls>
-                                <FullScreenControl />
-                                <ZoomSliderControl />
-                            </Controls>
-                        </Map>
-                    </div>
-
-
-
-                    <div style={{ position: 'relative', display: `${currentTab === 'data' ? 'block' : 'none'}` }}>
-                        <BarChart />
-                    </div>
-
+                        </div>
+                    )
+                }
+                {
+                    branchOption.length > 0 && (
+                        <div className="branch-div-inner">
+                            <OptionSelect options={branchOption} id={'select-branch'} onItemSelectedCallback={onBranchDropDownChange}
+                                selectedIndex={0} />
+                        </div>
+                    )
+                }
+                {
+                    aggregationOption.length > 0 && (
+                        <div className="aggregation-div-inner">
+                            <OptionSelect options={aggregationOption} selectedIndex={0} id={'select-aggregation'} onItemSelectedCallback={onAggregationChange} />
+                        </div>
+                    )
+                }
+                <div className="toggle-div">
+                    <ToggleButton toggleoptions={toggleOptions} onToggleValue={onToggleValue} />
                 </div>
+
             </div>
-        </section>
+            <section className="landing">
+                <div className="airport-layer">
+                   
+                    <div className="airport-map">
+                     
+
+                        <div style={{ position: 'relative', display: `${currentTab === 'map' ? 'block' : 'none'}` }}>
+                            <Map zoom={zoom} legend={legend} airportFeatureList={airtPortFeatureDetails}>
+                                <Layers>
+                                </Layers>
+                                <Controls>
+                                    <FullScreenControl />
+                                    <ZoomSliderControl />
+                                </Controls>
+                            </Map>
+                        </div>
+
+
+
+                        <div style={{ position: 'relative', display: `${currentTab === 'data' ? 'block' : 'none'}` }}>
+                            <BarChart />
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </>
+
     )
 }
 

@@ -22,11 +22,15 @@ const OptionSelect = ({ options, id, selectedIndex, onItemSelectedCallback }) =>
         event.stopPropagation()
         span = document.querySelector(`#dropdown-placeholder-${id}`)
         span.innerHTML = options[index].name
-        ul.classList.toggle('active')
+        ul && ul.classList.toggle('active')
         onItemSelectedCallback(index)
-        if (ul.classList.contains('active')) {
+        if (ul && ul.classList.contains('active')) {
             ul.classList.remove('active')
         }
+    }
+
+    const onDropdownMouseEnter = () => {
+        const dropdownDiv = document.querySelector(`#dropdown-div-inner-${id}`)
     }
 
     const onDropdownExpand = (event) => {
@@ -39,20 +43,21 @@ const OptionSelect = ({ options, id, selectedIndex, onItemSelectedCallback }) =>
     }
 
     return (
-        <div id={`dropdown-${id}`} className='dropdown-root'>
-            <div className={`dropdown-div-outer`} id={`dropdown-div-outer-${id}`} ref={dropDownDivOuter} onClick={(e) => onULClick(e)}>
-                <span className={`dropdown-placeholder`} id={`dropdown-placeholder-${id}`}>-----</span>
-                <div className={`dropdown-div-inner`} id={`dropdown-div-inner-${id}`}>
-                    <ul className={`dropdown-ul`} id={id}>
-                        {
-                            options?.length > 0 && options.map((item, index) => (<li className={'option-list'}
-                                value={item.value} onClick={(e) => onItemSelectd(e, index)}>{item.name}</li>))
-                        }
-                    </ul>
+        <>
+            <div id={`dropdown-${id}`} className='dropdown-root'>
+                <div id={`dropdown-div-outer-${id}`} ref={dropDownDivOuter} onClick={(e) => onULClick(e)}>
+                    <span className={`dropdown-arrow`} id={`dropdown-placeholder-${id}`}>-----</span>
                 </div>
-                <div className={`dropdown-hidden`} id={`dropdown-hidden-${id}`} onClick={(e) => onDropdownExpand(e)}></div>
             </div>
-        </div>
+            <div className={`dropdown-div-inner`} id={`dropdown-div-inner-${id}`}>
+                <ul className={`dropdown-ul`} id={id}>
+                    {
+                        options?.length > 0 && options.map((item, index) => (<li className={'option-list'}
+                            value={item.value} onClick={(e) => onItemSelectd(e, index)}>{item.name}</li>))
+                    }
+                </ul>
+            </div>
+        </>
     )
 }
 

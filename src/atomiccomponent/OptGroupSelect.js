@@ -66,9 +66,11 @@ const OptGroupSelect = ({ options, id, defaultOption, selectedRootIndex, selecte
     return (
         <>
             <div id={`dropdown-${id}`} className='dropdown-root'>
-                <div className={`dropdown-div-outer`} id={`dropdown-div-outer-${id}`} ref={dropDownDivOuter} onClick={(e) => onULClick(e)}>
-                    <span className={`dropdown-placeholder`} id={`dropdown-placeholder-${id}`}>-----</span>
-                    <div className={`dropdown-div-inner`} id={`dropdown-div-inner-${id}`}>
+                <div id={`dropdown-div-outer-${id}`} ref={dropDownDivOuter} onClick={(e) => onULClick(e)}>
+                <span className={`dropdown-arrow`} id={`dropdown-placeholder-${id}`}>-----</span>
+                </div>
+            </div>
+            <div className={`dropdown-div-inner`} id={`dropdown-div-inner-${id}`}>
                         <ul className={`dropdown-ul`} id={id}>
                             {
                                 options.map((optG, rootIndex) => (
@@ -86,9 +88,6 @@ const OptGroupSelect = ({ options, id, defaultOption, selectedRootIndex, selecte
                             }
                         </ul>
                     </div>
-                    <div className={`dropdown-hidden`} id={`dropdown-hidden-${id}`} onClick={(e) => onDropdownExpand(e)}></div>
-                </div>
-            </div>
         </>
     )
 }

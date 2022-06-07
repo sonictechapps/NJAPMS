@@ -1,6 +1,6 @@
 .ol-map {
-    height: 75vh;
-    width: 60vw;
+    height: 78vh;
+    width: 100%;
 }
 
 .ol-control {
@@ -38,6 +38,34 @@
         border-width: 10px;
         border-style: solid;
         border-color: #555 transparent transparent transparent;
+    }
+}
+
+.overlay-container-popup {
+    background-color: white;
+    width: 200px;
+    color: black;
+    text-align: center;
+    border-radius: 5px;
+    padding: 2px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -59px;
+    margin-bottom: 6px;
+    font-weight: bold;
+    text-align: left;
+    padding: 5px;
+    &::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -10px;
+        border-width: 10px;
+        border-style: solid;
+        border-color: white transparent transparent transparent;
     }
 }
 

@@ -32,6 +32,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -58,15 +59,13 @@
 }
 
 
-.main-body{
-  padding-top: 32px;
-    margin: 0;
-    background: linear-gradient(180deg, rgba(207,206,204,0.6) 0%, #FFFFFF 100%);
+.main-body {
+  margin: 0;
+  background: linear-gradient(180deg, rgba(207, 206, 204, 0.6) 0%, #FFFFFF 100%);
 
 }
 
 .body-content {
-  margin: 0 32px 32px 32px;
   box-sizing: border-box;
   border: 1px solid #CFCECC;
   border-radius: 4px;
@@ -81,13 +80,13 @@
   margin-bottom: 20px;
 }
 
-.react-switch-selector-wrapper{
- border-radius: 10px !important;
- width: 200px !important;
- height: 40px !important;
- float: right !important;
+.react-switch-selector-wrapper {
+  border-radius: 10px !important;
+  width: 200px !important;
+  height: 40px !important;
+  float: right !important;
 }
 
-.react-switch-selector-wrapper::before{
+.react-switch-selector-wrapper::before {
   border-radius: 10px !important;
 }

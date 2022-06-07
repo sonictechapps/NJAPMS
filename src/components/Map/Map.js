@@ -4,6 +4,7 @@ import MapContext from "./MapContext";
 import * as ol from "ol";
 import olms from 'ol-mapbox-style';
 import Point from 'ol/geom/Point';
+import Overlay from 'ol/Overlay';
 import axios from 'axios'
 import VectorLayer from "../Layer/VectorLayer";
 import VectorSource from 'ol/source/Vector';
@@ -18,6 +19,8 @@ import {
 	defaults as defaultInteractions,
 } from 'ol/interaction';
 import Feature from 'ol/Feature'
+import $ from 'jquery'
+
 import { Fill, Icon, Stroke, Style, Text } from 'ol/style';
 import VectorLayerPoint from "../Layer/VectorLayerPoint"
 
@@ -28,7 +31,10 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 	const [featureList, setFeatureList] = useState([])
 	const [coordinateList, setCoordinateList] = useState([])
 	const [showLayer, setShowLayer] = useState(true)
-
+	const [princentonAirport, setPrincentonAirport] = useState([])
+	const [airportName, setAirportName] = useState('')
+	let element
+	let popup
 	const getIconStyle = (feature, zoom = 0) => {
 		let iconImg
 		const pciValue = parseInt(feature.overall)
@@ -145,8 +151,48 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 				}
 			})
 		})
-		
-		olms(mapObject, 'https://basemaps-api.arcgis.com/arcgis/rest/services/styles/ArcGIS:Streets?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd');
+		popup = new Overlay({
+			element: document.getElementById('popup'),
+			offset: [-40, -30]
+		});
+		mapObject.addOverlay(popup)
+		mapObject.on('movestart', function () {
+			setPrincentonAirport([])
+			popup.setPosition(undefined);
+		});
+		mapObject.on('click', function (evt) {
+			const feature = mapObject.forEachFeatureAtPixel(evt.pixel, function (feature) {
+				return feature;
+			})
+			element = document.getElementById('popup');
+			const airportSpan = document.getElementById('popup-overlay-text-airport1')
+			const pciOverallSpan = document.getElementById('popup-overlay-text-pci-overall1')
+			const pciRunwaySpan = document.getElementById('popup-overlay-text-pci-runway1')
+			const pcitaxiWaySpan = document.getElementById('popup-overlay-text-pci-taxiway1')
+			const pciApronSpan = document.getElementById('popup-overlay-text-pci-apron1')
+
+
+			if (feature?.values_?.airporttName) {
+				let geometry = feature.getGeometry()
+				let coordinate = geometry.getCoordinates()
+				axios.get(`https://services7.arcgis.com/N4ykIOFU2FfLoqPT/ArcGIS/rest/services/N87Prototype/FeatureServer/1/query?outFields=*&spatialRel=esriSpatialRelIntersects&where=Network_ID=%27${feature.values_.networkId}%27&f=geojson`)
+					.then(res => {
+						setPrincentonAirport(res.data.features)
+						setAirportName(feature?.values_?.airporttName)
+					})
+				airportSpan.innerHTML = feature.values_.airporttName
+				pciOverallSpan.innerHTML = `Overall: ${feature.values_.overAll}`
+				pciRunwaySpan.innerHTML = `Runway: ${feature.values_.runway}`
+				pcitaxiWaySpan.innerHTML = `Taxiway: ${feature.values_.taxiway}`
+				pciApronSpan.innerHTML = `Apron: ${feature.values_.apron}`
+				popup.setPosition(coordinate);
+			} else {
+				setPrincentonAirport([])
+				popup.setPosition(undefined);
+			}
+		});
+
+		olms(mapObject, 'https://basemaps-api.arcgis.com/arcgis/rest/services/styles/ArcGIS:Streets?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd')
 		setMap(mapObject);
 		getAirportAPICall(airtPortDetails[0].value)
 	}, []);
@@ -163,7 +209,7 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 				getAirportDetails(newZoom)
 			});
 		}
-		
+
 	}, [JSON.stringify(airportFeatureList), map])
 
 	const getAirportAPICall = (value) => {
@@ -175,10 +221,18 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 	}
 
 	const getAirportDetails = (zoomLevel = zoom) => {
-		
+
 		setCoordinateList(airportFeatureList.map(featureItem => {
+			console.log('featureItem-->', featureItem)
 			const feature = new Feature({
 				geometry: new Point(fromLonLat(toLonLat(featureItem.geometry?.coordinates))),
+				airporttName: featureItem.properties.Name,
+				networkId: featureItem.properties.Network_ID,
+				id: featureItem.id,
+				apron: featureItem.apron,
+				overAll: featureItem.overall,
+				runway: featureItem.runway,
+				taxiway: featureItem.taxiway
 			})
 			feature.setStyle(getIconStyle(featureItem, zoomLevel));
 			return feature
@@ -327,6 +381,33 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 								))
 							}
 						</div>
+						<div className="airport-princenton" style={{ maxHeight: princentonAirport.length > 0 ? '400px' : '0px' }}>
+							{
+								princentonAirport.length > 0 && (
+									<>
+										<div className="airport-princenton-header">{`${airportName.split('- ')[1]}`}</div>
+										<div className="airport-pci-list">
+											<div>Branch</div>
+											<div>No of Sections</div>
+											<div>PCI</div>
+										</div>
+										<div style={{overflow: 'auto'}}>
+											{
+												princentonAirport.map(airport => (
+													<div className="airport-pci-list airport-pci-list-value">
+														<div>{airport.properties.Branch_ID}</div>
+														<div>{airport.properties.Section_Qty}</div>
+														<div>{airport.properties.Branch_PCI}</div>
+													</div>
+												))
+											}
+										</div>
+									</>
+								)
+
+							}
+
+						</div>
 					</div>
 
 
@@ -339,7 +420,13 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 				<span className="overlay-branch-id"></span><br />
 
 			</div>
-
+			<div id="popup" className="overlay-container-popup">
+				<span className="popup-overlay-text-airport" id='popup-overlay-text-airport1'></span><br />
+				<span className="popup-overlay-text-pci-overall" id='popup-overlay-text-pci-overall1'></span><br />
+				<span className="popup-overlay-text-pci-apron" id='popup-overlay-text-pci-apron1'></span><br />
+				<span className="popup-overlay-text-pci-runway" id='popup-overlay-text-pci-runway1'></span><br />
+				<span className="popup-overlay-text-pci-taxiway" id='popup-overlay-text-pci-taxiway1'></span><br />
+			</div>
 		</>
 	)
 }
