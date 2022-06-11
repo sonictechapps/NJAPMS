@@ -23,6 +23,7 @@ import $ from 'jquery'
 
 import { Fill, Icon, Stroke, Style, Text } from 'ol/style';
 import VectorLayerPoint from "../Layer/VectorLayerPoint"
+import BaseMapPortal from "../portals/BaseMapPortal";
 
 const Map = ({ children, zoom, legend, airportFeatureList }) => {
 	const mapRef = useRef();
@@ -33,6 +34,7 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 	const [showLayer, setShowLayer] = useState(true)
 	const [princentonAirport, setPrincentonAirport] = useState([])
 	const [airportName, setAirportName] = useState('')
+	const [showBaseMap, setShowBaseMap] = useState(false)
 	let element
 	let popup
 	const getIconStyle = (feature, zoom = 0) => {
@@ -192,10 +194,27 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 			}
 		});
 
-		olms(mapObject, 'https://basemaps-api.arcgis.com/arcgis/rest/services/styles/ArcGIS:Streets?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd')
+		olms(mapObject, 'https://basemaps-api.arcgis.com/arcgis/rest/services/styles/OSM:Streets?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd')
 		setMap(mapObject);
 		getAirportAPICall(airtPortDetails[0].value)
 	}, []);
+
+	const onBaseMapchange = (value) => {
+		console.log('oooo', map.getLayers().getArray())
+		setShowBaseMap(false)
+		if (value) {
+			map.getLayers().getArray()
+				.forEach(layer => {
+					if (layer instanceof Tile) {
+						map.removeLayer(layer)
+					}
+
+				})
+			console.log('oooo11', map.getLayers().getArray())
+			olms(map, `https://basemaps-api.arcgis.com/arcgis/rest/services/styles/${value}?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd`)
+		}
+		//setMap(mapObject);
+	}
 
 	useEffect(() => {
 		if (airportFeatureList.length > 0) {
@@ -344,6 +363,7 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 				<MapContext.Provider value={{ map }}>
 					{/* <img src='./images/pan.png' alt='pan' onClick={onPanClick} /> */}
 					<div ref={mapRef} className="ol-map">
+						<BaseMapPortal showModal={showBaseMap} onBaseMapchange={onBaseMapchange} />
 						{children}
 						{featureList.map(feature => (
 							<VectorLayer
@@ -364,6 +384,9 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 								/>
 							)
 						}
+						<img className='basemap-grid' src='images/grid.png' alt='basemap-grid'
+							onClick={() => { console.log('hhh'); setShowBaseMap(true) }}
+						/>
 
 						{/* <VectorLayer
 								source={new VectorSource({
@@ -391,7 +414,7 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 											<div>No of Sections</div>
 											<div>PCI</div>
 										</div>
-										<div style={{overflow: 'auto'}}>
+										<div style={{ overflow: 'auto' }}>
 											{
 												princentonAirport.map(airport => (
 													<div className="airport-pci-list airport-pci-list-value">
@@ -409,9 +432,6 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 
 						</div>
 					</div>
-
-
-
 				</MapContext.Provider>
 
 			</div>

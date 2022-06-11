@@ -10,8 +10,18 @@
     padding: 2px;
 }
 
-.ol-marker{
+.ol-marker {
     height: 42px !important;
+}
+
+.basemap-grid {
+    position: absolute;
+    top: 42px;
+    z-index: 7888;
+    right: 10px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
 }
 
 
@@ -29,6 +39,7 @@
     left: 50%;
     margin-left: -59px;
     margin-bottom: 6px;
+
     &::after {
         content: '';
         position: absolute;
@@ -57,6 +68,7 @@
     font-weight: bold;
     text-align: left;
     padding: 5px;
+
     &::after {
         content: '';
         position: absolute;

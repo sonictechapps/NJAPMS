@@ -1,0 +1,60 @@
+.transparent-portal-div {
+    background-color: black;
+    opacity: 0.5;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    display: none;
+    top: 0px;
+}
+
+.modal-show {
+    display: block;
+}
+
+.modal-show-basemap {
+    display: flex !important;
+}
+
+.modal-hide {
+    display: none;
+}
+
+.basemap-portal {
+    height: 100vh;
+    width: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0px;
+
+    .close {
+        position: relative;
+        top: -24px;
+        right: 25px;
+        float: right;
+        color: white;
+        cursor: pointer;
+    }
+   
+    .basemap-inner-div {
+        width: fit-content;
+        height: fit-content;
+        background-color: white;
+        display: grid;
+        column-gap: 50px;
+        row-gap: 20px;
+        grid-template-columns: auto auto auto;
+        padding: 30px;
+
+        div {
+            height: 100px;
+            cursor: pointer;
+            &:hover {
+                border: 1px solid red;
+            }
+
+        }
+    }
+}

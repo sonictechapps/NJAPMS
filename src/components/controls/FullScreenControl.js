@@ -7,6 +7,7 @@ const FullScreenControl = () => {
   useEffect(() => {
     if (!map) return;
     let fullScreenControl = new FullScreen({});
+    
     map.controls.push(fullScreenControl);
     
     return () => map.controls.remove(fullScreenControl);
