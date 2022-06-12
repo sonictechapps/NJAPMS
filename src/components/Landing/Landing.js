@@ -4,7 +4,6 @@ import SwitchSelector from "react-switch-selector"
 import OptGroupSelect from "../../atomiccomponent/OptGroupSelect"
 import OptionSelect from "../../atomiccomponent/OptionSelect"
 import '../../css/landing.scss'
-import BarChart from "../BarChart"
 import Controls from "../controls/Controls"
 import FullScreenControl from "../controls/FullScreenControl"
 import ZoomSliderControl from "../controls/ZoomSiderControl"
@@ -12,10 +11,11 @@ import Layers from "../Layer/Layers"
 import Map from "../Map/Map"
 import ToggleButton from "../../atomiccomponent/ToggleButton"
 import BubbleChart from "../BubbleChart"
+import AirportChart from "../AirportChart"
 
 const Landing = () => {
     const [currentTab, setCurrentTab] = useState("map")
-    const [zoom, setZoom] = useState(9)
+    const [zoom, setZoom] = useState(8.3)
     const [airtPortDetails, setAirtPortDetails] = useState([])
     const [airtPortFeatureDetails, setAirtPortFeatureDetails] = useState([])
     let [optionsGroup, setOptionsGroup] = useState([])
@@ -144,6 +144,7 @@ const Landing = () => {
 
     return (
         <>
+        {/* <img src='images/down_arow.png' className="down_arrow"/> */}
             <div className="dropdown-section">
                 {
                     airtPortDetails.length > 0 && (
@@ -201,7 +202,7 @@ const Landing = () => {
 
 
                         <div style={{ position: 'relative', display: `${currentTab === 'data' ? 'block' : 'none'}` }}>
-                            <BarChart />
+                            <AirportChart />
                         </div>
 
                     </div>

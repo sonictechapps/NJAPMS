@@ -4,7 +4,7 @@
 }
 
 .btn1 {
-    border: 3px solid green;
+    border: 3px solid #FFFF00;
     display: inline-block;
     text-align: center;
 
@@ -61,8 +61,8 @@ input[type="radio"].toggle {
 
     &:checked+label {
         cursor: default;
-        color: white;
-        background-color: green;
+        color: black;
+        background-color: #FFFF00;
         transition: color 200ms;
 
         &:after {

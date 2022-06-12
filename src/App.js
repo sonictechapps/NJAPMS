@@ -2,7 +2,6 @@ import './App.scss';
 import React from 'react'
 import { BrowserRouter, Link, Outlet, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
-import BarChart from './components/BarChart';
 import BubbleChart from './components/BubbleChart';
 import Header from './components/Header/Header';
 import Landing from './components/Landing/Landing';

@@ -37,7 +37,7 @@
         color: white;
         cursor: pointer;
     }
-   
+
     .basemap-inner-div {
         width: fit-content;
         height: fit-content;
@@ -48,13 +48,29 @@
         grid-template-columns: auto auto auto;
         padding: 30px;
 
-        div {
+        .basemap-outer-div {
             height: 100px;
             cursor: pointer;
+
             &:hover {
                 border: 1px solid red;
             }
 
+        }
+
+        .basemap-mapname-div {
+            height: 30px;
+            width: 100%;
+            background-color: black;
+            position: relative;
+            bottom: 30px;
+            z-index: 2333;
+            opacity: 0.5;
+            text-align: center;
+            span {
+                color: white;
+                font-weight: bold;
+            }
         }
     }
 }

@@ -96,14 +96,11 @@ const BaseMapPortal = ({ showModal, onBaseMapchange }) => {
                 <div style={{ width: 'fit-content' }}>
                     <img src='images/close.png' alt='close' className='close' onClick={onCloseClick} />
                     <div className='basemap-inner-div'>
-
-
-
-
                         {
                             baseMapArr.map(base => (
-                                <div onClick={() => onBaseMapClck(base.value)}>
+                                <div onClick={() => onBaseMapClck(base.value)} className='basemap-outer-div'>
                                     <img src={base.image} style={{ height: '100%', width: '100%' }} />
+                                    <div className='basemap-mapname-div'><span>{base.name}</span></div>
                                 </div>
                             ))
                         }

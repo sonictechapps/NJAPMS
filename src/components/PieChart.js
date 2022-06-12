@@ -42,5 +42,5 @@ export function PieChart({data}) {
       },
     ],
   };
-  return <Pie data={data1} />;
+  return <Pie data={data1}  options={{responsive: true}} />;
 }

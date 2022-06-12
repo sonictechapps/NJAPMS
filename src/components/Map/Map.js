@@ -40,6 +40,7 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 	const getIconStyle = (feature, zoom = 0) => {
 		let iconImg
 		const pciValue = parseInt(feature.overall)
+		console.log('pciValue', pciValue)
 		if (pciValue >= 0 && pciValue <= 10) {
 			iconImg = '/images/pci_0_10.png'
 		} else if (pciValue >= 11 && pciValue <= 25) {
@@ -55,9 +56,10 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 		} else if (pciValue >= 86 && pciValue <= 100) {
 			iconImg = '/images/pci_86_100.png'
 		}
+		console.log('hhh', iconImg)
 		const iconStyle = [new Style({
 			image: new Icon({
-				color: '#FF0000',
+				
 				anchor: [24, 48],
 				anchorXUnits: 'pixels',
 				anchorYUnits: 'pixels',
