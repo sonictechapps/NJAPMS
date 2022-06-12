@@ -1,6 +1,7 @@
 .ol-map {
     height: 82vh;
     width: 100%;
+    transition: height 2s;
     position: absolute;
     top: -59px;
 }

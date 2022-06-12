@@ -147,6 +147,8 @@ const Landing = () => {
         setToggleArrow(!toggleArrow)
         console.log('fff', dropdoenDivRef.current)
         dropdoenDivRef.current.style.height = !toggleArrow ? '0px': '40px'
+        const map = document.getElementsByClassName('ol-map')[0]
+        map.style.height = !toggleArrow ? '87vh': '82vh'
     }
 
     return (
