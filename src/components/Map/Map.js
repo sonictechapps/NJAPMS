@@ -164,7 +164,7 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 			setPrincentonAirport([])
 			popup.setPosition(undefined);
 		});
-		mapObject.on('click', function (evt) {
+		mapObject.on('pointermove', function (evt) {
 			const feature = mapObject.forEachFeatureAtPixel(evt.pixel, function (feature) {
 				return feature;
 			})

@@ -12,8 +12,6 @@ const Header = () => {
                     </div>
                     <div className="logo-section-develop-by">
                         <img className='logo-banner-develop-by' src='images/aidlogo.png' alt='aidlogo' />
-                        <span className='logo-info-develop-by'>Developed By</span>
-                        <span className='logo-info-develop-by'>Advance Infustructure Design Inc</span>
                     </div>
 
 
