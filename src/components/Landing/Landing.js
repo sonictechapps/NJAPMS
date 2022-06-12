@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import axios from "axios"
 import SwitchSelector from "react-switch-selector"
 import OptGroupSelect from "../../atomiccomponent/OptGroupSelect"
@@ -14,6 +14,7 @@ import BubbleChart from "../BubbleChart"
 import AirportChart from "../AirportChart"
 
 const Landing = () => {
+    const dropdoenDivRef = useRef()
     const [currentTab, setCurrentTab] = useState("map")
     const [zoom, setZoom] = useState(8.3)
     const [airtPortDetails, setAirtPortDetails] = useState([])
@@ -23,7 +24,7 @@ const Landing = () => {
     const [aggregationOption, setAggregationOption] = useState([])
     const [legend, setLegend] = useState([])
     const [selectedDefaultYear, setSelectedDefaultYear] = useState([])
-
+    const [toggleArrow, setToggleArrow] = useState(false)
     const getAllDetails = () => {
         axios.all([axios.get('https://services7.arcgis.com/N4ykIOFU2FfLoqPT/arcgis/rest/services/N87Prototype/FeatureServer/0/query?f=pgeojson&geometry=%7B%22spatialReference%22:%7B%22latestWkid%22:3857,%22wkid%22:102100%7D,%22xmin%22:-8766409.899970992,%22ymin%22:4383204.949986987,%22xmax%22:-8140237.764258992,%22ymax%22:5009377.085698988%7D&maxRecordCountFactor=3&outFields=*&outSR=102100&resultType=tile&returnExceededLimitFeatures=false&spatialRel=esriSpatialRelIntersects&where=1=1&geometryType=esriGeometryEnvelope&inSR=102100'),
         axios.get('http://localhost:3004/input'),
@@ -142,10 +143,17 @@ const Landing = () => {
         setCurrentTab(value)
     }
 
+    const onArrowClick = () => {
+        setToggleArrow(!toggleArrow)
+        console.log('fff', dropdoenDivRef.current)
+        dropdoenDivRef.current.style.height = !toggleArrow ? '0px': '40px'
+    }
+
     return (
         <>
-        {/* <img src='images/down_arow.png' className="down_arrow"/> */}
-            <div className="dropdown-section">
+
+            <div className="dropdown-section" ref={dropdoenDivRef}>
+
                 {
                     airtPortDetails.length > 0 && (
                         <div className="airport-div-inner">
@@ -182,11 +190,14 @@ const Landing = () => {
                 </div>
 
             </div>
+            <div style={{textAlign: 'center'}} onClick={onArrowClick}>
+                <img src='images/down_arow.png' className="down_arrow" />
+            </div>
             <section className="landing">
                 <div className="airport-layer">
-                   
+
                     <div className="airport-map">
-                     
+
 
                         <div style={{ position: 'relative', display: `${currentTab === 'map' ? 'block' : 'none'}` }}>
                             <Map zoom={zoom} legend={legend} airportFeatureList={airtPortFeatureDetails}>
@@ -201,7 +212,7 @@ const Landing = () => {
 
 
 
-                        <div style={{ position: 'relative', display: `${currentTab === 'data' ? 'block' : 'none'}` }}>
+                        <div style={{ position: 'relative', top: '-58px', display: `${currentTab === 'data' ? 'block' : 'none'}` }}>
                             <AirportChart />
                         </div>
 

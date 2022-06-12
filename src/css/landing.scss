@@ -3,16 +3,16 @@
 .down_arrow {
     height: 60px;
     width: 60px;
-    position: absolute;
-    top: 120px;
+    position: relative;
+    top: -12px;
     z-index: 20;
     transition: height 2s;
-    &:hover {
-        height: 0px;
-        +.dropdown-section {
-            height: 40px;
-        }
-    }
+    // &:hover {
+    //     height: 0px;
+    //     +.dropdown-section {
+    //         height: 40px;
+    //     }
+    // }
 }
 
 .dropdown-section {
@@ -20,6 +20,7 @@
     height: 40px;
     flex-direction: row;
     display: flex;
+    justify-content: center;
     transition: height 2s;
     background-color: #181717;
     &:hover {
@@ -54,6 +55,7 @@
     .airport-layer {
         display: flex;
         flex-direction: row;
+      
         padding: 0;
     }
     
