@@ -59,6 +59,11 @@
                     ],
                     "airportlist":[
                         {
+                            "id":"0",
+                            "description":"All Airports",
+                            "networkId":"All"
+                        },
+                        {
                             "id":"1",
                             "description":"Ocean City Municpal Airport (26N)",
                             "networkId":"26N"

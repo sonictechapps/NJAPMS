@@ -14,8 +14,9 @@ import { Bar } from 'react-chartjs-2';
 import axios from 'axios';
 import { PieChart } from './PieChart';
 import BarChart from './BarChart';
+import AirportDataTable from './data-table/AirportDataTable';
 
-function AirportChart() {
+function AirportChart({ selectedyear, optionsGroup, airportDataDetails }) {
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -25,10 +26,6 @@ function AirportChart() {
     Tooltip,
     Legend
   );
-
-
-
-
 
   const [data, setData] = useState({
     "labels": [],
@@ -69,7 +66,7 @@ function AirportChart() {
     return backGrdounArr
   }
 
-  const [response, setResponse]= useState({})
+  const [response, setResponse] = useState({})
 
   const getdataCall = () => {
     let labels = [];
@@ -138,12 +135,17 @@ function AirportChart() {
   };
 
   return (
-    <div className='airport-chart-div'>
-      <div style={{backgroundColor: 'black'}}>
-       <BarChart data={data} />
+    <div className='airport-landing'>
+      <div className='airport-chart-div'>
+        <div style={{ backgroundColor: 'black' }}>
+          <BarChart data={data} />
+        </div>
+        <div style={{ backgroundColor: 'black' }}>
+          <PieChart data={data} />
+        </div>
       </div>
-      <div style={{backgroundColor: 'black'}}>
-        <PieChart data={data} />
+      <div className='airport-data-div'>
+        <AirportDataTable selectedyear={selectedyear} optionsGroup={optionsGroup} airportDataDetails={airportDataDetails} />
       </div>
     </div>
   );

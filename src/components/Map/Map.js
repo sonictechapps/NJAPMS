@@ -115,14 +115,6 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 	]
 	const [airportValueSelect, setAirportValueSelect] = useState(airtPortDetails[0].value)
 
-	// const vectorSource = new VectorSource({
-	// 	features: [rome],
-	// });
-
-	// const vectorLayer = new VectorLayer1({
-	// 	source: vectorSource,
-	// });
-
 	useEffect(() => {
 		let options = {
 			view: new ol.View({ zoom, minZoom: zoom }),
@@ -165,6 +157,7 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 			popup.setPosition(undefined);
 		});
 		mapObject.on('pointermove', function (evt) {
+			console.log('evnt-->', evt.coordinate)
 			const feature = mapObject.forEachFeatureAtPixel(evt.pixel, function (feature) {
 				return feature;
 			})
@@ -189,14 +182,13 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 				pciRunwaySpan.innerHTML = `Runway: ${feature.values_.runway}`
 				pcitaxiWaySpan.innerHTML = `Taxiway: ${feature.values_.taxiway}`
 				pciApronSpan.innerHTML = `Apron: ${feature.values_.apron}`
-				popup.setPosition(coordinate);
+				popup.setPosition(coordinate)
 			} else {
 				setPrincentonAirport([])
 				popup.setPosition(undefined);
 			}
-		});
-
-		olms(mapObject, 'https://basemaps-api.arcgis.com/arcgis/rest/services/styles/OSM:Streets?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd')
+		})
+		olms(mapObject, 'https://basemaps-api.arcgis.com/arcgis/rest/services/styles/ArcGIS:DarkGray?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd')
 		setMap(mapObject);
 		getAirportAPICall(airtPortDetails[0].value)
 	}, []);
@@ -221,7 +213,7 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 	useEffect(() => {
 		if (airportFeatureList.length > 0) {
 			getAirportDetails()
-			setCenter(fromLonLat(toLonLat(airportFeatureList[0].geometry?.coordinates)))
+			setCenter([-8273217.3285074355, 4894920.085748969])
 		}
 
 		if (airportFeatureList.length > 0 && map) {

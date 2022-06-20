@@ -38,6 +38,18 @@
             }
         }
 
+        .option-list-select {
+            border-bottom: 1px solid #EEE;
+            padding: 10px;
+            cursor: pointer;
+            color: gray;
+
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
         .option-header-list {
             background-color: white;
             color: gray;

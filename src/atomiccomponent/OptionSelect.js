@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import '../css/dropdown.scss'
 
-const OptionSelect = ({ options, id, selectedIndex, onItemSelectedCallback }) => {
+const OptionSelect = ({ options, id, selectedIndex, onItemSelectedCallback, selectText }) => {
     let ul, span, dropdownDiv
     const dropDownDivOuter = useRef()
     useEffect(() => {
@@ -50,7 +50,8 @@ const OptionSelect = ({ options, id, selectedIndex, onItemSelectedCallback }) =>
                 </div>
             </div>
             <div className={`dropdown-div-inner`} id={`dropdown-div-inner-${id}`}>
-                <ul className={`dropdown-ul`} id={id}>
+                <ul className={`dropdown-ul`} id={id} >
+                    <li className={'option-list-select'} value='NA'>{selectText}</li>
                     {
                         options?.length > 0 && options.map((item, index) => (<li className={'option-list'}
                             value={item.value} onClick={(e) => onItemSelectd(e, index)}>{item.name}</li>))

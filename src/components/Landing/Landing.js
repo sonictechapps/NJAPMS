@@ -25,6 +25,7 @@ const Landing = () => {
     const [legend, setLegend] = useState([])
     const [selectedDefaultYear, setSelectedDefaultYear] = useState([])
     const [toggleArrow, setToggleArrow] = useState(false)
+    const [airportDataDetails, setAirportDataDetails] = useState()
     const getAllDetails = () => {
         axios.all([axios.get('https://services7.arcgis.com/N4ykIOFU2FfLoqPT/arcgis/rest/services/N87Prototype/FeatureServer/0/query?f=pgeojson&geometry=%7B%22spatialReference%22:%7B%22latestWkid%22:3857,%22wkid%22:102100%7D,%22xmin%22:-8766409.899970992,%22ymin%22:4383204.949986987,%22xmax%22:-8140237.764258992,%22ymax%22:5009377.085698988%7D&maxRecordCountFactor=3&outFields=*&outSR=102100&resultType=tile&returnExceededLimitFeatures=false&spatialRel=esriSpatialRelIntersects&where=1=1&geometryType=esriGeometryEnvelope&inSR=102100'),
         axios.get('http://localhost:3004/input'),
@@ -55,6 +56,11 @@ const Landing = () => {
             }
             const airportPCIDetails = res[2].data.response.body.currentdetails
             const airportPciKeys = Object.keys(airportPCIDetails)
+            const airportPciValues = Object.values(airportPCIDetails)
+            setAirportDataDetails({
+                keys: airportPciKeys,
+                values: airportPciValues
+            })
             let newFeature
             if (res[0]?.data?.features.length > 0 && airportPciKeys.length > 0) {
                 newFeature = res[0].data.features.map(feature => {
@@ -146,9 +152,9 @@ const Landing = () => {
     const onArrowClick = () => {
         setToggleArrow(!toggleArrow)
         console.log('fff', dropdoenDivRef.current)
-        dropdoenDivRef.current.style.height = !toggleArrow ? '0px': '40px'
+        dropdoenDivRef.current.style.height = !toggleArrow ? '0px' : '40px'
         const map = document.getElementsByClassName('ol-map')[0]
-        map.style.height = !toggleArrow ? '87vh': '82vh'
+        map.style.height = !toggleArrow ? '87vh' : '82vh'
     }
 
     return (
@@ -160,7 +166,7 @@ const Landing = () => {
                     airtPortDetails.length > 0 && (
                         <div className="airport-div-inner">
                             <OptionSelect options={airtPortDetails} id={'select-airport-details'} onItemSelectedCallback={onAirportValueChange}
-                                selectedIndex={0} />
+                                selectedIndex={0} selectText={'Select Airport'} />
                         </div>
                     )
                 }
@@ -168,7 +174,8 @@ const Landing = () => {
                     optionsGroup.length > 0 && (
                         <div className="assessment-year-div-inner">
                             <OptGroupSelect options={optionsGroup} id={'select-year'} onItemSelectedCallback={onAssessmentYearChange}
-                                selectedRootIndex={selectedDefaultYear[0]} selectedIndex={selectedDefaultYear[1]} />
+                                selectedRootIndex={selectedDefaultYear[0]} selectedIndex={selectedDefaultYear[1]}
+                                selectText={'Select Year'} />
                         </div>
                     )
                 }
@@ -176,14 +183,15 @@ const Landing = () => {
                     branchOption.length > 0 && (
                         <div className="branch-div-inner">
                             <OptionSelect options={branchOption} id={'select-branch'} onItemSelectedCallback={onBranchDropDownChange}
-                                selectedIndex={0} />
+                                selectedIndex={0} selectText={'Select Branch'} />
                         </div>
                     )
                 }
                 {
                     aggregationOption.length > 0 && (
                         <div className="aggregation-div-inner">
-                            <OptionSelect options={aggregationOption} selectedIndex={0} id={'select-aggregation'} onItemSelectedCallback={onAggregationChange} />
+                            <OptionSelect options={aggregationOption} selectedIndex={0} id={'select-aggregation'} onItemSelectedCallback={onAggregationChange}
+                                selectText={'Select Aggregation'} />
                         </div>
                     )
                 }
@@ -192,15 +200,12 @@ const Landing = () => {
                 </div>
 
             </div>
-            <div style={{textAlign: 'center'}} onClick={onArrowClick}>
+            <div style={{ textAlign: 'right' }} onClick={onArrowClick}>
                 <img src='images/down_arow.png' className="down_arrow" />
             </div>
-            <section className="landing">
+            <section className="landing" style={{backgroundColor: 'black'}}>
                 <div className="airport-layer">
-
                     <div className="airport-map">
-
-
                         <div style={{ position: 'relative', display: `${currentTab === 'map' ? 'block' : 'none'}` }}>
                             <Map zoom={zoom} legend={legend} airportFeatureList={airtPortFeatureDetails}>
                                 <Layers>
@@ -211,13 +216,9 @@ const Landing = () => {
                                 </Controls>
                             </Map>
                         </div>
-
-
-
                         <div style={{ position: 'relative', top: '-58px', display: `${currentTab === 'data' ? 'block' : 'none'}` }}>
-                            <AirportChart />
+                            {(optionsGroup.length > 0 && airportDataDetails?.keys?.length > 0) && <AirportChart selectedyear={selectedDefaultYear} optionsGroup={optionsGroup} airportDataDetails = {airportDataDetails} />}
                         </div>
-
                     </div>
                 </div>
             </section>

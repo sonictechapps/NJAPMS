@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import '../css/dropdown.scss'
 
-const OptGroupSelect = ({ options, id, defaultOption, selectedRootIndex, selectedIndex, onItemSelectedCallback }) => {
+const OptGroupSelect = ({ options, id, defaultOption, selectedRootIndex, selectedIndex, onItemSelectedCallback,
+    selectText }) => {
     let ul, span, dropdownDiv
     const dropDownDivOuter = useRef()
     useEffect(() => {
@@ -72,6 +73,7 @@ const OptGroupSelect = ({ options, id, defaultOption, selectedRootIndex, selecte
             </div>
             <div className={`dropdown-div-inner`} id={`dropdown-div-inner-${id}`}>
                         <ul className={`dropdown-ul`} id={id}>
+                        <li className={'option-list-select'} value='NA'>{selectText}</li>
                             {
                                 options.map((optG, rootIndex) => (
                                     <>

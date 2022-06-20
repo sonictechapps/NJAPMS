@@ -4,8 +4,9 @@
     height: 60px;
     width: 60px;
     position: relative;
-    top: -12px;
+    top: -20px;
     z-index: 20;
+    right: 54px;
     transition: height 2s;
     cursor: pointer;
     // &:hover {
@@ -24,24 +25,27 @@
     justify-content: center;
     transition: height 2s;
     background-color: #181717;
+
     &:hover {
         height: 40px;
+
         +.down_arrow {
             height: 0px;
         }
     }
+
     .airport-div-inner {
         flex-basis: 25%;
     }
-    
+
     .assessment-year-div-inner {
         flex-basis: 20%;
     }
-    
+
     .branch-div-inner {
         flex-basis: 20%;
     }
-    
+
 
     .aggregation-div-inner {
         flex-basis: 20%;
@@ -56,30 +60,34 @@
     .airport-layer {
         display: flex;
         flex-direction: row;
-      
+
         padding: 0;
     }
-    
+
     .airport-div {
         height: 86vh;
         flex-basis: 30%;
         text-align: left;
+
         //margin-right: 20px;
         //border: 1px solid black;
         .airport-options {
             margin-top: 10px;
         }
+
         .airport-options-inner {
             height: 50%;
             border: 1px solid black;
             border-radius: 5px;
             margin: 0px 10px;
         }
+
         .airport {
             background-color: cadetblue;
             color: white;
             height: 40px;
             width: 100%;
+
             option {
                 background-color: white;
                 height: 30px;
@@ -89,11 +97,12 @@
             }
         }
     }
+
     .airport-map {
         height: 100%;
         flex-basis: 100%;
     }
-    
+
 }
 
 
@@ -121,6 +130,7 @@
     bottom: 50px;
     right: 0px;
     z-index: 3000;
+
     .airport-princenton-header {
         max-height: 30px;
         width: 100%;
@@ -130,17 +140,21 @@
         border-top-right-radius: 5px;
         border-top-left-radius: 5px;
     }
+
     .airport-pci-list-value {
         overflow-y: auto;
+
         &:nth-child(odd) {
             background-color: gray;
         }
     }
+
     .airport-pci-list {
         width: 100%;
         max-height: 30px;
         display: flex;
         flex-direction: row;
+
         div {
             flex-basis: 33.3%;
             border-right: 1px solid gray;
@@ -155,23 +169,76 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+
     p {
         margin: 0px;
         padding: 0px;
         font-weight: bold;
         font-size: 12px;
-        &:first-child{
+
+        &:first-child {
             margin-top: 5px !important;
         }
     }
 }
 
-.airport-chart-div {
-    width: 100%;
+.airport-landing {
     display: flex;
     flex-direction: row;
-    div {
+    .airport-chart-div {
+        flex-basis: 80%;
+        display: flex;
+        flex-direction: column;
+
+        div {
+            flex-basis: 50%;
+            background-color: 'black'
+        }
+    }
+
+    .airport-data-div {
+        flex-basis: 20%;
+        background-color: white;
+    }
+}
+
+.data-selected-year {
+    background-color: gray;
+    height: 40px;
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.data-row {
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #DFE3E7;
+    border-left: 1px solid #DFE3E7;
+    border-right: 1px solid #DFE3E7;
+    &:last-child {
+        border-bottom: 1px solid #DFE3E7;
+    }
+    &:nth-child(odd) {
+        background-color: #DFE3E7;
+    }
+    div  {
+        &:first-child {
+            border-right: 1px solid #DFE3E7;
+        }
         flex-basis: 50%;
-        background-color: 'black'
+        height: 100%;
     }
 }
