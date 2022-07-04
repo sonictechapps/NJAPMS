@@ -8,6 +8,7 @@ const VectorLayerPoint = ({ source, zIndex = 0 }) => {
 		if (!map) return;
 		let vectorLayer = new VectorLayer({
 			source,
+			title: 'airport',
 		});
         map.addLayer(vectorLayer);
 		

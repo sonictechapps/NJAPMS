@@ -288,11 +288,10 @@
         flex-direction: row;
         .pci-details-container {
             background-color: black;
-            height: 450px;
+            max-height: 450px;
             width: 100%;
             display: flex;
             justify-content: center;
-            align-items: center;
             .pci-details-container-inner {
                 flex-basis: 100%;
                 background-color: white;

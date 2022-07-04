@@ -194,7 +194,7 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue, featu
                       <div>Quantity</div>
                       <div>Unit</div>
                     </div>
-                    <div>
+                    <div style={{maxHeight: '375px', overflowY: 'auto'}}>
                     {
                       pciDetails.quantity.map((value) => (
                         <div className="branch-qty-details">

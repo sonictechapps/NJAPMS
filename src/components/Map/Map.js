@@ -236,12 +236,10 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 			offset: [-40, -30]
 		});
 		mapObject.addOverlay(popup)
-		mapObject.on('movestart', function () {
+		mapObject.on('pointermove', function (evt) {
 			setPrincentonAirport([])
 			popup.setPosition(undefined);
-		});
-		mapObject.on('pointermove', function (evt) {
-			const feature = mapObject.forEachFeatureAtPixel(evt.pixel, function (feature) {
+			mapObject.forEachFeatureAtPixel(evt.pixel, function (feature) {
 				element = document.getElementById('popup');
 				const airportSpan = document.getElementById('popup-overlay-text-airport1')
 				const pciOverallSpan = document.getElementById('popup-overlay-text-pci-overall1')
@@ -264,11 +262,13 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 					pcitaxiWaySpan.innerHTML = `Taxiway: ${feature.values_.taxiway}`
 					pciApronSpan.innerHTML = `Apron: ${feature.values_.apron}`
 					popup.setPosition(coordinate)
-				} else {
-					setPrincentonAirport([])
-					popup.setPosition(undefined);
+				}
+			}, {
+				layerFilter: (layerCandidate) => {
+					return layerCandidate.get('title') === 'airport'
 				}
 			})
+
 		})
 		olms(mapObject, 'https://basemaps-api.arcgis.com/arcgis/rest/services/styles/ArcGIS:DarkGray?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd')
 		setMap(mapObject)
@@ -464,7 +464,7 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 								))
 							}
 						</div>
-						<div className="airport-princenton" style={{ height: princentonAirport.length > 0 ? '400px' : '0px' }}>
+						<div className="airport-princenton" style={{ maxHeight: princentonAirport.length > 0 ? '400px' : '0px' }}>
 							{
 								princentonAirport.length > 0 && (
 									<>
