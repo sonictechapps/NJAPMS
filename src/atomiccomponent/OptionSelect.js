@@ -28,7 +28,7 @@ const OptionSelect = ({ options, id, selectedIndex, onItemSelectedCallback, sele
     }
 
     return (
-        <>
+        <div>
             <div id={`dropdown-${id}`} className='dropdown-root'>
                 <div id={`dropdown-div-outer-${id}`} ref={dropDownDivOuter} onClick={(e) => onULClick(e)}>
                     <span className={`dropdown-arrow`} id={`dropdown-placeholder-${id}`}>{selectedIndex !== '' ?
@@ -44,7 +44,7 @@ const OptionSelect = ({ options, id, selectedIndex, onItemSelectedCallback, sele
                     }
                 </ul>
             </div>
-        </>
+        </div>
     )
 }
 
