@@ -5,28 +5,32 @@ import * as ol from "ol";
 import olms from 'ol-mapbox-style';
 import Point from 'ol/geom/Point';
 import Overlay from 'ol/Overlay';
+
 import axios from 'axios'
 import VectorLayer from "../Layer/VectorLayer";
 import VectorSource from 'ol/source/Vector';
 import { vectorObject, vectorObjectForPoint } from "../Source/vector";
 import { GeoJSON } from "ol/format";
-import { fromLonLat, get, toLonLat } from "ol/proj";
+import { fromLonLat, get, toLonLat, Projection } from "ol/proj";
 import FeatureStyles from '../../Features/Styles'
 import Tile from "ol/layer/Tile";
 import { Zoom } from "ol/control";
 import {
-	DragRotateAndZoom, PinchZoom, DragPan, MouseWheelZoom,
+	DragRotateAndZoom, PinchZoom,
 	defaults as defaultInteractions,
 } from 'ol/interaction';
 import Feature from 'ol/Feature'
-import $ from 'jquery'
 
-import { Fill, Icon, Stroke, Style, Text } from 'ol/style';
+import { Icon, Style } from 'ol/style';
 import VectorLayerPoint from "../Layer/VectorLayerPoint"
 import BaseMapPortal from "../portals/BaseMapPortal";
+import AirtportDetailsPopUp from "../popup/AirtportDetailsPopUp";
+import { getFeatureDetails } from "../../util/commonUtils";
 
-const Map = ({ children, zoom, legend, airportFeatureList }) => {
+const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown1, airtPortDetailsMap, airportValue, branchSelectedIndex,
+	getFeatureList }) => {
 	const mapRef = useRef();
+	const [list, setList] = useState(airtPortDetailsMap)
 	const [map, setMap] = useState(null)
 	const [center, setCenter] = useState(fromLonLat([0, 0]))
 	const [featureList, setFeatureList] = useState([])
@@ -35,12 +39,23 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 	const [princentonAirport, setPrincentonAirport] = useState([])
 	const [airportName, setAirportName] = useState('')
 	const [showBaseMap, setShowBaseMap] = useState(false)
+	const [pciDetails, setPCIDetails] = useState({
+		pcidetails: [],
+		quantity: []
+	})
 	let element
 	let popup
+
+	useEffect(() => {
+
+		if (airportValue !== 'All' && branchSelectedIndex !== '' && featureList.length > 0) {
+			getFeatureDetails(featureList[branchSelectedIndex].properties, returnPCiDetailsonBranch)
+		}
+	}, [branchSelectedIndex, featureList])
+
 	const getIconStyle = (feature, zoom = 0) => {
 		let iconImg
 		const pciValue = parseInt(feature.overall)
-		console.log('pciValue', pciValue)
 		if (pciValue >= 0 && pciValue <= 10) {
 			iconImg = '/images/pci_0_10.png'
 		} else if (pciValue >= 11 && pciValue <= 25) {
@@ -56,44 +71,47 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 		} else if (pciValue >= 86 && pciValue <= 100) {
 			iconImg = '/images/pci_86_100.png'
 		}
-		console.log('hhh', iconImg)
-		const iconStyle = [new Style({
-			image: new Icon({
-				
-				anchor: [24, 48],
-				anchorXUnits: 'pixels',
-				anchorYUnits: 'pixels',
-				imgSize: [48, 48],
-				src: iconImg,
-			})
-		}),
-		];
-		if (zoom > 11 && iconStyle.length <= 1) {
-			let airtportName = feature.properties.Name
-			if (airtportName.includes('- ')) {
-				airtportName = airtportName.split('- ')[1]
-			}
+		const iconStyle = []
+		if (zoom < 13 && featureList.length == 0) {
+			// let airtportName = feature.properties.Name
+			// if (airtportName.includes('- ')) {
+			// 	airtportName = airtportName.split('- ')[1]
+			// }
+			// iconStyle.push(new Style({
+			// 	text: new Text({
+			// 		font: '12px Calibri,sans-serif',
+			// 		text: airtportName,
+			// 		overflow: true,
+			// 		textBaseline: 'top',
+			// 		offsetY: 5,
+			// 		scale: [1.5, 1.5],
+			// 		fill: new Fill({
+			// 			color: '#FF0000',
+			// 		}),
+			// 		stroke: new Stroke({
+			// 			color: '#fff',
+			// 			width: 3,
+			// 		}),
+			// 	})
+			// }))
 			iconStyle.push(new Style({
-				text: new Text({
-					font: '12px Calibri,sans-serif',
-					text: airtportName,
-					overflow: true,
-					textBaseline: 'top',
-					offsetY: 5,
-					scale: [1.5, 1.5],
-					fill: new Fill({
-						color: '#FF0000',
-					}),
-					stroke: new Stroke({
-						color: '#fff',
-						width: 3,
-					}),
+				image: new Icon({
+
+					anchor: [24, 48],
+					anchorXUnits: 'pixels',
+					anchorYUnits: 'pixels',
+					imgSize: [48, 48],
+					src: iconImg,
 				})
 			}))
-		} else {
-			if (iconStyle.length === 2) {
-				iconStyle.pop()
-			}
+			//setIconStyle(iconStyle)
+			//setFeatureList([])
+		} else if (zoom >= 13 && featureList.length > 0) {
+			// if (iconStyle.length === 1) {
+			// 	iconStyle.pop()
+			// }
+			iconStyle.pop()
+			//setIconStyle(iconStyle)
 		}
 		return iconStyle
 	}
@@ -114,6 +132,51 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 		},
 	]
 	const [airportValueSelect, setAirportValueSelect] = useState(airtPortDetails[0].value)
+
+	const onChnageAirportDropdown = (value) => {
+
+	}
+
+	useEffect(() => {
+		if (airportValue) {
+			if (airportValue !== 'All') {
+				getAirportAPICall(airportValue)
+				removeVectorLayer()
+			} else {
+				removeVectorLayer()
+				//setCenter([-8273217.3285074355, 4894920.085748969])
+				map.getView().animate({
+					center: [-8273217.3285074355, 4894920.085748969],
+					zoom: 8.4,
+					duration: 2000,
+				})
+			}
+
+		}
+
+	}, [airportValue])
+
+	useEffect(() => {
+		setList(airtPortDetailsMap)
+		if (airtPortDetailsMap.length > 0) {
+			map.on('singleclick', (e) => {
+				map.forEachFeatureAtPixel(e.pixel, function (feature) {
+					if (feature?.values_?.networkId) {
+						getAirportAPICall(feature.values_.networkId)
+						removeVectorLayer()
+					}
+				})
+			})
+		}
+	}, [airtPortDetailsMap])
+
+	const returnPCiDetailsonBranch = (res, feature, pcidetails) => {
+		setPCIDetails({
+			pcidetails: pcidetails,
+			quantity: res,
+			image: feature.Photo
+		})
+	}
 
 	useEffect(() => {
 		let options = {
@@ -147,6 +210,27 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 				}
 			})
 		})
+		mapObject.on('singleclick', (e) => {
+			mapObject.forEachFeatureAtPixel(e.pixel, (feature, layer) => {
+				getFeatureDetails(feature.values_, returnPCiDetailsonBranch)
+			}
+				, {
+					layerFilter: (layerCandidate) => {
+						if (layerCandidate?.get('title') !== 'abc') {
+							setPCIDetails({
+								pcidetails: [],
+								quantity: []
+							})
+						}
+						return layerCandidate.get('title') === 'abc'
+					}
+				}
+			)
+		})
+
+
+
+
 		popup = new Overlay({
 			element: document.getElementById('popup'),
 			offset: [-40, -30]
@@ -157,44 +241,55 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 			popup.setPosition(undefined);
 		});
 		mapObject.on('pointermove', function (evt) {
-			console.log('evnt-->', evt.coordinate)
 			const feature = mapObject.forEachFeatureAtPixel(evt.pixel, function (feature) {
-				return feature;
+				element = document.getElementById('popup');
+				const airportSpan = document.getElementById('popup-overlay-text-airport1')
+				const pciOverallSpan = document.getElementById('popup-overlay-text-pci-overall1')
+				const pciRunwaySpan = document.getElementById('popup-overlay-text-pci-runway1')
+				const pcitaxiWaySpan = document.getElementById('popup-overlay-text-pci-taxiway1')
+				const pciApronSpan = document.getElementById('popup-overlay-text-pci-apron1')
+
+
+				if (feature?.values_?.airporttName) {
+					let geometry = feature.getGeometry()
+					let coordinate = geometry.getCoordinates()
+					axios.get(`https://services7.arcgis.com/N4ykIOFU2FfLoqPT/ArcGIS/rest/services/N87Prototype/FeatureServer/1/query?outFields=*&spatialRel=esriSpatialRelIntersects&where=Network_ID=%27${feature.values_.networkId}%27&f=geojson`)
+						.then(res => {
+							setPrincentonAirport(res.data.features)
+							setAirportName(feature?.values_?.airporttName)
+						})
+					airportSpan.innerHTML = feature.values_.airporttName
+					pciOverallSpan.innerHTML = `Overall: ${feature.values_.overAll}`
+					pciRunwaySpan.innerHTML = `Runway: ${feature.values_.runway}`
+					pcitaxiWaySpan.innerHTML = `Taxiway: ${feature.values_.taxiway}`
+					pciApronSpan.innerHTML = `Apron: ${feature.values_.apron}`
+					popup.setPosition(coordinate)
+				} else {
+					setPrincentonAirport([])
+					popup.setPosition(undefined);
+				}
 			})
-			element = document.getElementById('popup');
-			const airportSpan = document.getElementById('popup-overlay-text-airport1')
-			const pciOverallSpan = document.getElementById('popup-overlay-text-pci-overall1')
-			const pciRunwaySpan = document.getElementById('popup-overlay-text-pci-runway1')
-			const pcitaxiWaySpan = document.getElementById('popup-overlay-text-pci-taxiway1')
-			const pciApronSpan = document.getElementById('popup-overlay-text-pci-apron1')
-
-
-			if (feature?.values_?.airporttName) {
-				let geometry = feature.getGeometry()
-				let coordinate = geometry.getCoordinates()
-				axios.get(`https://services7.arcgis.com/N4ykIOFU2FfLoqPT/ArcGIS/rest/services/N87Prototype/FeatureServer/1/query?outFields=*&spatialRel=esriSpatialRelIntersects&where=Network_ID=%27${feature.values_.networkId}%27&f=geojson`)
-					.then(res => {
-						setPrincentonAirport(res.data.features)
-						setAirportName(feature?.values_?.airporttName)
-					})
-				airportSpan.innerHTML = feature.values_.airporttName
-				pciOverallSpan.innerHTML = `Overall: ${feature.values_.overAll}`
-				pciRunwaySpan.innerHTML = `Runway: ${feature.values_.runway}`
-				pcitaxiWaySpan.innerHTML = `Taxiway: ${feature.values_.taxiway}`
-				pciApronSpan.innerHTML = `Apron: ${feature.values_.apron}`
-				popup.setPosition(coordinate)
-			} else {
-				setPrincentonAirport([])
-				popup.setPosition(undefined);
-			}
 		})
 		olms(mapObject, 'https://basemaps-api.arcgis.com/arcgis/rest/services/styles/ArcGIS:DarkGray?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd')
-		setMap(mapObject);
-		getAirportAPICall(airtPortDetails[0].value)
+		setMap(mapObject)
 	}, []);
 
+	const removeVectorLayer = () => {
+		let map1 = mapObject || map
+		if (map1) {
+			setFeatureList([])
+			map1.getLayers().getArray()
+				.forEach(layer => {
+					if (layer.get('title') === 'abc') {
+						map1.removeLayer(layer)
+					}
+
+				})
+		}
+
+	}
+
 	const onBaseMapchange = (value) => {
-		console.log('oooo', map.getLayers().getArray())
 		setShowBaseMap(false)
 		if (value) {
 			map.getLayers().getArray()
@@ -204,10 +299,8 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 					}
 
 				})
-			console.log('oooo11', map.getLayers().getArray())
 			olms(map, `https://basemaps-api.arcgis.com/arcgis/rest/services/styles/${value}?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd`)
 		}
-		//setMap(mapObject);
 	}
 
 	useEffect(() => {
@@ -226,17 +319,24 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 	}, [JSON.stringify(airportFeatureList), map])
 
 	const getAirportAPICall = (value) => {
+		let map1 = mapObject || map
 		axios.all([axios.get(`https://services7.arcgis.com/N4ykIOFU2FfLoqPT/ArcGIS/rest/services/N87Prototype/FeatureServer/1/query?outFields=*&spatialRel=esriSpatialRelIntersects&where=Network_ID=%27${value}%27&f=geojson`),
 		axios.get(`https://services7.arcgis.com/N4ykIOFU2FfLoqPT/ArcGIS/rest/services/N87Prototype/FeatureServer/0/query?outFields=*&spatialRel=esriSpatialRelIntersects&where=Network_ID=%27${value}%27&f=geojson`)]
 		).then(axios.spread((...res) => {
 			setFeatureList(res[0].data.features)
+			getFeatureList(res[0].data.features, value)
+			const a = fromLonLat(res[1].data.features[0].geometry.coordinates)
+			map1.getView().animate({
+				center: a,
+				zoom: 16.5,
+				duration: 2000,
+			})
+			updateAirportDropDown1(value)
 		}))
 	}
 
 	const getAirportDetails = (zoomLevel = zoom) => {
-
 		setCoordinateList(airportFeatureList.map(featureItem => {
-			console.log('featureItem-->', featureItem)
 			const feature = new Feature({
 				geometry: new Point(fromLonLat(toLonLat(featureItem.geometry?.coordinates))),
 				airporttName: featureItem.properties.Name,
@@ -254,8 +354,10 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 
 	useEffect(() => {
 		if (!map) return;
-
-		map.getView().setZoom(zoom);
+		map.getView().animate({
+			zoom: zoom,
+			duration: 2000,
+		})
 	}, [zoom]);
 
 	// center change handler
@@ -264,21 +366,6 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 		map.getView().setCenter(center)
 
 	}, [center])
-
-	const onBasemapDropdoenChange = (e) => {
-		if (map?.getLayers().getArray().length > 1) {
-			map.getLayers().getArray().pop();
-		}
-		map.getLayers().getArray()
-			.forEach(layer => {
-				if (layer instanceof Tile) {
-					map.removeLayer(layer)
-				}
-
-			})
-		olms(map, `https://basemaps-api.arcgis.com/arcgis/rest/services/styles/${e.target.value}?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd`);
-		setMap(map);
-	}
 
 	const getPCIColor = (pci) => {
 		if (pci.min === '0' && pci.max === '10') {
@@ -337,29 +424,15 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 		}
 	}
 
-	const onAirportChange = (e) => {
-		setAirportValueSelect(e.target.value)
-		setFeatureList([])
-		getAirportAPICall(e.target.value)
-	}
-
-	const onPanClick = () => {
-		map.getView().animate({
-			center: center,
-			duration: 2000,
-		})
-	}
-
 	return (
 		<>
 			<div className="map-details">
 
 				<MapContext.Provider value={{ map }}>
-					{/* <img src='./images/pan.png' alt='pan' onClick={onPanClick} /> */}
 					<div ref={mapRef} className="ol-map">
 						<BaseMapPortal showModal={showBaseMap} onBaseMapchange={onBaseMapchange} />
 						{children}
-						{featureList.map(feature => (
+						{featureList.length > 0 && featureList.map(feature => (
 							<VectorLayer
 								source={vectorObject({
 									features: new GeoJSON().readFeatures(feature, {
@@ -379,15 +452,8 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 							)
 						}
 						<img className='basemap-grid' src='images/grid.png' alt='basemap-grid'
-							onClick={() => { console.log('hhh'); setShowBaseMap(true) }}
+							onClick={() => { setShowBaseMap(true) }}
 						/>
-
-						{/* <VectorLayer
-								source={new VectorSource({
-									features: [rome],
-								})}
-								visible={true}
-							/> */}
 						<div className="pci-details">
 							{
 								legend.map(pci => (
@@ -398,7 +464,7 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 								))
 							}
 						</div>
-						<div className="airport-princenton" style={{ maxHeight: princentonAirport.length > 0 ? '400px' : '0px' }}>
+						<div className="airport-princenton" style={{ height: princentonAirport.length > 0 ? '400px' : '0px' }}>
 							{
 								princentonAirport.length > 0 && (
 									<>
@@ -419,12 +485,18 @@ const Map = ({ children, zoom, legend, airportFeatureList }) => {
 												))
 											}
 										</div>
+
 									</>
 								)
 
 							}
 
 						</div>
+						{
+							pciDetails?.pcidetails?.length > 0 && pciDetails?.quantity?.length > 0 && (<AirtportDetailsPopUp pciDetails={pciDetails} />)
+						}
+
+
 					</div>
 				</MapContext.Provider>
 

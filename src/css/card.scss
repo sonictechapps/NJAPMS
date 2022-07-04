@@ -1,0 +1,30 @@
+@import "../index.scss";
+
+.card-container {
+    box-shadow: 4px 4px 4px 4px rgba(253, 251, 251, 0.2);
+
+    border-radius: 5px;
+    margin-top   : 10px;
+    padding      : 10px 20px;
+    max-width    : 900px !important;
+    margin       : auto;
+    margin-top   : 27px;
+    margin-left: 20px;
+    &:last-child {
+        margin-bottom: 80px;
+    }
+    .home-icon-container {
+        height         : 100px;
+        width          : 100%;
+        display        : flex;
+        justify-content: center;
+        align-items    : center;
+        margin-bottom: 30px;
+        img {
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            background-color: chartreuse;
+        }
+    }
+}

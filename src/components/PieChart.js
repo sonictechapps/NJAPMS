@@ -23,13 +23,15 @@ export function PieChart({data}) {
     datasets: [
       {
         label: '# of Votes',
-        data: [counts['Red'], counts['orange'], counts['yellow'], counts['green'], counts['pink']],
+        data: [counts['#000000'], counts['#4D0A05'], counts['#EA3223'], counts['#CD70ED'], counts['#FFFD54'], counts['#75F94C'], counts['#225313']],
         backgroundColor: [
-          'red',
-          'orange',
-          'yellow',
-          'green',
-          'pink'
+          '#000000',
+          '#4D0A05',
+          '#EA3223',
+          '#CD70ED',
+          '#FFFD54',
+          '#75F94C',
+          '#225313'
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',

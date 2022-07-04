@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
 import axios from "axios"
-import SwitchSelector from "react-switch-selector"
 import OptGroupSelect from "../../atomiccomponent/OptGroupSelect"
 import OptionSelect from "../../atomiccomponent/OptionSelect"
 import '../../css/landing.scss'
@@ -10,7 +9,6 @@ import ZoomSliderControl from "../controls/ZoomSiderControl"
 import Layers from "../Layer/Layers"
 import Map from "../Map/Map"
 import ToggleButton from "../../atomiccomponent/ToggleButton"
-import BubbleChart from "../BubbleChart"
 import AirportChart from "../AirportChart"
 
 const Landing = () => {
@@ -26,6 +24,11 @@ const Landing = () => {
     const [selectedDefaultYear, setSelectedDefaultYear] = useState([])
     const [toggleArrow, setToggleArrow] = useState(false)
     const [airportDataDetails, setAirportDataDetails] = useState()
+    const [airportIndex, setAirportIndex] = useState(0)
+    const [airportValue, setAirportValue] = useState()
+    const [featureList, setFeatureList] = useState([])
+    const [branchSelectedIndex, setBranchSelectedIndex] = useState(0)
+    const [isAirportBranchAll, setAirportBranchAll] = useState({})
     const getAllDetails = () => {
         axios.all([axios.get('https://services7.arcgis.com/N4ykIOFU2FfLoqPT/arcgis/rest/services/N87Prototype/FeatureServer/0/query?f=pgeojson&geometry=%7B%22spatialReference%22:%7B%22latestWkid%22:3857,%22wkid%22:102100%7D,%22xmin%22:-8766409.899970992,%22ymin%22:4383204.949986987,%22xmax%22:-8140237.764258992,%22ymax%22:5009377.085698988%7D&maxRecordCountFactor=3&outFields=*&outSR=102100&resultType=tile&returnExceededLimitFeatures=false&spatialRel=esriSpatialRelIntersects&where=1=1&geometryType=esriGeometryEnvelope&inSR=102100'),
         axios.get('http://localhost:3004/input'),
@@ -89,6 +92,12 @@ const Landing = () => {
                     name: branch.description
                 }
             }))
+            setAirportBranchAll(res[1].data.response.body.branchlist.map(branch => {
+                return {
+                    ...branch,
+                    name: branch.description
+                }
+            }))
             setAirtPortDetails(res[1].data.response.body.airportlist.map(airport => {
                 return {
                     ...airport,
@@ -96,6 +105,7 @@ const Landing = () => {
                     name: airport.description
                 }
             }))
+            setAirportValue(res[1].data.response.body.airportlist[0].networkId)
             setAggregationOption(res[1].data.response.body.aggregationlist.map(aggregation => {
                 return {
                     ...aggregation,
@@ -112,6 +122,7 @@ const Landing = () => {
     }, [])
 
     const onBranchDropDownChange = (index) => {
+        setBranchSelectedIndex(index)
     }
 
     const onAggregationChange = (index) => {
@@ -122,6 +133,14 @@ const Landing = () => {
     }
 
     const onAirportValueChange = (index) => {
+        const value = airtPortDetails[index].value
+        setAirportValue(value)
+        if (index === 0) {
+            setBranchOption(isAirportBranchAll)
+            setBranchSelectedIndex(0)
+            return
+        }
+        setBranchSelectedIndex('')
 
     }
 
@@ -151,22 +170,40 @@ const Landing = () => {
 
     const onArrowClick = () => {
         setToggleArrow(!toggleArrow)
-        console.log('fff', dropdoenDivRef.current)
         dropdoenDivRef.current.style.height = !toggleArrow ? '0px' : '40px'
         const map = document.getElementsByClassName('ol-map')[0]
         map.style.height = !toggleArrow ? '87vh' : '82vh'
     }
 
+    const updateAirportDropDown = (value) => {
+        airtPortDetails.length > 0 && airtPortDetails.some((val, index) => {
+            if (val.value === value) {
+                setAirportIndex(index)
+            }
+        })
+    }
+
+
+    const getFeatureList = (value, airportvalue) => {
+        setFeatureList(value)
+        setBranchOption(value?.map(branch => {
+            return {
+                ...branch,
+                name: branch.properties.Branch_ID,
+                value: branch.properties.Branch_ID
+            }
+        }))
+        setBranchSelectedIndex('')
+        setAirportValue(airportvalue)
+    }
     return (
         <>
-
             <div className="dropdown-section" ref={dropdoenDivRef}>
-
                 {
                     airtPortDetails.length > 0 && (
                         <div className="airport-div-inner">
                             <OptionSelect options={airtPortDetails} id={'select-airport-details'} onItemSelectedCallback={onAirportValueChange}
-                                selectedIndex={0} selectText={'Select Airport'} />
+                                selectedIndex={airportIndex} selectText={'Select Airport'} appendText='Airport' />
                         </div>
                     )
                 }
@@ -175,15 +212,15 @@ const Landing = () => {
                         <div className="assessment-year-div-inner">
                             <OptGroupSelect options={optionsGroup} id={'select-year'} onItemSelectedCallback={onAssessmentYearChange}
                                 selectedRootIndex={selectedDefaultYear[0]} selectedIndex={selectedDefaultYear[1]}
-                                selectText={'Select Year'} />
+                                selectText={'Select Year'} appendText='Year' />
                         </div>
                     )
                 }
                 {
-                    branchOption.length > 0 && (
+                    branchOption?.length > 0 && (
                         <div className="branch-div-inner">
                             <OptionSelect options={branchOption} id={'select-branch'} onItemSelectedCallback={onBranchDropDownChange}
-                                selectedIndex={0} selectText={'Select Branch'} />
+                                selectedIndex={branchSelectedIndex} selectText={'Select Branch'} appendText='Branch' />
                         </div>
                     )
                 }
@@ -191,7 +228,7 @@ const Landing = () => {
                     aggregationOption.length > 0 && (
                         <div className="aggregation-div-inner">
                             <OptionSelect options={aggregationOption} selectedIndex={0} id={'select-aggregation'} onItemSelectedCallback={onAggregationChange}
-                                selectText={'Select Aggregation'} />
+                                selectText={'Select Aggregation'} appendText='Aggregation' />
                         </div>
                     )
                 }
@@ -200,14 +237,17 @@ const Landing = () => {
                 </div>
 
             </div>
-            <div style={{ textAlign: 'right' }} onClick={onArrowClick}>
+            <div style={{ textAlign: 'right', display: 'inline', float: 'right' }} onClick={onArrowClick}>
                 <img src='images/down_arow.png' className="down_arrow" />
             </div>
-            <section className="landing" style={{backgroundColor: 'black'}}>
+            <section className="landing" style={{ backgroundColor: 'black' }}>
                 <div className="airport-layer">
                     <div className="airport-map">
                         <div style={{ position: 'relative', display: `${currentTab === 'map' ? 'block' : 'none'}` }}>
-                            <Map zoom={zoom} legend={legend} airportFeatureList={airtPortFeatureDetails}>
+                            <Map zoom={zoom} legend={legend} airportFeatureList={airtPortFeatureDetails}
+                                updateAirportDropDown1={updateAirportDropDown} airtPortDetailsMap={airtPortDetails} featureList = {featureList}
+                                airportValue={airportValue} getFeatureList={getFeatureList} branchSelectedIndex={branchSelectedIndex}
+                            >
                                 <Layers>
                                 </Layers>
                                 <Controls>
@@ -216,8 +256,9 @@ const Landing = () => {
                                 </Controls>
                             </Map>
                         </div>
-                        <div style={{ position: 'relative', top: '-58px', display: `${currentTab === 'data' ? 'block' : 'none'}` }}>
-                            {(optionsGroup.length > 0 && airportDataDetails?.keys?.length > 0) && <AirportChart selectedyear={selectedDefaultYear} optionsGroup={optionsGroup} airportDataDetails = {airportDataDetails} />}
+                        <div style={{ position: 'relative', display: `${currentTab === 'data' ? 'block' : 'none'}` }}>
+                            {(optionsGroup.length > 0 && airportDataDetails?.keys?.length > 0) && <AirportChart selectedyear={selectedDefaultYear} optionsGroup={optionsGroup} airportDataDetails={airportDataDetails}
+                                airtPortDetails={airtPortDetails} airportValue={airportValue} featureList={featureList} branchSelectedIndex={branchSelectedIndex} />}
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import '../css/dropdown.scss'
 
 const OptGroupSelect = ({ options, id, defaultOption, selectedRootIndex, selectedIndex, onItemSelectedCallback,
-    selectText }) => {
+    selectText, appendText }) => {
     let ul, span, dropdownDiv
     const dropDownDivOuter = useRef()
     useEffect(() => {
@@ -16,7 +16,7 @@ const OptGroupSelect = ({ options, id, defaultOption, selectedRootIndex, selecte
     useEffect(() => {
         span = document.querySelector(`#dropdown-placeholder-${id}`)
         if (selectedRootIndex >= 0 && selectedIndex >= 0 && options.length > 0)
-            span.innerHTML = options[selectedRootIndex].options[selectedIndex].name
+            span.innerHTML = appendText + ': ' + options[selectedRootIndex].options[selectedIndex].name
     }, [selectedRootIndex, selectedIndex])
 
     const onULClick = (e) => {
@@ -27,7 +27,7 @@ const OptGroupSelect = ({ options, id, defaultOption, selectedRootIndex, selecte
     const onItemSelectd = (event, rootIndex, index) => {
         event.stopPropagation()
         span = document.querySelector(`#dropdown-placeholder-${id}`)
-        span.innerHTML = options[rootIndex].options[index].name
+        span.innerHTML =  appendText + ': ' + options[rootIndex].options[index].name
         ul.classList.toggle('active')
         onItemSelectedCallback(rootIndex, index)
 

@@ -11,10 +11,10 @@ import Landing from './components/Landing/Landing';
 
 function App() {
   return (
-    <div className="App container-fluid main-container">
+    <div className="App container-fluid main-container" style={{ height: '100vh', backgroundColor: 'black' }} >
 
 
-      {/* <BrowserRouter>
+    {/* <BrowserRouter>
 <nav
         style={{
           borderBottom: "solid 1px",
@@ -40,14 +40,14 @@ function App() {
     <Route path="bubblechart" element={<BubbleChart />} exact />
   </Routes>
 </BrowserRouter> */}
-      <Header />
+      < Header />
       <div className='main-body'>
-      <div className='body-content'>
-        <Landing />
+        <div className='body-content'>
+          <Landing />
         </div>
       </div>
-    </div>
-  );
+    </ div>
+      );
 }
 
-export default App
+      export default App

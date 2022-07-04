@@ -11,20 +11,20 @@ export default {
     }),
   }),
   Polygon: new Style({
-    stroke: new Stroke({
-      color: "red",
-      lineDash: [4],
-      width: 3,
-    }),
+    // stroke: new Stroke({
+    //   color: "red",
+    //   lineDash: [4],
+    //   width: 3,
+    // }),
     fill: new Fill({
       color: "rgba(0, 0, 255)",
     }),
   }),
   MultiPolygon: (color) => new Style({
-    stroke: new Stroke({
-      color: "red",
-      width: 1,
-    }),
+    // stroke: new Stroke({
+    //   color: "red",
+    //   width: 1,
+    // }),
     fill: new Fill({
       color: color,
     }),

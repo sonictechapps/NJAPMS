@@ -1,8 +1,8 @@
 .ol-map {
     height: 82vh;
-    width: 100%;
     position: absolute;
-    top: -59px;
+    top: 3px;
+    width: 99.7vw;
 }
 
 .ol-control {
@@ -40,7 +40,7 @@
     bottom: 100%;
     left: 50%;
     margin-left: -59px;
-    margin-bottom: 6px;
+    margin-bottom: 30px;
 
     &::after {
         content: '';
@@ -92,3 +92,55 @@
 //     z-index: 10;
 //     float: right;
 // }
+
+.right_arrow {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 145px;
+    right: 0px;
+    cursor: pointer;
+    // &:hover {
+    //     height: 0px;
+    //     +.dropdown-section {
+    //         height: 40px;
+    //     }
+    // }
+}
+
+.left_arrow {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 145px;
+    left: 0px;
+    cursor: pointer;
+    // &:hover {
+    //     height: 0px;
+    //     +.dropdown-section {
+    //         height: 40px;
+    //     }
+    // }
+}
+
+.airport-details-tab {
+
+    display: flex;
+    height: 30px;
+    width: 100%;
+    color: white;
+
+    div {
+        flex-basis: 100%;
+        text-align: center;
+        background-color: black;
+        color: white;
+        font-weight: bold;
+
+        &:first-child {
+            margin-right: 2px;
+            background-color: yellow;
+            color: black;
+        }
+    }
+}

@@ -14,18 +14,14 @@ function vector() {
 
 export function vectorObject({ features }) {
     const vectorsource = new VectorSource()
-   // vectorsource.clear()
     vectorsource.addFeatures(features)
     return vectorsource
 }
 
 export function vectorObjectForPoint( features ) {
-    console.log('fe', features)
     const vectorsource = new VectorSource({
         features: features
     })
-   // vectorsource.clear()
-   // vectorsource.addFeatures(features)
     return vectorsource
 }
 
