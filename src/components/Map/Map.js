@@ -7,28 +7,26 @@ import Point from 'ol/geom/Point';
 import Overlay from 'ol/Overlay';
 
 import axios from 'axios'
-import VectorLayer from "../Layer/VectorLayer";
-import VectorSource from 'ol/source/Vector';
-import { vectorObject, vectorObjectForPoint } from "../Source/vector";
-import { GeoJSON } from "ol/format";
-import { fromLonLat, get, toLonLat, Projection } from "ol/proj";
+import VectorLayer from "../Layer/VectorLayer"
+import { vectorObject, vectorObjectForPoint } from "../Source/vector"
+import { GeoJSON } from "ol/format"
+import { fromLonLat, get, toLonLat, Projection } from "ol/proj"
 import FeatureStyles from '../../Features/Styles'
-import Tile from "ol/layer/Tile";
-import { Zoom } from "ol/control";
+import Tile from "ol/layer/Tile"
+import { Zoom } from "ol/control"
 import {
 	DragRotateAndZoom, PinchZoom,
 	defaults as defaultInteractions,
-} from 'ol/interaction';
+} from 'ol/interaction'
 import Feature from 'ol/Feature'
-
-import { Icon, Style } from 'ol/style';
+import { Icon, Style } from 'ol/style'
 import VectorLayerPoint from "../Layer/VectorLayerPoint"
-import BaseMapPortal from "../portals/BaseMapPortal";
-import AirtportDetailsPopUp from "../popup/AirtportDetailsPopUp";
-import { getFeatureDetails } from "../../util/commonUtils";
+import BaseMapPortal from "../portals/BaseMapPortal"
+import AirtportDetailsPopUp from "../popup/AirtportDetailsPopUp"
+import { getFeatureDetails } from "../../util/commonUtils"
 
 const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown1, airtPortDetailsMap, airportValue, branchSelectedIndex,
-	getFeatureList }) => {
+	getFeatureList, airportselectedIndex, onBranchChange }) => {
 	const mapRef = useRef();
 	const [list, setList] = useState(airtPortDetailsMap)
 	const [map, setMap] = useState(null)
@@ -43,6 +41,7 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 		pcidetails: [],
 		quantity: []
 	})
+	const [branchId, setBrnachId] = useState('')
 	let element
 	let popup
 
@@ -133,10 +132,6 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 	]
 	const [airportValueSelect, setAirportValueSelect] = useState(airtPortDetails[0].value)
 
-	const onChnageAirportDropdown = (value) => {
-
-	}
-
 	useEffect(() => {
 		if (airportValue) {
 			if (airportValue !== 'All') {
@@ -151,7 +146,6 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 					duration: 2000,
 				})
 			}
-
 		}
 
 	}, [airportValue])
@@ -171,10 +165,12 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 	}, [airtPortDetailsMap])
 
 	const returnPCiDetailsonBranch = (res, feature, pcidetails) => {
+		console.log('feature-->', feature)
 		setPCIDetails({
 			pcidetails: pcidetails,
 			quantity: res,
-			image: feature.Photo
+			image: feature.Photo,
+			branchid: feature.Branch_ID
 		})
 	}
 
@@ -186,8 +182,7 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 			overlays: [],
 			interactions: defaultInteractions().extend([new DragRotateAndZoom(), new PinchZoom()
 			]),
-		};
-
+		}
 		mapObject = new ol.Map(options);
 		mapObject.setTarget(mapRef.current);
 		const overLayContainerElement = document.querySelector('.overlay-container')
@@ -210,26 +205,27 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 				}
 			})
 		})
-		mapObject.on('singleclick', (e) => {
-			mapObject.forEachFeatureAtPixel(e.pixel, (feature, layer) => {
-				getFeatureDetails(feature.values_, returnPCiDetailsonBranch)
-			}
-				, {
-					layerFilter: (layerCandidate) => {
-						if (layerCandidate?.get('title') !== 'abc') {
-							setPCIDetails({
-								pcidetails: [],
-								quantity: []
-							})
-						}
-						return layerCandidate.get('title') === 'abc'
-					}
+			mapObject.on('singleclick', (e) => {
+				mapObject.forEachFeatureAtPixel(e.pixel, (feature, layer) => {
+					console.log('pppp', feature)
+					getFeatureDetails(feature.values_, returnPCiDetailsonBranch)
+					setBrnachId(feature.values_.Branch_ID)
+					
 				}
-			)
-		})
-
-
-
+					, {
+						layerFilter: (layerCandidate) => {
+							if (layerCandidate?.get('title') !== 'abc') {
+								setPCIDetails({
+									pcidetails: [],
+									quantity: []
+								})
+							}
+							return layerCandidate.get('title') === 'abc'
+						}
+					}
+				)
+			})
+		
 
 		popup = new Overlay({
 			element: document.getElementById('popup'),
@@ -246,8 +242,6 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 				const pciRunwaySpan = document.getElementById('popup-overlay-text-pci-runway1')
 				const pcitaxiWaySpan = document.getElementById('popup-overlay-text-pci-taxiway1')
 				const pciApronSpan = document.getElementById('popup-overlay-text-pci-apron1')
-
-
 				if (feature?.values_?.airporttName) {
 					let geometry = feature.getGeometry()
 					let coordinate = geometry.getCoordinates()
@@ -274,6 +268,11 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 		setMap(mapObject)
 	}, []);
 
+	useEffect(() => {
+		console.log('branchId',branchId)
+		branchId!== '' && onBranchChange(branchId)
+	}, [branchId])
+
 	const removeVectorLayer = () => {
 		let map1 = mapObject || map
 		if (map1) {
@@ -283,10 +282,8 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 					if (layer.get('title') === 'abc') {
 						map1.removeLayer(layer)
 					}
-
 				})
 		}
-
 	}
 
 	const onBaseMapchange = (value) => {
@@ -328,7 +325,7 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 			const a = fromLonLat(res[1].data.features[0].geometry.coordinates)
 			map1.getView().animate({
 				center: a,
-				zoom: 16.5,
+				zoom: 15.5,
 				duration: 2000,
 			})
 			updateAirportDropDown1(value)
@@ -364,7 +361,6 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 	useEffect(() => {
 		if (!map) return;
 		map.getView().setCenter(center)
-
 	}, [center])
 
 	const getPCIColor = (pci) => {
@@ -427,7 +423,6 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 	return (
 		<>
 			<div className="map-details">
-
 				<MapContext.Provider value={{ map }}>
 					<div ref={mapRef} className="ol-map">
 						<BaseMapPortal showModal={showBaseMap} onBaseMapchange={onBaseMapchange} />
@@ -485,21 +480,18 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 												))
 											}
 										</div>
-
 									</>
 								)
-
 							}
 
 						</div>
+						{console.log('ssss', airportName)}
 						{
-							pciDetails?.pcidetails?.length > 0 && pciDetails?.quantity?.length > 0 && (<AirtportDetailsPopUp pciDetails={pciDetails} />)
+							pciDetails?.pcidetails?.length > 0 && pciDetails?.quantity?.length > 0 && (<AirtportDetailsPopUp pciDetails={pciDetails}
+								airportName={airtPortDetailsMap[airportselectedIndex].name} />)
 						}
-
-
 					</div>
 				</MapContext.Provider>
-
 			</div>
 			<div className="overlay-container">
 				<span className="overlay-text-pci"></span><br />

@@ -4,10 +4,6 @@ export const getFeatureDetails = (feature, fn) => {
     const inspectDate = new Date(feature.Inspection_Date)
     const pcidetails = [
         {
-            "name": "Branch",
-            "value": feature.Branch_ID
-        },
-        {
             "name": "PCI",
             "value": feature.Branch_PCI
         },

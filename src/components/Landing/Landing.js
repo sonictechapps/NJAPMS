@@ -196,6 +196,10 @@ const Landing = () => {
         setBranchSelectedIndex('')
         setAirportValue(airportvalue)
     }
+    const onBranchChange = (id) => {
+        console.log('vvvv', branchOption.findIndex(branch => branch.name === id))
+        setBranchSelectedIndex(branchOption.findIndex(branch => branch.name === id))
+    }
     return (
         <>
             <div className="dropdown-section" ref={dropdoenDivRef}>
@@ -227,8 +231,8 @@ const Landing = () => {
                 {
                     aggregationOption.length > 0 && (
                         <div className="aggregation-div-inner">
-                            <OptionSelect options={aggregationOption} selectedIndex={0} id={'select-aggregation'} onItemSelectedCallback={onAggregationChange}
-                                selectText={'Select Aggregation'} appendText='Aggregation' />
+                            <OptionSelect options={aggregationOption} selectedIndex={airportValue !== 'All' ? '' : 0} id={'select-aggregation'} onItemSelectedCallback={onAggregationChange}
+                                selectText={'Select Aggregation'} appendText='Aggregation' isDisabled={airportValue !== 'All'} />
                         </div>
                     )
                 }
@@ -243,10 +247,12 @@ const Landing = () => {
             <section className="landing" style={{ backgroundColor: 'black' }}>
                 <div className="airport-layer">
                     <div className="airport-map">
+                        {console.log('branch-->', branchOption)}
                         <div style={{ position: 'relative', display: `${currentTab === 'map' ? 'block' : 'none'}` }}>
                             <Map zoom={zoom} legend={legend} airportFeatureList={airtPortFeatureDetails}
-                                updateAirportDropDown1={updateAirportDropDown} airtPortDetailsMap={airtPortDetails} featureList = {featureList}
+                                updateAirportDropDown1={updateAirportDropDown} airtPortDetailsMap={airtPortDetails} featureList={featureList}
                                 airportValue={airportValue} getFeatureList={getFeatureList} branchSelectedIndex={branchSelectedIndex}
+                                airportselectedIndex={airportIndex} onBranchChange={onBranchChange}
                             >
                                 <Layers>
                                 </Layers>

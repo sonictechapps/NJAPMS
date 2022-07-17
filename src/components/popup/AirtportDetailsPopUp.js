@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-const AirtportDetailsPopUp = ({ pciDetails }) => {
+const AirtportDetailsPopUp = ({ pciDetails, airportName }) => {
+    console.log('airportName', airportName)
     const [airportDetails, setAirportDetails] = useState(true)
     const [imageDetails, setImageDetails] = useState(false)
     const [airportDetailsList, setAirportDetailsList] = useState(true)
@@ -69,11 +70,12 @@ const AirtportDetailsPopUp = ({ pciDetails }) => {
 
 
     return (
-        <div className="airport-princenton" style={{ maxHeight: pciDetails?.pcidetails?.length > 0 ? '294px' : '0px' }}>
+        <div className="airport-princenton" style={{ height: pciDetails?.pcidetails?.length > 0 ? '60%' : '0px' }}>
             {
                 pciDetails?.pcidetails?.length > 0 && (
                     <>
-                        <div className="airport-princenton-header">{`Branch Details`}</div>
+                        <div className="airport-princenton-header">{airportName}</div>
+                        <div className="airport-princenton-header">{pciDetails.branchid}</div>
                         <div className='airport-details-tab'>
                             <div onClick={(e) => onDetailsClick(e)} style={getDetailsStyle()}>Details</div>
                             <div onClick={(e) => onImagesClick(e)} style={getImageStyle()}>Image</div>

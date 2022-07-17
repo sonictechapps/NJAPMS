@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import '../css/dropdown.scss'
 
-const OptionSelect = ({ options, id, selectedIndex, onItemSelectedCallback, selectText, appendText }) => {
+const OptionSelect = ({ options, id, selectedIndex, onItemSelectedCallback, selectText, appendText, isDisabled }) => {
     let ul, span, dropdownDiv
     const dropDownDivOuter = useRef()
     useEffect(() => {
@@ -28,13 +28,24 @@ const OptionSelect = ({ options, id, selectedIndex, onItemSelectedCallback, sele
     }
 
     return (
-        <div>
+        <div style={{ position: 'relative' }}>
             <div id={`dropdown-${id}`} className='dropdown-root'>
                 <div id={`dropdown-div-outer-${id}`} ref={dropDownDivOuter} onClick={(e) => onULClick(e)}>
-                    <span className={`dropdown-arrow`} id={`dropdown-placeholder-${id}`}>{selectedIndex !== '' ?
+                    <span className={`dropdown-arrow`} id={`dropdown-placeholder-${id}`}>{selectedIndex !== '' && !isDisabled ?
                         appendText + ': ' + options[selectedIndex].name : selectText}</span>
                 </div>
             </div>
+            {
+                isDisabled && (
+                    <div className={`dropdown-disabled`}>
+                        <div id={`dropdown-div-outer-${id}`} ref={dropDownDivOuter}>
+                            <span className={`dropdown-arrow`} id={`dropdown-placeholder-${id}`}>{selectedIndex !== '' ?
+                                appendText + ': ' + options[selectedIndex].name : selectText}</span>
+                        </div>
+                    </div>
+                )
+            }
+
             <div className={`dropdown-div-inner`} id={`dropdown-div-inner-${id}`}>
                 <ul className={`dropdown-ul`} id={id} >
                     <li className={'option-list-select'} value='NA'>{selectText}</li>
