@@ -11,7 +11,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
-const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue }) => {
+const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onBarChartClick }) => {
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -96,6 +96,13 @@ const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue }) =
             chartArea: {
               backgroundColor: 'green'
             },
+            maintainAspectRatio: false,
+            onClick: (event, element) => {
+              if (airportValue === 'All') {
+                onBarChartClick(element[0].index)
+              }
+
+            },
             plugins: {
               title: {
                 display: true,
@@ -103,8 +110,12 @@ const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue }) =
                 color: 'white'
               },
               legend: {
-                display: true,
-                position: "bottom"
+                display: false,
+                position: "bottom",
+                labels: {
+                  color: 'white',
+
+                }
               },
               tooltip: {
                 callbacks: {

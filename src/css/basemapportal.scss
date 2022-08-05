@@ -6,6 +6,7 @@
     position: absolute;
     display: none;
     top: 0px;
+    z-index: 10000;
 }
 
 .modal-show {
@@ -36,6 +37,34 @@
         float: right;
         color: white;
         cursor: pointer;
+    }
+
+    .close-image {
+        z-index: 123;
+        position: relative;
+        top: -24px;
+        right: -23px;
+        float: right;
+        color: white;
+        cursor: pointer;
+    }
+
+    .image-inner-div {
+        width: fit-content;
+        height: fit-content;
+        background-color: white;
+        display: block;
+        position: relative;
+        z-index: 111;
+        row-gap: 20px;
+        grid-template-columns: auto auto auto;
+        padding: 30px;
+        border-radius: 10px;
+    }
+
+    .thumb-image {
+        height: 500px;
+        width: 600px;
     }
 
     .basemap-inner-div {
@@ -69,6 +98,7 @@
             z-index: 2333;
             opacity: 0.5;
             text-align: center;
+
             span {
                 color: white;
                 font-weight: bold;

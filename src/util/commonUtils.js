@@ -8,10 +8,6 @@ export const getFeatureDetails = (feature, fn) => {
             "value": feature.Branch_PCI
         },
         {
-            "name": "Section",
-            "value": feature.Section_ID
-        },
-        {
             "name": "Surface",
             "value": feature.Surface_Type
         },

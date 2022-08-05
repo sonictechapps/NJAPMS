@@ -122,8 +122,9 @@
     flex-direction: row;
 }
 
+
 .airport-princenton {
-    height: 0px;
+   
     position: absolute;
     width: 390px;
     max-height: 60%;
@@ -133,7 +134,8 @@
     bottom: 50px;
     right: 0px;
     z-index: 3000;
-    border-radius: 5px;
+    border-radius: 10px;
+
     .branch-all-wrapper {
         height: 100%;
         width: 100%;
@@ -152,7 +154,6 @@
             transition-property: flex-basis;
             transition-duration: 1s;
             flex-basis: 100%;
-            font-weight: bold;
             height: 0px;
 
             .distress-heading {
@@ -160,7 +161,8 @@
                 flex-direction: row;
                 height: 30px;
                 border-bottom: 1px solid black;
-                background-color: gray;
+                background-color: #D3D3D3;
+                font-weight: bold;
 
                 div {
                     flex-basis: 25%;
@@ -188,7 +190,7 @@
                     overflow-y: auto;
 
                     &:nth-child(even) {
-                        background-color: gray;
+                        background-color: #D3D3D3;
                     }
                 }
             }
@@ -205,13 +207,45 @@
         background-color: yellow;
         color: black;
         text-align: center;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .airport-princenton-distress-header {
+        max-height: 30px;
+        width: 100%;
+        font-weight: bold;
+        background-color: white;
+        color: black;
+        text-align: center;
+    }
+
+    .airport-princenton-header {
+        max-height: 30px;
+        width: 100%;
+        font-weight: bold;
+        background-color: black;
+        color: white;
+        text-align: center;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .airport-princenton-branch-header {
+        max-height: 30px;
+        width: 100%;
+        font-weight: bold;
+        background-color: #A4A5A5;
+        color: white;
+        text-align: center;
     }
 
     .airport-pci-list-value {
         overflow-y: auto;
+        border-bottom: 1px solid black;
 
         &:nth-child(odd) {
-            background-color: gray;
+            background-color: #D3D3D3;
         }
     }
 
@@ -238,7 +272,7 @@
 
     .airport-pci-details-list {
         width: 100%;
-        max-height: 30px;
+        height: 30px;
         display: flex;
         flex-direction: row;
 
@@ -272,99 +306,148 @@
 .airport-landing {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    &:last-child {
+        margin-bottom: 20px;
+    }
 
     .airport-chart-div {
-        width: 100%;
         display: flex;
         flex-direction: row;
+        justify-content: center;
+        width: 100%;
 
         div {
             flex-basis: 50%;
-            background-color: 'black'
+            background-color: 'black';
+
+            &:first-child {
+                margin-right: 10px;
+                margin-left: 20px;
+            }
+
         }
     }
-    .airport-details-div {
-        width: 100%;
+
+    .airport-chart-desc-div {
         display: flex;
         flex-direction: row;
+        justify-content: center;
+        width: 100%;
+
+        div {
+            flex-basis: 50%;
+            background-color: 'black';
+
+        }
+    }
+
         .pci-details-container {
-            background-color: black;
-            max-height: 450px;
+            height: 100%;
             width: 100%;
             display: flex;
             justify-content: center;
+            font-size: 100%;
+
             .pci-details-container-inner {
                 flex-basis: 100%;
                 background-color: white;
                 border-radius: 5px;
                 margin: 0px 20px;
+                height: 100%;
                 .airport-princenton-header {
                     width: 100%;
                     background-color: yellow;
                     color: black;
-                    font-size: 17px;
+                   
                     text-align: center;
-                    height: 40px;
+                    height: 12%;
                     font-weight: bold;
                     padding-top: 5px;
+                    margin-left: 0px !important;
+                    border-radius: 5px;
                 }
+
                 .branch-item-wrapper {
-                    height: 35px;
+                    height: 9.8%;
                     width: 100%;
                     display: flex;
                     flex-direction: row;
                     border-bottom: 1px solid black;
                     text-align: center;
-                    &:nth-child(odd){
+
+                    &:nth-child(odd) {
                         background-color: gray;
                     }
+
                     div {
                         flex-basis: 50%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
                         &:first-child {
                             border-right: 1px solid black;
                             font-weight: bold;
                         }
                     }
                 }
+
                 .branch-qty-header {
-                    height: 35px;
+                    height: 9.8%;
                     width: 100%;
                     display: flex;
                     flex-direction: row;
                     border-bottom: 1px solid black;
                     text-align: center;
                     font-weight: bolder;
+
                     div {
                         flex-basis: 25%;
-                        border-right: 1px solid black;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        &:not(:last-child) {
+                            border-right: 1px solid black;
+                        }
                     }
+                   
                 }
 
                 .branch-qty-details {
-                    height: 35px;
+                    height: 9.8%;
                     width: 100%;
                     display: flex;
                     flex-direction: row;
                     border-bottom: 1px solid black;
                     text-align: center;
-                    &:nth-child(odd){
+
+                    &:nth-child(odd) {
                         background-color: gray;
                     }
+
                     div {
                         flex-basis: 25%;
-                        border-right: 1px solid black;
+                        height: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        &:not(:last-child) {
+                            border-right: 1px solid black;
+                        }
+                       
                     }
                 }
             }
         }
-    }
 
     .airport-data-div {
         flex-basis: 20%;
 
     }
 
-    
+
 
 }
 
@@ -422,4 +505,9 @@
     display: flex;
     flex-direction: row;
     width: 100%;
+}
+
+.desc {
+    margin-right: 0px;
+    margin-left: 0px;
 }

@@ -26,7 +26,8 @@ import AirtportDetailsPopUp from "../popup/AirtportDetailsPopUp"
 import { getFeatureDetails } from "../../util/commonUtils"
 
 const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown1, airtPortDetailsMap, airportValue, branchSelectedIndex,
-	getFeatureList, airportselectedIndex, onBranchChange }) => {
+	getFeatureList, airportselectedIndex, onBranchChange, branchOption }) => {
+		console.log('rrr', branchSelectedIndex, branchOption)
 	const mapRef = useRef();
 	const [list, setList] = useState(airtPortDetailsMap)
 	const [map, setMap] = useState(null)
@@ -45,11 +46,21 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 	let element
 	let popup
 
-	useEffect(() => {
 
+
+	useEffect(() => {
+		setPCIDetails({
+			pcidetails: [],
+			quantity: []
+		})
+		console.log('airportValue', airportValue)
 		if (airportValue !== 'All' && branchSelectedIndex !== '' && featureList.length > 0) {
 			getFeatureDetails(featureList[branchSelectedIndex].properties, returnPCiDetailsonBranch)
 		}
+		if (airportValue && airportValue !== 'All' && branchSelectedIndex !== '') {
+			setBrnachId(branchOption[branchSelectedIndex]?.properties?.Branch_ID)
+		}
+
 	}, [branchSelectedIndex, featureList])
 
 	const getIconStyle = (feature, zoom = 0) => {
@@ -134,6 +145,7 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 
 	useEffect(() => {
 		if (airportValue) {
+			setBrnachId()
 			if (airportValue !== 'All') {
 				getAirportAPICall(airportValue)
 				removeVectorLayer()
@@ -165,12 +177,12 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 	}, [airtPortDetailsMap])
 
 	const returnPCiDetailsonBranch = (res, feature, pcidetails) => {
-		console.log('feature-->', feature)
 		setPCIDetails({
 			pcidetails: pcidetails,
 			quantity: res,
 			image: feature.Photo,
-			branchid: feature.Branch_ID
+			branchid: feature.Branch_ID,
+			section: feature.Section_ID
 		})
 	}
 
@@ -205,27 +217,26 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 				}
 			})
 		})
-			mapObject.on('singleclick', (e) => {
-				mapObject.forEachFeatureAtPixel(e.pixel, (feature, layer) => {
-					console.log('pppp', feature)
-					getFeatureDetails(feature.values_, returnPCiDetailsonBranch)
-					setBrnachId(feature.values_.Branch_ID)
-					
-				}
-					, {
-						layerFilter: (layerCandidate) => {
-							if (layerCandidate?.get('title') !== 'abc') {
-								setPCIDetails({
-									pcidetails: [],
-									quantity: []
-								})
-							}
-							return layerCandidate.get('title') === 'abc'
+		mapObject.on('singleclick', (e) => {
+			mapObject.forEachFeatureAtPixel(e.pixel, (feature, layer) => {
+				getFeatureDetails(feature.values_, returnPCiDetailsonBranch)
+				setBrnachId(feature.values_.Branch_ID)
+
+			}
+				, {
+					layerFilter: (layerCandidate) => {
+						if (layerCandidate?.get('title') !== 'abc') {
+							setPCIDetails({
+								pcidetails: [],
+								quantity: []
+							})
 						}
+						return layerCandidate.get('title') === 'abc'
 					}
-				)
-			})
-		
+				}
+			)
+		})
+
 
 		popup = new Overlay({
 			element: document.getElementById('popup'),
@@ -268,9 +279,10 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 		setMap(mapObject)
 	}, []);
 
+
+
 	useEffect(() => {
-		console.log('branchId',branchId)
-		branchId!== '' && onBranchChange(branchId)
+		branchId && branchId !== '' && onBranchChange(branchId)
 	}, [branchId])
 
 	const removeVectorLayer = () => {
@@ -402,7 +414,7 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 		}
 	}
 
-	const getPCIColorOnFeature = (pci) => {
+	const getPCIColorOnFeature = (pci, fe) => {
 		if (pci >= 0 && pci <= 10) {
 			return '#000000'
 		} else if (pci >= 11 && pci <= 25) {
@@ -434,8 +446,8 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 										featureProjection: get("EPSG:3857"),
 									}),
 								})}
-								style={FeatureStyles.MultiPolygon(getPCIColorOnFeature(feature.properties.Branch_PCI))} zIndex={2}
-								visible={showLayer}
+								style={FeatureStyles.MultiPolygon(getPCIColorOnFeature(feature.properties.Branch_PCI, feature), branchId === feature.properties.Branch_ID ? 3 : 0)} zIndex={2}
+								visible={showLayer} branchid = {branchId} feature = {feature}
 							/>
 						))}
 						{
@@ -485,7 +497,6 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 							}
 
 						</div>
-						{console.log('ssss', airportName)}
 						{
 							pciDetails?.pcidetails?.length > 0 && pciDetails?.quantity?.length > 0 && (<AirtportDetailsPopUp pciDetails={pciDetails}
 								airportName={airtPortDetailsMap[airportselectedIndex].name} />)

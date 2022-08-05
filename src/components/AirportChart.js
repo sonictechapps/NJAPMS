@@ -16,7 +16,7 @@ import BarChart from './BarChart';
 import Card from '../atomiccomponent/Card';
 import { getFeatureDetails } from '../util/commonUtils'
 
-function AirportChart({ airportDataDetails, airtPortDetails, airportValue, featureList, branchSelectedIndex }) {
+function AirportChart({ airportDataDetails, airtPortDetails, airportValue, featureList, branchSelectedIndex, onBarChartIndexClick }) {
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -46,18 +46,19 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue, featu
   }, [branchSelectedIndex])
 
   const [data, setData] = useState({
-    "labels": [],
-    backgroundColor: '#c54964',
+    "labels": ['Failed', 'Failed', 'Very Good', 'Poor', 'Fair', 'Satisfactory', 'Good'],
     datasets: [
       {
-        label: 'Airports',
+        label: '',
         data: [],
         backgroundColor: [
-          "#ffbb11",
-          "#ecf0f1",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0"
+          '#000000',
+          '#4D0A05',
+          '#EA3223',
+          '#CD70ED',
+          '#FFFD54',
+          '#75F94C',
+          '#225313'
         ],
       }
     ],
@@ -138,22 +139,20 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue, featu
     getdataCall();
   }, [airportValue, featureList]);
 
-
+  const onBarChartClick = (index) => {
+    onBarChartIndexClick(data.labels[index])
+  }
 
   return (
-    <>
+    <div>
       <div className='airport-landing'>
-        <div className='airport-chart-div'>
+        <div className='airport-chart-div'>        
           <Card>
-            <div style={{ backgroundColor: 'black', height: '450px', width: '100%' }}>
-              <BarChart data={data} airportDataDetails={airportDataDetails}
+              <BarChart data={data} airportDataDetails={airportDataDetails} onBarChartClick = {onBarChartClick}
                 airtPortDetails={airtPortDetails} airportValue={airportValue} />
-            </div>
           </Card>
           <Card>
-            <div style={{ backgroundColor: 'black', height: '450px', width: '100%' }}>
               <PieChart data={data} airportValue={airportValue} />
-            </div>
           </Card>
         </div>
 
@@ -165,8 +164,8 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue, featu
       {
         pciDetails?.pcidetails?.length > 0 && pciDetails?.quantity?.length > 0 && (
           <div className='airport-landing'>
-            <div className='airport-details-div'>
-              <Card styles={{ flexBasis: '50%', marginTop: '1px' }}>
+            <div className='airport-chart-desc-div'>
+              <Card>
                 <div className='pci-details-container'>
                   <div className='pci-details-container-inner'>
                     <div className="airport-princenton-header">{`Branch Details`}</div>
@@ -184,7 +183,7 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue, featu
                   </div>
                 </div>
               </Card>
-              <Card styles={{ flexBasis: '50%', marginTop: '1px' }}>
+              <Card>
                 <div className='pci-details-container'>
                   <div className='pci-details-container-inner'>
                     <div className="airport-princenton-header">{`Extrapolated Distress Quantities`}</div>
@@ -194,7 +193,7 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue, featu
                       <div>Quantity</div>
                       <div>Unit</div>
                     </div>
-                    <div style={{maxHeight: '375px', overflowY: 'auto'}}>
+                    <div style={{height: '74%', overflowY: 'auto'}}>
                     {
                       pciDetails.quantity.map((value) => (
                         <div className="branch-qty-details">
@@ -214,7 +213,7 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue, featu
         )
       }
 
-    </>
+    </div>
   );
 }
 

@@ -20,13 +20,15 @@ export default {
       color: "rgba(0, 0, 255)",
     }),
   }),
-  MultiPolygon: (color) => new Style({
-    // stroke: new Stroke({
-    //   color: "red",
-    //   width: 1,
-    // }),
-    fill: new Fill({
-      color: color,
-    }),
-  }),
+  MultiPolygon: (color, strokewidth) => {
+    return new Style({
+      stroke: new Stroke({
+        color: strokewidth === 0 ? 'transparent' : 'red',
+        width: strokewidth,
+      }),
+      fill: new Fill({
+        color: color,
+      }),
+    })
+  },
 };

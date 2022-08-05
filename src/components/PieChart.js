@@ -19,7 +19,7 @@ export function PieChart({data}) {
   }
   
   const data1 = {
-    labels: ['Red', 'orange', 'Yellow', 'Green', 'pink'],
+    labels: ['Failed', 'Failed', 'Very Good', 'Poor', 'Fair', 'Satisfactory', 'Good'],
     datasets: [
       {
         label: '# of Votes',
@@ -40,9 +40,18 @@ export function PieChart({data}) {
           'rgba(75, 192, 192, 1)',
           'rgba(153, 102, 255, 1)'
         ],
-        borderWidth: 1,
+        borderWidth: 0,
       },
     ],
   };
-  return <Pie data={data1}  options={{responsive: true, maintainAspectRatio: false}} />;
+  return <Pie data={data1}  options={{responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: "bottom",
+        labels: {
+          color: 'white'
+        }
+      },
+    }}} />;
 }

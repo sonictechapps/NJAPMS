@@ -197,9 +197,13 @@ const Landing = () => {
         setAirportValue(airportvalue)
     }
     const onBranchChange = (id) => {
-        console.log('vvvv', branchOption.findIndex(branch => branch.name === id))
         setBranchSelectedIndex(branchOption.findIndex(branch => branch.name === id))
     }
+
+    const onBarChartClick = (value) => {
+        setAirportValue(value)
+    }
+
     return (
         <>
             <div className="dropdown-section" ref={dropdoenDivRef}>
@@ -247,12 +251,11 @@ const Landing = () => {
             <section className="landing" style={{ backgroundColor: 'black' }}>
                 <div className="airport-layer">
                     <div className="airport-map">
-                        {console.log('branch-->', branchOption)}
                         <div style={{ position: 'relative', display: `${currentTab === 'map' ? 'block' : 'none'}` }}>
                             <Map zoom={zoom} legend={legend} airportFeatureList={airtPortFeatureDetails}
                                 updateAirportDropDown1={updateAirportDropDown} airtPortDetailsMap={airtPortDetails} featureList={featureList}
                                 airportValue={airportValue} getFeatureList={getFeatureList} branchSelectedIndex={branchSelectedIndex}
-                                airportselectedIndex={airportIndex} onBranchChange={onBranchChange}
+                                airportselectedIndex={airportIndex} onBranchChange={onBranchChange} branchOption= {branchOption}
                             >
                                 <Layers>
                                 </Layers>
@@ -264,7 +267,7 @@ const Landing = () => {
                         </div>
                         <div style={{ position: 'relative', display: `${currentTab === 'data' ? 'block' : 'none'}` }}>
                             {(optionsGroup.length > 0 && airportDataDetails?.keys?.length > 0) && <AirportChart selectedyear={selectedDefaultYear} optionsGroup={optionsGroup} airportDataDetails={airportDataDetails}
-                                airtPortDetails={airtPortDetails} airportValue={airportValue} featureList={featureList} branchSelectedIndex={branchSelectedIndex} />}
+                                airtPortDetails={airtPortDetails} airportValue={airportValue} featureList={featureList} branchSelectedIndex={branchSelectedIndex} onBarChartIndexClick={onBarChartClick} />}
                         </div>
                     </div>
                 </div>

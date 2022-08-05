@@ -2,8 +2,8 @@ import { useContext, useEffect } from "react";
 import MapContext from "../Map/MapContext";
 import OLVectorLayer from "ol/layer/Vector";
 
-const  VectorLayer = ({ source, style, zIndex = 0, visible }) => {
-	const { map } = useContext(MapContext);
+const  VectorLayer = ({ source, style, zIndex = 0, visible, branchid, feature }) => {
+	const { map } = useContext(MapContext)
 	useEffect(() => {
 		if (!map) return;
 
@@ -11,9 +11,13 @@ const  VectorLayer = ({ source, style, zIndex = 0, visible }) => {
 			source,
 			style,
 			title: 'abc',
+			focusFeature: branchid ==  feature?.properties?.Branch_ID,
 			visible,
 		});
-
+		if (branchid ==  feature?.properties?.Branch_ID) {
+			map.removeLayer(vectorLayer);
+			//map.addLayer(vectorLayer);
+		}
 		map.addLayer(vectorLayer);
 		vectorLayer.setZIndex(zIndex);
 
@@ -22,7 +26,7 @@ const  VectorLayer = ({ source, style, zIndex = 0, visible }) => {
 				map.removeLayer(vectorLayer);
 			}
 		};
-	}, [map, visible]);
+	}, [map, visible, branchid]);
 
 	return null;
 };

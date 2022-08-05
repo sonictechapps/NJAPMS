@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
+import ImageThumbnailPortal from '../portals/ImageThumbnailPortal'
 
 const AirtportDetailsPopUp = ({ pciDetails, airportName }) => {
-    console.log('airportName', airportName)
     const [airportDetails, setAirportDetails] = useState(true)
     const [imageDetails, setImageDetails] = useState(false)
     const [airportDetailsList, setAirportDetailsList] = useState(true)
     const branchDetailsRef = useRef(null)
     const brancImagesRef = useRef(null)
-
+    const [showModal, setShowModal] = useState(false)
     useEffect(()=> {
         branchDetailsRef.current.style.display = 'flex'
         brancImagesRef.current.style.display = 'none'
@@ -45,7 +45,7 @@ const AirtportDetailsPopUp = ({ pciDetails, airportName }) => {
         } else {
             return {
                 cursor: 'pointer',
-                backgroundColor: 'black',
+                backgroundColor: '#404040',
                 color: 'white'
             }
         }
@@ -62,27 +62,36 @@ const AirtportDetailsPopUp = ({ pciDetails, airportName }) => {
         } else {
             return {
                 cursor: 'pointer',
-                backgroundColor: 'black',
+                backgroundColor: '#404040',
                 color: 'white'
             }
         }
     }
 
+    const onModalCloseClick = () => {
+        setShowModal(false)
+    }
+
 
     return (
+        <>
         <div className="airport-princenton" style={{ height: pciDetails?.pcidetails?.length > 0 ? '60%' : '0px' }}>
             {
                 pciDetails?.pcidetails?.length > 0 && (
                     <>
                         <div className="airport-princenton-header">{airportName}</div>
-                        <div className="airport-princenton-header">{pciDetails.branchid}</div>
+                        {/* <div className="airport-princenton-branch-header">Branch: {pciDetails.branchid}</div> */}
                         <div className='airport-details-tab'>
-                            <div onClick={(e) => onDetailsClick(e)} style={getDetailsStyle()}>Details</div>
+                            <div onClick={(e) => onDetailsClick(e)} style={getDetailsStyle()}>Branch Details</div>
                             <div onClick={(e) => onImagesClick(e)} style={getImageStyle()}>Image</div>
                         </div>
+                        <div className="airport-princenton-branch-header">{`Branch- ${pciDetails.branchid}, Section- ${pciDetails.section}`}</div>
                         <div className='branch-image-div-holder'>
                             <div className='branch-all-wrapper' ref={branchDetailsRef}>
                                 <div className='branch-details' style={{ flexBasis: airportDetailsList ? '100%' : '0%' }}>
+                                {/* <div className="airport-princenton-distress-header">{`Branch Details`}</div> */}
+                                <img src='images/right_arrow.png' className="right_arrow" onClick={onRightArrowClick}
+                                        style={{ display: airportDetailsList ? 'block' : 'none' }} />
                                     {
                                         pciDetails.pcidetails.map((value, index) => (
                                             <div className="airport-pci-details-list airport-pci-list-value">
@@ -91,14 +100,13 @@ const AirtportDetailsPopUp = ({ pciDetails, airportName }) => {
                                             </div>
                                         ))
                                     }
-                                    <img src='images/right_arrow.png' className="right_arrow" onClick={onRightArrowClick}
-                                        style={{ display: airportDetailsList ? 'block' : 'none' }} />
+                                    
                                 </div>
                                 <div className='distress_quantities' style={{
                                     flexBasis: !airportDetailsList ? '100%' : '0%',
                                     height: !airportDetailsList ? 'fit-content' : '0px'
                                 }}>
-                                    <div className="airport-princenton-header">{`Extrapolated Distress Quantities`}</div>
+                                    <div className="airport-princenton-distress-header">{`Extrapolated Distress Quantities`}</div>
                                     <div className='distress-heading'>
                                         <div>Distress</div>
                                         <div>Severity</div>
@@ -122,9 +130,7 @@ const AirtportDetailsPopUp = ({ pciDetails, airportName }) => {
                                 </div>
                             </div>
                             <div ref={brancImagesRef} style={{height: '100%', width: '100%'}}>
-                               <img src={pciDetails.image} height='200px' width='250px' style={{marginTop: '20px'}}/>
-                            
-
+                               <img src={pciDetails.image} height='200px' width='250px' style={{marginTop: '20px', cursor: 'pointer'}} onClick={() => setShowModal(true)}/>
                             </div>
                         </div>
 
@@ -134,6 +140,8 @@ const AirtportDetailsPopUp = ({ pciDetails, airportName }) => {
 
 
         </div>
+        <ImageThumbnailPortal showModal= {showModal} imagepath={pciDetails.image} onCloseClickHandler ={onModalCloseClick} />
+        </>
     )
 }
 
