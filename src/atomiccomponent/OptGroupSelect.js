@@ -26,6 +26,7 @@ const OptGroupSelect = ({ options, id, defaultOption, selectedRootIndex, selecte
 
     const onItemSelectd = (event, rootIndex, index) => {
         event.stopPropagation()
+        ul = document.querySelector(`#${id}`)
         span = document.querySelector(`#dropdown-placeholder-${id}`)
         span.innerHTML =  appendText + ': ' + options[rootIndex].options[index].name
         ul.classList.toggle('active')

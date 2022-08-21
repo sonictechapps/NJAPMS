@@ -6,7 +6,7 @@ const Card = ({ children, styles }) => {
 
     return (
         <>
-            <div className={`card-container ${isExpand ? 'card-holder-expand' : 'card-holder-collapse'}`} >
+            <div className={`card-container ${isExpand ? 'card-holder-expand' : 'card-holder-collapse'}`} style={styles}>
                 {children}
                 <img src={isExpand? 'images/collapse.png' : 'images/expand.png'} alt='expand-collapse' className='expand-collaps-icon'
                  onClick={() =>  setExpand(!isExpand)}

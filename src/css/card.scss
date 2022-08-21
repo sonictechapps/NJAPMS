@@ -4,15 +4,12 @@
     box-shadow: 4px 4px 4px 4px rgba(253, 251, 251, 0.2);
     position: relative;
     border-radius: 5px;
-    margin-top   : 10px;
     padding      : 10px 20px;
     max-width    : 900px !important;
-    margin-top   : 27px;
     flex-basis: 50%;
     height: 300px;
     transition: all 2s;
     background-color: #333434;
-    margin-left: 20px;
     .home-icon-container {
         height         : 100px;
         width          : 100%;
@@ -39,6 +36,10 @@
 .card-holder-collapse {
     height: 300px !important;
     transition: all 2s;
+    canvas {
+        max-width: 748.5px;
+        
+    }
 }
 
 .expand-collaps-icon {

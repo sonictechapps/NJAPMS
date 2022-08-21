@@ -13,7 +13,7 @@ import { GeoJSON } from "ol/format"
 import { fromLonLat, get, toLonLat, Projection } from "ol/proj"
 import FeatureStyles from '../../Features/Styles'
 import Tile from "ol/layer/Tile"
-import { Zoom } from "ol/control"
+import { FullScreen, Zoom, ZoomSlider } from "ol/control"
 import {
 	DragRotateAndZoom, PinchZoom,
 	defaults as defaultInteractions,
@@ -23,11 +23,11 @@ import { Icon, Style } from 'ol/style'
 import VectorLayerPoint from "../Layer/VectorLayerPoint"
 import BaseMapPortal from "../portals/BaseMapPortal"
 import AirtportDetailsPopUp from "../popup/AirtportDetailsPopUp"
-import { getFeatureDetails } from "../../util/commonUtils"
+import { getFeatureDetails, getPCIColor, getResponse, setResponse } from "../../util/commonUtils"
 
-const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown1, airtPortDetailsMap, airportValue, branchSelectedIndex,
-	getFeatureList, airportselectedIndex, onBranchChange, branchOption }) => {
-		console.log('rrr', branchSelectedIndex, branchOption)
+const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown1, airtPortDetailsMap, airportVal, branchSelectedIndex,
+	getFeatureList, airportselectedIndex, onBranchChange, branchOption, years, selectedDefaultYear, aggregationOption, aggregationIndex,
+	aggregationDetails }) => {
 	const mapRef = useRef();
 	const [list, setList] = useState(airtPortDetailsMap)
 	const [map, setMap] = useState(null)
@@ -38,14 +38,23 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 	const [princentonAirport, setPrincentonAirport] = useState([])
 	const [airportName, setAirportName] = useState('')
 	const [showBaseMap, setShowBaseMap] = useState(false)
+	const [airportValue, setAirportValue] = useState(airportVal)
 	const [pciDetails, setPCIDetails] = useState({
 		pcidetails: [],
 		quantity: []
 	})
 	const [branchId, setBrnachId] = useState('')
+	const [saveFeatureList, setSaveFeatureList] = useState([])
 	let element
+	const [zoom1, setZoom1] = useState(zoom)
 	let popup
 
+	useEffect(() => {
+		setAirportValue(airportVal)
+		if (airportVal === 'All') {
+			setFeatureList([])
+		}
+	}, [airportVal])
 
 
 	useEffect(() => {
@@ -53,25 +62,45 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 			pcidetails: [],
 			quantity: []
 		})
-		console.log('airportValue', airportValue)
-		if (airportValue !== 'All' && branchSelectedIndex !== '' && featureList.length > 0) {
-			getFeatureDetails(featureList[branchSelectedIndex].properties, returnPCiDetailsonBranch)
+		if (airportValue !== 'All' && branchSelectedIndex !== '' && branchSelectedIndex !== 0 && featureList.length > 0) {
+			getFeatureDetails(featureList[branchSelectedIndex - 1].properties, returnPCiDetailsonBranch)
 		}
-		if (airportValue && airportValue !== 'All' && branchSelectedIndex !== '') {
+		if (airportValue && airportValue !== 'All' && branchSelectedIndex !== '' && branchSelectedIndex !== '0') {
 			setBrnachId(branchOption[branchSelectedIndex]?.properties?.Branch_ID)
 		}
+	}, [branchSelectedIndex])
+	useEffect(() => {
+		if (selectedDefaultYear[0] === 1) {
+			if (airportValue && airportValue !== 'All') {
+				const a = JSON.parse(JSON.stringify(featureList))
+				const b = a.map(feature => {
+					feature.properties.Branch_PCI = getBranchPCI(feature.properties.Branch_ID, feature.properties.Branch_PCI)
+					feature.properties.Branch_COST = getBranchCost(feature.properties.Branch_ID)
+					return feature
+				})
+				setFeatureList(b)
+				getFeatureList(b, airportValue)
+				if (branchSelectedIndex !== 0)
+					getFeatureDetails(b[branchSelectedIndex - 1].properties, returnPCiDetailsonBranch)
+			}
+		} else if (selectedDefaultYear[0] === 0) {
+			setFeatureList(saveFeatureList)
+			getFeatureList(saveFeatureList, airportValue)
+			if (branchSelectedIndex !== 0)
+				getFeatureDetails(saveFeatureList[branchSelectedIndex - 1].properties, returnPCiDetailsonBranch)
+		}
 
-	}, [branchSelectedIndex, featureList])
+	}, [selectedDefaultYear, aggregationIndex])
 
 	const getIconStyle = (feature, zoom = 0) => {
 		let iconImg
-		const pciValue = parseInt(feature.overall)
+		const pciValue = parseInt(feature[branchOption[branchSelectedIndex].value])
 		if (pciValue >= 0 && pciValue <= 10) {
 			iconImg = '/images/pci_0_10.png'
 		} else if (pciValue >= 11 && pciValue <= 25) {
 			iconImg = '/images/pci_11_25.png'
 		} else if (pciValue >= 26 && pciValue <= 40) {
-			iconImg = '/images/pci_26_40.png'
+			iconImg = '/images/	pci_26_40.png'
 		} else if (pciValue >= 41 && pciValue <= 55) {
 			iconImg = '/images/pci_41_55.png'
 		} else if (pciValue >= 56 && pciValue <= 70) {
@@ -82,31 +111,10 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 			iconImg = '/images/pci_86_100.png'
 		}
 		const iconStyle = []
-		if (zoom < 13 && featureList.length == 0) {
-			// let airtportName = feature.properties.Name
-			// if (airtportName.includes('- ')) {
-			// 	airtportName = airtportName.split('- ')[1]
-			// }
-			// iconStyle.push(new Style({
-			// 	text: new Text({
-			// 		font: '12px Calibri,sans-serif',
-			// 		text: airtportName,
-			// 		overflow: true,
-			// 		textBaseline: 'top',
-			// 		offsetY: 5,
-			// 		scale: [1.5, 1.5],
-			// 		fill: new Fill({
-			// 			color: '#FF0000',
-			// 		}),
-			// 		stroke: new Stroke({
-			// 			color: '#fff',
-			// 			width: 3,
-			// 		}),
-			// 	})
-			// }))
+		console.log('*********', zoom, featureList)
+		if (zoom < 13 && featureList.length == 0 && !isNaN(pciValue)) {
 			iconStyle.push(new Style({
 				image: new Icon({
-
 					anchor: [24, 48],
 					anchorXUnits: 'pixels',
 					anchorYUnits: 'pixels',
@@ -114,14 +122,8 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 					src: iconImg,
 				})
 			}))
-			//setIconStyle(iconStyle)
-			//setFeatureList([])
 		} else if (zoom >= 13 && featureList.length > 0) {
-			// if (iconStyle.length === 1) {
-			// 	iconStyle.pop()
-			// }
 			iconStyle.pop()
-			//setIconStyle(iconStyle)
 		}
 		return iconStyle
 	}
@@ -146,21 +148,38 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 	useEffect(() => {
 		if (airportValue) {
 			setBrnachId()
-			if (airportValue !== 'All') {
-				getAirportAPICall(airportValue)
+			if (airportValue === 'All') {
+				//getAirportAPICall(airportValue)
+				console.log('llll', airportValue)
 				removeVectorLayer()
-			} else {
-				removeVectorLayer()
-				//setCenter([-8273217.3285074355, 4894920.085748969])
+				setCenter([-8273217.3285074355, 4894920.085748969])
+				//setZoom1(8.3)
 				map.getView().animate({
 					center: [-8273217.3285074355, 4894920.085748969],
-					zoom: 8.4,
+					zoom: 8.3,
 					duration: 2000,
 				})
 			}
+			map.on('moveend', (e) => {
+				var newZoom = map.getView().getZoom();
+				console.log('ff', newZoom)
+				//getAirportDetails(newZoom)
+			});
 		}
 
 	}, [airportValue])
+
+	useEffect(() => {
+		if (airportValue) {
+			setBrnachId()
+			if (airportValue !== 'All') {
+				getAirportAPICall(airportValue)
+				removeVectorLayer()
+			}
+		}
+	}, [aggregationDetails])
+
+
 
 	useEffect(() => {
 		setList(airtPortDetailsMap)
@@ -168,6 +187,7 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 			map.on('singleclick', (e) => {
 				map.forEachFeatureAtPixel(e.pixel, function (feature) {
 					if (feature?.values_?.networkId) {
+						setAirportValue(feature?.values_?.networkId)
 						getAirportAPICall(feature.values_.networkId)
 						removeVectorLayer()
 					}
@@ -190,12 +210,14 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 		let options = {
 			view: new ol.View({ zoom, minZoom: zoom }),
 			layers: [],
-			controls: [new Zoom()],
+			controls: [new FullScreen()],
 			overlays: [],
 			interactions: defaultInteractions().extend([new DragRotateAndZoom(), new PinchZoom()
 			]),
 		}
 		mapObject = new ol.Map(options);
+		mapObject.addControl(new ZoomSlider())
+		//mapObject.controls.push
 		mapObject.setTarget(mapRef.current);
 		const overLayContainerElement = document.querySelector('.overlay-container')
 		const overlayLayer = new ol.Overlay({
@@ -244,9 +266,10 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 		});
 		mapObject.addOverlay(popup)
 		mapObject.on('pointermove', function (evt) {
-			setPrincentonAirport([])
+
 			popup.setPosition(undefined);
 			mapObject.forEachFeatureAtPixel(evt.pixel, function (feature) {
+				setPrincentonAirport([])
 				element = document.getElementById('popup');
 				const airportSpan = document.getElementById('popup-overlay-text-airport1')
 				const pciOverallSpan = document.getElementById('popup-overlay-text-pci-overall1')
@@ -313,38 +336,67 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 	}
 
 	useEffect(() => {
-		if (airportFeatureList.length > 0) {
+		if (airportFeatureList.length > 0 && airportValue === 'All') {
+			console.log('test')
 			getAirportDetails()
-			setCenter([-8273217.3285074355, 4894920.085748969])
+			//setCenter([-8273217.3285074355, 4894920.085748969])
 		}
 
-		if (airportFeatureList.length > 0 && map) {
-			map.on('moveend', (e) => {
-				var newZoom = map.getView().getZoom();
-				getAirportDetails(newZoom)
-			});
-		}
+		// if (airportFeatureList.length > 0 && map) {
+		// 	map.on('moveend', (e) => {
+		// 		var newZoom = map.getView().getZoom();
+		// 		getAirportDetails(newZoom)
+		// 	});
+		// }
 
-	}, [JSON.stringify(airportFeatureList), map])
+	}, [JSON.stringify(airportFeatureList), map, branchSelectedIndex, aggregationIndex, airportValue])
 
 	const getAirportAPICall = (value) => {
+		console.log('shubhajit')
 		let map1 = mapObject || map
 		axios.all([axios.get(`https://services7.arcgis.com/N4ykIOFU2FfLoqPT/ArcGIS/rest/services/N87Prototype/FeatureServer/1/query?outFields=*&spatialRel=esriSpatialRelIntersects&where=Network_ID=%27${value}%27&f=geojson`),
 		axios.get(`https://services7.arcgis.com/N4ykIOFU2FfLoqPT/ArcGIS/rest/services/N87Prototype/FeatureServer/0/query?outFields=*&spatialRel=esriSpatialRelIntersects&where=Network_ID=%27${value}%27&f=geojson`)]
 		).then(axios.spread((...res) => {
-			setFeatureList(res[0].data.features)
-			getFeatureList(res[0].data.features, value)
+			const ab = JSON.parse(JSON.stringify(res[0].data.features))
+			//ab.push(JSON.parse(JSON.stringify(res[0].data.features)))
+			//const ab = 
+			//console.log('call', c === res[0].data.features.toString())
+			setSaveFeatureList(ab)
+			//setResponse(ab)
+			updatefeatureList(res[0].data.features, value)
 			const a = fromLonLat(res[1].data.features[0].geometry.coordinates)
 			map1.getView().animate({
 				center: a,
 				zoom: 15.5,
 				duration: 2000,
 			})
-			updateAirportDropDown1(value)
+			setZoom1(15.5)
+			if (value !== '')
+				updateAirportDropDown1(value)
 		}))
 	}
 
+	const updatefeatureList = (res, val) => {
+		if (selectedDefaultYear[0] === 1) {
+			const a = res.map(feature => {
+				feature.properties.Branch_PCI = getBranchPCI(feature.properties.Branch_ID, feature.properties.Branch_PCI)
+				feature.properties.Branch_COST = getBranchCost(feature.properties.Branch_ID)
+				return feature
+			})
+			const b = JSON.parse(JSON.stringify(a))
+			setFeatureList(b)
+			getFeatureList(b, val)
+		}
+
+		// ab.map(fature => {
+		// 	...feature,
+
+		// })
+
+	}
+
 	const getAirportDetails = (zoomLevel = zoom) => {
+		console.log('cc')
 		setCoordinateList(airportFeatureList.map(featureItem => {
 			const feature = new Feature({
 				geometry: new Point(fromLonLat(toLonLat(featureItem.geometry?.coordinates))),
@@ -359,15 +411,18 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 			feature.setStyle(getIconStyle(featureItem, zoomLevel));
 			return feature
 		}))
+		
 	}
 
-	useEffect(() => {
-		if (!map) return;
-		map.getView().animate({
-			zoom: zoom,
-			duration: 2000,
-		})
-	}, [zoom]);
+	// useEffect(() => {
+	// 	console.log('zoom1', zoom1)
+	// 	if (!map) return;
+	// 	console.log('map')
+	// 	map.getView().animate({
+	// 		zoom: zoom1,
+	// 		duration: 2000,
+	// 	})
+	// }, [zoom1]);
 
 	// center change handler
 	useEffect(() => {
@@ -375,44 +430,7 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 		map.getView().setCenter(center)
 	}, [center])
 
-	const getPCIColor = (pci) => {
-		if (pci.min === '0' && pci.max === '10') {
-			return {
-				color: '#000000',
-				textColor: '#fff'
-			}
-		} else if (pci.min === '11' && pci.max === '25') {
-			return {
-				color: '#4D0A05',
-				textColor: '#fff'
-			}
-		} else if (pci.min === '26' && pci.max === '40') {
-			return {
-				color: '#EA3223',
-				textColor: '#fff'
-			}
-		} else if (pci.min === '41' && pci.max === '55') {
-			return {
-				color: '#CD70ED',
-				textColor: '#fff'
-			}
-		} else if (pci.min === '56' && pci.max === '70') {
-			return {
-				color: '#FFFD54',
-				textColor: '#000'
-			}
-		} else if (pci.min === '71' && pci.max === '85') {
-			return {
-				color: '#75F94C',
-				textColor: '#000'
-			}
-		} else if (pci.min === '86' && pci.max === '100') {
-			return {
-				color: '#225313',
-				textColor: '#fff'
-			}
-		}
-	}
+
 
 	const getPCIColorOnFeature = (pci, fe) => {
 		if (pci >= 0 && pci <= 10) {
@@ -431,6 +449,32 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 			return '#225313'
 		}
 	}
+	//[aggregationOption[aggregationIndex]
+	const getBranchPCI = (branchid, branchpci) => {
+		if (airportValue && aggregationDetails[airportValue][years[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value] && selectedDefaultYear[0] === 1 && Object.keys(aggregationDetails[airportValue][years[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value]).includes(branchid)) {
+			return parseInt(aggregationDetails[airportValue][years[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value][branchid]?.noFunding?.pci)
+		}
+
+		else
+			return branchpci
+	}
+
+	const getBranchCost = (branchid) => {
+		if (airportValue && aggregationDetails[airportValue][years[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value] && selectedDefaultYear[0] === 1 && Object.keys(aggregationDetails[airportValue][years[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value]).includes(branchid))
+			return parseInt(aggregationDetails[airportValue][years[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value][branchid]?.noFunding?.cost)
+	}
+
+	const isBrnchPCI = (branchId) => {
+		//const a = 2
+
+		if (selectedDefaultYear[0] === 0)
+			return true
+		if (aggregationDetails[airportValue][years[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value] && Object.keys(aggregationDetails[airportValue][years[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value]).includes(branchId)) {
+			const pcival = aggregationDetails[airportValue][years[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value][branchId]?.noFunding?.pci
+			return pcival || pcival !== null
+		}
+		return false
+	}
 
 	return (
 		<>
@@ -439,19 +483,29 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 					<div ref={mapRef} className="ol-map">
 						<BaseMapPortal showModal={showBaseMap} onBaseMapchange={onBaseMapchange} />
 						{children}
-						{featureList.length > 0 && featureList.map(feature => (
-							<VectorLayer
-								source={vectorObject({
-									features: new GeoJSON().readFeatures(feature, {
-										featureProjection: get("EPSG:3857"),
-									}),
-								})}
-								style={FeatureStyles.MultiPolygon(getPCIColorOnFeature(feature.properties.Branch_PCI, feature), branchId === feature.properties.Branch_ID ? 3 : 0)} zIndex={2}
-								visible={showLayer} branchid = {branchId} feature = {feature}
-							/>
+						{/* {console.log('aggregationDetails', aggregationDetails && aggregationDetails[airportValue][years[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value])} */}
+						{airportValue && airportValue !== 'All' && featureList.length > 0 && featureList.map(feature => (
+							<>
+								{
+									(aggregationDetails[airportValue] && aggregationDetails[airportValue][years[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value] || selectedDefaultYear[0] === 0) && Object.keys(aggregationDetails).length > 0 && isBrnchPCI(feature.properties.Branch_ID) && (
+
+										<VectorLayer
+											source={vectorObject({
+												features: new GeoJSON().readFeatures(feature, {
+													featureProjection: get("EPSG:3857"),
+												}),
+											})}
+											style={FeatureStyles.MultiPolygon(getPCIColorOnFeature(getBranchPCI(feature.properties.Branch_ID, feature.properties.Branch_PCI), feature), branchId === feature.properties.Branch_ID ? 3 : 0)} zIndex={2}
+											visible={showLayer} branchid={branchId} feature={feature}
+										/>
+
+									)
+								}
+
+							</>
 						))}
 						{
-							coordinateList.length > 0 && (
+							airportValue && airportValue === 'All' && coordinateList.length > 0 && (
 								<VectorLayerPoint
 									source={new vectorObjectForPoint(coordinateList)}
 									visible={true} zIndex={2}
@@ -461,7 +515,7 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 						<img className='basemap-grid' src='images/grid.png' alt='basemap-grid'
 							onClick={() => { setShowBaseMap(true) }}
 						/>
-						<div className="pci-details">
+						<div className="map-pci-details">
 							{
 								legend.map(pci => (
 									<div className="pci-item" style={{ backgroundColor: getPCIColor(pci).color }}>
@@ -498,7 +552,7 @@ const Map = ({ children, zoom, legend, airportFeatureList, updateAirportDropDown
 
 						</div>
 						{
-							pciDetails?.pcidetails?.length > 0 && pciDetails?.quantity?.length > 0 && (<AirtportDetailsPopUp pciDetails={pciDetails}
+							![0, ''].includes(branchSelectedIndex) && pciDetails?.pcidetails?.length > 0 && pciDetails?.quantity?.length > 0 && (<AirtportDetailsPopUp pciDetails={pciDetails}
 								airportName={airtPortDetailsMap[airportselectedIndex].name} />)
 						}
 					</div>

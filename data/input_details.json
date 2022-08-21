@@ -222,27 +222,57 @@
                         "id": "1",
                         "description": "No Funding",
                         "value": "nofunding"
-                    },
-                    {
+                      },
+                      {
                         "id": "2",
-                        "description": "Unlimited",
-                        "value": "unlimited"
-                    },
-                    {
-                        "id": "3",
-                        "description": "Backlog 3 year",
-                        "value": "backlog3year"
-                    },
-                    {
+                        "description": "Unlimited Budget",
+                        "value": "unlimitedBudget"
+                      },
+                      {
+                          "id": "3",
+                          "description": "Unlimited Budget Cumulative ",
+                          "value": "unlimitedBudgetCumulative"
+                      },
+                      {
                         "id": "4",
-                        "description": "Backlog 6 year",
-                        "value": "backlog6year"
-                    },
-                    {
-                        "id": "5",
-                        "description": "Backlog 10 year",
-                        "value": "backlog10year"
-                    }
+                        "description": "Backlog Elimination-3 Year",
+                        "value": "backlogElim3yr"
+                      },
+                      {
+                          "id": "5",
+                          "description": "Backlog Elimination-3 Year Cumulative ",
+                          "value": "backlogElim3yrCumulative"
+                       },
+                      {
+                        "id": "6",
+                        "description": "Backlog Elimination-6 Year ",
+                        "value": "backlogElim6yr"
+                      },
+                      {
+                          "id": "7",
+                          "description": "Backlog Elimination-6 Year Cumulative",
+                          "value": "backlogElim6yrCumulative"
+                      },
+                      {
+                        "id": "8",
+                        "description": "Backlog Elimination-10 Year ",
+                        "value": "backlogElim10yr"
+                      },
+                      {
+                          "id": "9",
+                          "description": "Backlog Elimination-10 Year Cumulative ",
+                          "value": "backlogElim10yrCumulative"
+                      },
+                      {
+                          "id": "10",
+                          "description": "$600k per Year ",
+                          "value": "peryr600k"
+                      },
+                      {
+                            "id": "11",
+                            "description": "$600k per Year Cumulative",
+                            "value": "peryr600KCumulative"
+                      }
                 ]
             }
         }
@@ -444,5 +474,3720 @@
                 ]
             }
         }
-    }
+    },
+    "airport_details": {
+        "found": true,
+        "status": {
+          "code": "200",
+          "description": "OK"
+        },
+        "response": {
+          "body": {
+            "airportdetails": {
+              "26N": {
+                "2017": {
+                  "TW D": {
+                    "nofunding": {
+                      "pci": "80.74",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "80.74",
+                      "cost": "84.12"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "84.12"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "84.12"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "84.12"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "84.12"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "80.74",
+                      "cost": "84.12"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "80.74",
+                      "cost": "84.12"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "80.74",
+                      "cost": "84.12"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW C": {
+                    "nofunding": {
+                      "pci": "81.29",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "81.29",
+                      "cost": "89.09"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "89.09"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "89.09"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "89.09"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "89.09"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "81.29",
+                      "cost": "89.09"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "81.29",
+                      "cost": "89.09"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "81.29",
+                      "cost": "89.09"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Overall": {
+                    "nofunding": {
+                      "pci": "74.00",
+                      "cost": "36628.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "74.00",
+                      "cost": "36628.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "36628.00"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "36628.00"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "36628.00"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "36628.00"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "74.00",
+                      "cost": "36628.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "74.00",
+                      "cost": "36628.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "74.00",
+                      "cost": "36628.00"
+                    },
+                    "peryr600k": {
+                      "pci": "0.00",
+                      "cost": "0.00"
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": "0.00"
+                    }
+                  },
+                  "TW B": {
+                    "nofunding": {
+                      "pci": "70.75",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "70.75",
+                      "cost": "304.01"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "304.01"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "304.01"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "304.01"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "304.01"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "70.75",
+                      "cost": "304.01"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "70.75",
+                      "cost": "304.01"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "70.75",
+                      "cost": "304.01"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW A": {
+                    "nofunding": {
+                      "pci": "83.96",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "83.96",
+                      "cost": "1176.21"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "1176.21"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "1176.21"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "1176.21"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "1176.21"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "83.96",
+                      "cost": "1176.21"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "83.96",
+                      "cost": "1176.21"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "83.96",
+                      "cost": "1176.21"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "RW 6-24": {
+                    "nofunding": {
+                      "pci": "73.50",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "73.50",
+                      "cost": "10554.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "10554.00"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "10554.00"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "10554.00"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "10554.00"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "73.50",
+                      "cost": "10554.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "73.50",
+                      "cost": "10554.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "73.50",
+                      "cost": "10554.00"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Apron": {
+                    "nofunding": {
+                      "pci": "70.19",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "70.19",
+                      "cost": "24345.07"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "24345.07"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "24345.07"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "24345.07"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "24345.07"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "70.19",
+                      "cost": "24345.07"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "70.19",
+                      "cost": "24345.07"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "70.19",
+                      "cost": "24345.07"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW E": {
+                    "nofunding": {
+                      "pci": "80.19",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "80.19",
+                      "cost": "75.70"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "75.70"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "75.70"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "75.70"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "75.70"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "80.19",
+                      "cost": "75.70"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "80.19",
+                      "cost": "75.70"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "80.19",
+                      "cost": "75.70"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  }
+                },
+                "2018": {
+                  "TW D": {
+                    "nofunding": {
+                      "pci": "79.16",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "79.16",
+                      "cost": "116.46"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "200.58"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "200.58"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "200.58"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "200.58"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "79.16",
+                      "cost": "116.46"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "79.16",
+                      "cost": "116.46"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "79.16",
+                      "cost": "116.46"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW C": {
+                    "nofunding": {
+                      "pci": "79.62",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "79.62",
+                      "cost": "117.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "206.09"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "206.09"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "206.09"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "206.09"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "79.62",
+                      "cost": "117.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "79.62",
+                      "cost": "117.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "79.62",
+                      "cost": "117.00"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Overall": {
+                    "nofunding": {
+                      "pci": "72.00",
+                      "cost": "44112.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "72.00",
+                      "cost": "44112.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "80741.00"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "80741.00"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "80741.00"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "80741.00"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "72.00",
+                      "cost": "44112.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "72.00",
+                      "cost": "44112.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "72.00",
+                      "cost": "44112.00"
+                    },
+                    "peryr600k": {
+                      "pci": "0.00",
+                      "cost": "0.00"
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": "0.00"
+                    }
+                  },
+                  "TW B": {
+                    "nofunding": {
+                      "pci": "69.45",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "69.46",
+                      "cost": "349.54"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "653.55"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "653.55"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "653.55"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "653.55"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "69.46",
+                      "cost": "349.54"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "69.46",
+                      "cost": "349.54"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "69.46",
+                      "cost": "349.54"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW A": {
+                    "nofunding": {
+                      "pci": "81.79",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "81.79",
+                      "cost": "1646.32"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "2822.52"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "2822.52"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "2822.52"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "2822.52"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "81.79",
+                      "cost": "1646.32"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "81.79",
+                      "cost": "1646.32"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "81.79",
+                      "cost": "1646.32"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "RW 6-24": {
+                    "nofunding": {
+                      "pci": "71.41",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "71.41",
+                      "cost": "13157.55"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "23711.55"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "23711.55"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "23711.55"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "23711.55"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "71.41",
+                      "cost": "13157.55"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "71.41",
+                      "cost": "13157.55"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "71.41",
+                      "cost": "13157.55"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Apron": {
+                    "nofunding": {
+                      "pci": "68.75",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "68.75",
+                      "cost": "28615.80"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "52960.87"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "52960.87"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "52960.87"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "52960.87"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "68.75",
+                      "cost": "28615.80"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "68.75",
+                      "cost": "28615.80"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "68.75",
+                      "cost": "28615.80"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW E": {
+                    "nofunding": {
+                      "pci": "78.69",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "78.69",
+                      "cost": "109.77"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "185.47"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "185.47"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "185.47"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "185.47"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "78.69",
+                      "cost": "109.77"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "78.69",
+                      "cost": "109.77"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "78.69",
+                      "cost": "109.77"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  }
+                },
+                "2019": {
+                  "TW D": {
+                    "nofunding": {
+                      "pci": "77.80",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "77.80",
+                      "cost": "158.07"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "358.65"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "358.65"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "358.65"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "358.65"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "77.80",
+                      "cost": "158.07"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "77.80",
+                      "cost": "158.07"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "77.80",
+                      "cost": "158.07"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW C": {
+                    "nofunding": {
+                      "pci": "78.20",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "78.20",
+                      "cost": "165.35"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "371.45"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "371.45"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "371.45"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "371.45"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "78.20",
+                      "cost": "165.35"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "78.20",
+                      "cost": "165.35"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "78.20",
+                      "cost": "165.35"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Overall": {
+                    "nofunding": {
+                      "pci": "70.00",
+                      "cost": "372808.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "79.00",
+                      "cost": "372807.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "453548.00"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "453548.00"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "453548.00"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "453548.00"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "79.00",
+                      "cost": "372807.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "79.00",
+                      "cost": "372807.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "79.00",
+                      "cost": "372807.00"
+                    },
+                    "peryr600k": {
+                      "pci": "0.00",
+                      "cost": "0.00"
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": "0.00"
+                    }
+                  },
+                  "TW B": {
+                    "nofunding": {
+                      "pci": "68.12",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "68.13",
+                      "cost": "405.46"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "1059.01"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "1059.01"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "1059.01"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "1059.01"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "68.13",
+                      "cost": "405.46"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "68.13",
+                      "cost": "405.46"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "68.13",
+                      "cost": "405.46"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW A": {
+                    "nofunding": {
+                      "pci": "80.03",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "80.03",
+                      "cost": "2059.07"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "4881.60"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "4881.60"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "4881.60"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "4881.60"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "80.03",
+                      "cost": "2059.07"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "80.03",
+                      "cost": "2059.07"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "80.03",
+                      "cost": "2059.07"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "RW 6-24": {
+                    "nofunding": {
+                      "pci": "69.86",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "100.00",
+                      "cost": "337021.86"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "360733.41"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "360733.41"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "360733.41"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "360733.41"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "100.00",
+                      "cost": "337021.86"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "100.00",
+                      "cost": "337021.86"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "100.00",
+                      "cost": "337021.86"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Apron": {
+                    "nofunding": {
+                      "pci": "67.46",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "67.46",
+                      "cost": "32852.77"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "85813.65"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "85813.65"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "85813.65"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "85813.65"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "67.46",
+                      "cost": "32852.77"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "67.46",
+                      "cost": "32852.77"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "67.46",
+                      "cost": "32852.77"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW E": {
+                    "nofunding": {
+                      "pci": "77.38",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "77.38",
+                      "cost": "144.29"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "329.76"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "329.76"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "329.76"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "329.76"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "77.38",
+                      "cost": "144.29"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "77.38",
+                      "cost": "144.29"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "77.38",
+                      "cost": "144.29"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  }
+                },
+                "2020": {
+                  "TW D": {
+                    "nofunding": {
+                      "pci": "76.57",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "76.57",
+                      "cost": "198.32"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "556.97"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "556.97"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "556.97"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "556.97"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "76.57",
+                      "cost": "198.32"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "76.57",
+                      "cost": "198.32"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "76.57",
+                      "cost": "198.32"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW C": {
+                    "nofunding": {
+                      "pci": "76.94",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "76.93",
+                      "cost": "211.62"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "583.07"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "583.07"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "583.07"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "583.07"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "76.93",
+                      "cost": "211.62"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "76.93",
+                      "cost": "211.62"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "76.93",
+                      "cost": "211.62"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Overall": {
+                    "nofunding": {
+                      "pci": "69.00",
+                      "cost": "415217.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "78.00",
+                      "cost": "41020.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "494567.00"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "494567.00"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "494567.00"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "494567.00"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "78.00",
+                      "cost": "41020.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "78.00",
+                      "cost": "41020.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "78.00",
+                      "cost": "41020.00"
+                    },
+                    "peryr600k": {
+                      "pci": "0.00",
+                      "cost": "0.00"
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": "0.00"
+                    }
+                  },
+                  "TW B": {
+                    "nofunding": {
+                      "pci": "66.78",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "66.78",
+                      "cost": "465.12"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "1524.13"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "1524.13"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "1524.13"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "1524.13"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "66.78",
+                      "cost": "465.12"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "66.78",
+                      "cost": "465.12"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "66.78",
+                      "cost": "465.12"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW A": {
+                    "nofunding": {
+                      "pci": "78.55",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "78.55",
+                      "cost": "3025.08"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "7906.68"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "7906.68"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "7906.68"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "7906.68"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "78.55",
+                      "cost": "3025.08"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "78.55",
+                      "cost": "3025.08"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "78.55",
+                      "cost": "3025.08"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "RW 6-24": {
+                    "nofunding": {
+                      "pci": "68.75",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "97.31",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "360733.41"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "360733.41"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "360733.41"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "360733.41"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "97.31",
+                      "cost": "0.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "97.31",
+                      "cost": "0.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "97.31",
+                      "cost": "0.00"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Apron": {
+                    "nofunding": {
+                      "pci": "66.31",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "66.31",
+                      "cost": "36941.67"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "122755.31"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "122755.31"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "122755.31"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "122755.31"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "66.31",
+                      "cost": "36941.67"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "66.31",
+                      "cost": "36941.67"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "66.31",
+                      "cost": "36941.67"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW E": {
+                    "nofunding": {
+                      "pci": "76.18",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "76.18",
+                      "cost": "178.06"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "507.82"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "507.82"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "507.82"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "507.82"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "76.18",
+                      "cost": "178.06"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "76.18",
+                      "cost": "178.06"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "76.18",
+                      "cost": "178.06"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  }
+                },
+                "2021": {
+                  "TW D": {
+                    "nofunding": {
+                      "pci": "75.40",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "75.40",
+                      "cost": "239.08"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "796.05"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "796.05"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "796.05"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "796.05"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "75.40",
+                      "cost": "239.08"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "75.40",
+                      "cost": "239.08"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "75.40",
+                      "cost": "239.08"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW C": {
+                    "nofunding": {
+                      "pci": "75.76",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "75.75",
+                      "cost": "257.48"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "840.55"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "840.55"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "840.55"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "840.55"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "75.75",
+                      "cost": "257.48"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "75.75",
+                      "cost": "257.48"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "75.75",
+                      "cost": "257.48"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Overall": {
+                    "nofunding": {
+                      "pci": "68.00",
+                      "cost": "451318.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "76.00",
+                      "cost": "46124.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "540691.00"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "540691.00"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "540691.00"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "540691.00"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "76.00",
+                      "cost": "46124.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "76.00",
+                      "cost": "46124.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "76.00",
+                      "cost": "46124.00"
+                    },
+                    "peryr600k": {
+                      "pci": "0.00",
+                      "cost": "0.00"
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": "0.00"
+                    }
+                  },
+                  "TW B": {
+                    "nofunding": {
+                      "pci": "65.44",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "65.44",
+                      "cost": "527.66"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "2051.80"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "2051.80"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "2051.80"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "2051.80"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "65.44",
+                      "cost": "527.66"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "65.44",
+                      "cost": "527.66"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "65.44",
+                      "cost": "527.66"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW A": {
+                    "nofunding": {
+                      "pci": "77.25",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "77.25",
+                      "cost": "3944.60"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "11851.28"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "11851.28"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "11851.28"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "11851.28"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "77.25",
+                      "cost": "3944.60"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "77.25",
+                      "cost": "3944.60"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "77.25",
+                      "cost": "3944.60"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "RW 6-24": {
+                    "nofunding": {
+                      "pci": "67.97",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "93.46",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "360733.41"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "360733.41"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "360733.41"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "360733.41"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "93.46",
+                      "cost": "0.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "93.46",
+                      "cost": "0.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "93.46",
+                      "cost": "0.00"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Apron": {
+                    "nofunding": {
+                      "pci": "65.27",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "65.27",
+                      "cost": "40942.53"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "163697.84"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "163697.84"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "163697.84"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "163697.84"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "65.27",
+                      "cost": "40942.53"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "65.27",
+                      "cost": "40942.53"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "65.27",
+                      "cost": "40942.53"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW E": {
+                    "nofunding": {
+                      "pci": "75.02",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "75.02",
+                      "cost": "212.70"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "720.51"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "720.51"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "720.51"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "720.51"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "75.02",
+                      "cost": "212.70"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "75.02",
+                      "cost": "212.70"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "75.02",
+                      "cost": "212.70"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  }
+                },
+                "2022": {
+                  "TW D": {
+                    "nofunding": {
+                      "pci": "74.25",
+                      "cost": "12.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "74.25",
+                      "cost": "281.49"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "1077.54"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "1077.54"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "1077.54"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "1077.54"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "74.25",
+                      "cost": "281.49"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "74.25",
+                      "cost": "281.49"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "74.25",
+                      "cost": "281.49"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW C": {
+                    "nofunding": {
+                      "pci": "74.61",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "74.60",
+                      "cost": "304.88"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "1145.43"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "1145.43"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "1145.43"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "1145.43"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "74.60",
+                      "cost": "304.88"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "74.60",
+                      "cost": "304.88"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "74.60",
+                      "cost": "304.88"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Overall": {
+                    "nofunding": {
+                      "pci": "67.00",
+                      "cost": "493875.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "74.00",
+                      "cost": "62010.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "602701.00"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "602701.00"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "602701.00"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "602701.00"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "74.00",
+                      "cost": "62010.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "74.00",
+                      "cost": "62010.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "74.00",
+                      "cost": "62010.00"
+                    },
+                    "peryr600k": {
+                      "pci": "0.00",
+                      "cost": "0.00"
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": "0.00"
+                    }
+                  },
+                  "TW B": {
+                    "nofunding": {
+                      "pci": "64.14",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "100.00",
+                      "cost": "11105.43"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "13157.23"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "13157.23"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "13157.23"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "13157.23"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "100.00",
+                      "cost": "11105.43"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "100.00",
+                      "cost": "11105.43"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "100.00",
+                      "cost": "11105.43"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW A": {
+                    "nofunding": {
+                      "pci": "76.06",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "76.06",
+                      "cost": "4844.74"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "16696.02"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "16696.02"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "16696.02"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "16696.02"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "76.06",
+                      "cost": "4844.74"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "76.06",
+                      "cost": "4844.74"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "76.06",
+                      "cost": "4844.74"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "RW 6-24": {
+                    "nofunding": {
+                      "pci": "67.40",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "89.14",
+                      "cost": "363.59"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "361097.00"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "361097.00"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "361097.00"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "361097.00"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "89.14",
+                      "cost": "363.59"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "89.14",
+                      "cost": "363.59"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "89.14",
+                      "cost": "363.59"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Apron": {
+                    "nofunding": {
+                      "pci": "64.33",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "64.33",
+                      "cost": "44860.57"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "208558.41"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "208558.41"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "208558.41"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "208558.41"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "64.33",
+                      "cost": "44860.57"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "64.33",
+                      "cost": "44860.57"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "64.33",
+                      "cost": "44860.57"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW E": {
+                    "nofunding": {
+                      "pci": "73.87",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "73.86",
+                      "cost": "249.29"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "969.81"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "969.81"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "969.81"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "969.81"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "73.86",
+                      "cost": "249.29"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "73.86",
+                      "cost": "249.29"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "73.86",
+                      "cost": "249.29"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  }
+                },
+                "2023": {
+                  "TW D": {
+                    "nofunding": {
+                      "pci": "73.08",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "73.07",
+                      "cost": "327.16"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "1404.71"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "1404.71"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "1404.71"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "1404.71"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "73.07",
+                      "cost": "327.16"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "73.07",
+                      "cost": "327.16"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "73.07",
+                      "cost": "327.16"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW C": {
+                    "nofunding": {
+                      "pci": "73.45",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "73.44",
+                      "cost": "355.22"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "1500.65"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "1500.65"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "1500.65"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "1500.65"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "73.44",
+                      "cost": "355.22"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "73.44",
+                      "cost": "355.22"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "73.44",
+                      "cost": "355.22"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Overall": {
+                    "nofunding": {
+                      "pci": "67.00",
+                      "cost": "525440.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "72.00",
+                      "cost": "57725.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "660426.00"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "660426.00"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "660426.00"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "660426.00"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "72.00",
+                      "cost": "57725.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "72.00",
+                      "cost": "57725.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "72.00",
+                      "cost": "57725.00"
+                    },
+                    "peryr600k": {
+                      "pci": "0.00",
+                      "cost": "0.00"
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": "0.00"
+                    }
+                  },
+                  "TW B": {
+                    "nofunding": {
+                      "pci": "62.90",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "94.44",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "13157.23"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "13157.23"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "13157.23"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "13157.23"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "94.44",
+                      "cost": "0.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "94.44",
+                      "cost": "0.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "94.44",
+                      "cost": "0.00"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW A": {
+                    "nofunding": {
+                      "pci": "74.91",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "74.90",
+                      "cost": "5774.21"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "22470.24"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "22470.24"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "22470.24"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "22470.24"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "74.90",
+                      "cost": "5774.21"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "74.90",
+                      "cost": "5774.21"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "74.90",
+                      "cost": "5774.21"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "RW 6-24": {
+                    "nofunding": {
+                      "pci": "66.93",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "84.80",
+                      "cost": "2266.78"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "363363.78"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "363363.78"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "363363.78"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "363363.78"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "84.80",
+                      "cost": "2266.78"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "84.80",
+                      "cost": "2266.78"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "84.80",
+                      "cost": "2266.78"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Apron": {
+                    "nofunding": {
+                      "pci": "63.48",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "63.48",
+                      "cost": "48712.84"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "257271.25"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "257271.25"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "257271.25"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "257271.25"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "63.48",
+                      "cost": "48712.84"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "63.48",
+                      "cost": "48712.84"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "63.48",
+                      "cost": "48712.84"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW E": {
+                    "nofunding": {
+                      "pci": "72.69",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "72.68",
+                      "cost": "288.40"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "1258.20"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "1258.20"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "1258.20"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "1258.20"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "72.68",
+                      "cost": "288.40"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "72.68",
+                      "cost": "288.40"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "72.68",
+                      "cost": "288.40"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  }
+                },
+                "2024": {
+                  "TW D": {
+                    "nofunding": {
+                      "pci": "71.87",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "71.86",
+                      "cost": "376.34"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "1781.05"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "1781.05"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "1781.05"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "1781.05"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "71.86",
+                      "cost": "376.34"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "71.86",
+                      "cost": "376.34"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "71.86",
+                      "cost": "376.34"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW C": {
+                    "nofunding": {
+                      "pci": "72.25",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "72.24",
+                      "cost": "409.80"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "1910.45"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "1910.45"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "1910.45"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "1910.45"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "72.24",
+                      "cost": "409.80"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "72.24",
+                      "cost": "409.80"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "72.24",
+                      "cost": "409.80"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Overall": {
+                    "nofunding": {
+                      "pci": "66.00",
+                      "cost": "558160.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "70.00",
+                      "cost": "64517.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "724943.00"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "724943.00"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "724943.00"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "724943.00"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "70.00",
+                      "cost": "64517.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "70.00",
+                      "cost": "64517.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "70.00",
+                      "cost": "64517.00"
+                    },
+                    "peryr600k": {
+                      "pci": "0.00",
+                      "cost": "0.00"
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": "0.00"
+                    }
+                  },
+                  "TW B": {
+                    "nofunding": {
+                      "pci": "61.75",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "90.06",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "13157.23"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "13157.23"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "13157.23"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "13157.23"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "90.06",
+                      "cost": "0.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "90.06",
+                      "cost": "0.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "90.06",
+                      "cost": "0.00"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW A": {
+                    "nofunding": {
+                      "pci": "73.75",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "73.75",
+                      "cost": "6748.56"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "29218.79"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "29218.79"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "29218.79"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "29218.79"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "73.75",
+                      "cost": "6748.56"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "73.75",
+                      "cost": "6748.56"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "73.75",
+                      "cost": "6748.56"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "RW 6-24": {
+                    "nofunding": {
+                      "pci": "66.46",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "80.78",
+                      "cost": "4138.93"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "367502.72"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "367502.72"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "367502.72"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "367502.72"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "80.78",
+                      "cost": "4138.93"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "80.78",
+                      "cost": "4138.93"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "80.78",
+                      "cost": "4138.93"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Apron": {
+                    "nofunding": {
+                      "pci": "62.71",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "62.71",
+                      "cost": "52512.18"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "309783.43"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "309783.43"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "309783.43"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "309783.43"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "62.71",
+                      "cost": "52512.18"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "62.71",
+                      "cost": "52512.18"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "62.71",
+                      "cost": "52512.18"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW E": {
+                    "nofunding": {
+                      "pci": "71.46",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "71.45",
+                      "cost": "331.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "1589.21"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "1589.21"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "1589.21"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "1589.21"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "71.45",
+                      "cost": "331.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "71.45",
+                      "cost": "331.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "71.45",
+                      "cost": "331.00"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  }
+                },
+                "2025": {
+                  "TW D": {
+                    "nofunding": {
+                      "pci": "70.61",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "70.60",
+                      "cost": "429.79"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "2210.84"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "2210.84"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "2210.84"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "2210.84"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "70.60",
+                      "cost": "429.79"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "70.60",
+                      "cost": "429.79"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "70.60",
+                      "cost": "429.79"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Overall": {
+                    "nofunding": {
+                      "pci": "65.00",
+                      "cost": "594427.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "69.00",
+                      "cost": "73739.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "798682.00"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "798682.00"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "798682.00"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "798682.00"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "69.00",
+                      "cost": "73739.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "69.00",
+                      "cost": "73739.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "69.00",
+                      "cost": "73739.00"
+                    },
+                    "peryr600k": {
+                      "pci": "0.00",
+                      "cost": "0.00"
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": "0.00"
+                    }
+                  },
+                  "TW C": {
+                    "nofunding": {
+                      "pci": "71.00",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "70.99",
+                      "cost": "469.22"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "2379.67"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "2379.67"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "2379.67"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "2379.67"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "70.99",
+                      "cost": "469.22"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "70.99",
+                      "cost": "469.22"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "70.99",
+                      "cost": "469.22"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW B": {
+                    "nofunding": {
+                      "pci": "60.70",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "86.61",
+                      "cost": "35.38"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "13192.61"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "13192.61"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "13192.61"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "13192.61"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "86.61",
+                      "cost": "35.38"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "86.61",
+                      "cost": "35.38"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "86.61",
+                      "cost": "35.38"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW A": {
+                    "nofunding": {
+                      "pci": "72.56",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "72.56",
+                      "cost": "7805.32"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "37024.11"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "37024.11"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "37024.11"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "37024.11"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "72.56",
+                      "cost": "7805.32"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "72.56",
+                      "cost": "7805.32"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "72.56",
+                      "cost": "7805.32"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "RW 6-24": {
+                    "nofunding": {
+                      "pci": "65.91",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "77.26",
+                      "cost": "8311.79"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "375814.50"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "375814.50"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "375814.50"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "375814.50"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "77.26",
+                      "cost": "8311.79"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "77.26",
+                      "cost": "8311.79"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "77.26",
+                      "cost": "8311.79"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Apron": {
+                    "nofunding": {
+                      "pci": "62.00",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "62.00",
+                      "cost": "56310.12"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "366093.55"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "366093.55"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "366093.55"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "366093.55"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "62.00",
+                      "cost": "56310.12"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "62.00",
+                      "cost": "56310.12"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "62.00",
+                      "cost": "56310.12"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW E": {
+                    "nofunding": {
+                      "pci": "70.18",
+                      "cost": "0.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "70.17",
+                      "cost": "377.33"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "1966.53"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "1966.53"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "1966.53"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "1966.53"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "70.17",
+                      "cost": "377.33"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "70.17",
+                      "cost": "377.33"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "70.17",
+                      "cost": "377.33"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  }
+                },
+                "2026": {
+                  "TW D": {
+                    "nofunding": {
+                      "pci": "69.31",
+                      "cost": "495.33"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "69.30",
+                      "cost": "495.81"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "2706.66"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "2706.66"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "2706.66"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "2706.66"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "69.30",
+                      "cost": "495.81"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "69.30",
+                      "cost": "495.81"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "69.30",
+                      "cost": "495.81"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW C": {
+                    "nofunding": {
+                      "pci": "69.71",
+                      "cost": "536.86"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "69.70",
+                      "cost": "537.41"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "2917.08"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "2917.08"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "2917.08"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "2917.08"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "69.70",
+                      "cost": "537.41"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "69.70",
+                      "cost": "537.41"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "69.70",
+                      "cost": "537.41"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Overall": {
+                    "nofunding": {
+                      "pci": "64.00",
+                      "cost": "635972.00"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "67.00",
+                      "cost": "83125.00"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "881807.00"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "881807.00"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "881807.00"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "881807.00"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "67.00",
+                      "cost": "83125.00"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "67.00",
+                      "cost": "83125.00"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "67.00",
+                      "cost": "83125.00"
+                    },
+                    "peryr600k": {
+                      "pci": "0.00",
+                      "cost": "0.00"
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": "0.00"
+                    }
+                  },
+                  "TW B": {
+                    "nofunding": {
+                      "pci": "59.78",
+                      "cost": "15256.53"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "83.89",
+                      "cost": "65.66"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "13258.26"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "13258.26"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "13258.26"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "13258.26"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "83.89",
+                      "cost": "65.66"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "83.89",
+                      "cost": "65.66"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "83.89",
+                      "cost": "65.66"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW A": {
+                    "nofunding": {
+                      "pci": "71.33",
+                      "cost": "8948.28"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "71.33",
+                      "cost": "8948.28"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "45972.39"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "45972.39"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "45972.39"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "45972.39"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "71.33",
+                      "cost": "8948.28"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "71.33",
+                      "cost": "8948.28"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "71.33",
+                      "cost": "8948.28"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "RW 6-24": {
+                    "nofunding": {
+                      "pci": "65.23",
+                      "cost": "550236.33"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "74.36",
+                      "cost": "12579.73"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "388394.23"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "388394.23"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "388394.23"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "388394.23"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "74.36",
+                      "cost": "12579.73"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "74.36",
+                      "cost": "12579.73"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "74.36",
+                      "cost": "12579.73"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "Apron": {
+                    "nofunding": {
+                      "pci": "61.36",
+                      "cost": "60060.13"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "61.36",
+                      "cost": "60060.13"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "426153.67"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "426153.67"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "426153.67"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "426153.67"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "61.36",
+                      "cost": "60060.13"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "61.36",
+                      "cost": "60060.13"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "61.36",
+                      "cost": "60060.13"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  },
+                  "TW E": {
+                    "nofunding": {
+                      "pci": "68.87",
+                      "cost": "438.13"
+                    },
+                    "unlimitedBudget": {
+                      "pci": "68.86",
+                      "cost": "438.49"
+                    },
+                    "unlimitedBudgetCumulative": {
+                      "pci": null,
+                      "cost": "2405.03"
+                    },
+                    "backlogElim3yrCumulative": {
+                      "pci": null,
+                      "cost": "2405.03"
+                    },
+                    "backlogElim6yrCumulative": {
+                      "pci": null,
+                      "cost": "2405.03"
+                    },
+                    "backlogElim10yrCumulative": {
+                      "pci": null,
+                      "cost": "2405.03"
+                    },
+                    "backlogElim3yr": {
+                      "pci": "68.86",
+                      "cost": "438.49"
+                    },
+                    "backlogElim6yr": {
+                      "pci": "68.86",
+                      "cost": "438.49"
+                    },
+                    "backlogElim10yr": {
+                      "pci": "68.86",
+                      "cost": "438.49"
+                    },
+                    "peryr600k": {
+                      "pci": null,
+                      "cost": null
+                    },
+                    "peryr600KCumulative": {
+                      "pci": null,
+                      "cost": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
 }

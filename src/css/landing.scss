@@ -61,9 +61,8 @@
 
     .airport-layer {
         display: flex;
-        flex-direction: row;
-
         padding: 0;
+        width: 100%;
     }
 
     .airport-div {
@@ -102,24 +101,35 @@
 
     .airport-map {
         height: 100%;
-        flex-basis: 100%;
+        width: 100%;
+        min-width: 70vh;
     }
 
 }
 
 
-
 .pci-details {
     background-color: rebeccapurple;
-    width: inherit;
-    opacity: 0.6;
     height: 50px;
     position: absolute;
-    bottom: -2px;
     z-index: 5;
     display: flex;
     flex: 7;
     flex-direction: row;
+    width: 100%;
+}
+
+.map-pci-details {
+    background-color: rebeccapurple;
+    height: 50px;
+    position: absolute;
+    z-index: 5;
+    display: flex;
+    flex: 7;
+    flex-direction: row;
+    width: inherit;
+    opacity: 0.6;
+    bottom: -2px;
 }
 
 
@@ -302,6 +312,9 @@
         }
     }
 }
+.airport-landing-cost {
+    margin-top: 25px;
+}
 
 .airport-landing {
     display: flex;
@@ -322,8 +335,7 @@
             background-color: 'black';
 
             &:first-child {
-                margin-right: 10px;
-                margin-left: 20px;
+                 margin-right: 30px;
             }
 
         }
@@ -334,11 +346,12 @@
         flex-direction: row;
         justify-content: center;
         width: 100%;
-
+        margin-top: 25px;
+        margin-bottom: 65px;
         div {
             flex-basis: 50%;
             background-color: 'black';
-
+            
         }
     }
 
@@ -359,7 +372,6 @@
                     width: 100%;
                     background-color: yellow;
                     color: black;
-                   
                     text-align: center;
                     height: 12%;
                     font-weight: bold;
@@ -377,7 +389,7 @@
                     text-align: center;
 
                     &:nth-child(odd) {
-                        background-color: gray;
+                        background-color: lightgray;
                     }
 
                     div {
@@ -387,7 +399,7 @@
                         align-items: center;
                         justify-content: center;
                         &:first-child {
-                            border-right: 1px solid black;
+                           
                             font-weight: bold;
                         }
                     }
@@ -408,15 +420,20 @@
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        &:not(:last-child) {
-                            border-right: 1px solid black;
-                        }
+                       
                     }
                    
                 }
-
+                .branch-qty-details-cost {
+                    height: 12.8%;
+                    margin-right: 0px !important;
+                }
                 .branch-qty-details {
                     height: 9.8%;
+                }
+
+                .branch-qty-details, .branch-qty-details-cost {
+                    
                     width: 100%;
                     display: flex;
                     flex-direction: row;
@@ -424,7 +441,7 @@
                     text-align: center;
 
                     &:nth-child(odd) {
-                        background-color: gray;
+                        background-color: lightgray;
                     }
 
                     div {
@@ -433,9 +450,7 @@
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        &:not(:last-child) {
-                            border-right: 1px solid black;
-                        }
+                       
                        
                     }
                 }
@@ -511,3 +526,9 @@
     margin-right: 0px;
     margin-left: 0px;
 }
+
+.airport-details-holder {
+    margin-right: 36px;
+    margin-left: 30px;
+}
+

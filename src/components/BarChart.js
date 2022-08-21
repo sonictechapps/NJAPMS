@@ -11,7 +11,8 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
-const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onBarChartClick }) => {
+const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onBarChartClick, chartType,
+  selectedyear, years, branchValue, aggValue }) => {
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -34,7 +35,7 @@ const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onB
   const getPCIDetails = (key) => {
     for (let i = 0; i < airportDataDetails.keys.length; i++) {
       if (airportDataDetails.keys[i] === key) {
-        return airportDataDetails.values[i].overall
+        return airportDataDetails.values[i][branchValue][aggValue].pci
         break
       }
     }
@@ -43,9 +44,9 @@ const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onB
 
   const footer = (tooltipItem, data) => {
     if (airportValue !== 'All') {
-      return 'PCI: ' + tooltipItem.formattedValue;
+      return `${chartType === 'pci' ? 'PCI: ' : 'Cost: '}` + tooltipItem.formattedValue;
     } else {
-      return 'PCI: ' + getPCIDetails(tooltipItem.label);
+      return `${chartType === 'pci' ? 'PCI: ' : 'Cost: '}` + getPCIDetails(tooltipItem.label);
     }
 
   };
@@ -72,10 +73,20 @@ const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onB
             },
             scales: {
               y: {
-                ticks: { color: 'white', beginAtZero: true }
+                ticks: { color: 'white', beginAtZero: true },
+                title: {
+                  display: true,
+                  text: chartType === 'pci' ? 'P C I' : 'Cost',
+                  color: 'white'
+                }
               },
               x: {
-                ticks: { color: 'white', beginAtZero: true }
+                ticks: { color: 'white', beginAtZero: true },
+                title: {
+                  display: true,
+                  text: airportValue !== 'All' ? 'Branch' : 'All Airports',
+                  color: 'white'
+                }
               },
               xAxes: [{
                 display: false,
@@ -105,7 +116,7 @@ const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onB
             },
             plugins: {
               title: {
-                display: true,
+                display: false,
                 text: "All airports Weighted Average PCI for overall(2014)",
                 color: 'white'
               },
@@ -117,6 +128,7 @@ const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onB
 
                 }
               },
+
               tooltip: {
                 callbacks: {
                   title: function (tooltipItem, data) {
@@ -129,7 +141,17 @@ const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onB
                   },
                   label: footer,
                 }
+              },
+              datalabels: {
+                font: {
+                  weight: 'bold'
+                },
+                color: 'white',
+                display: function (context) {
+                  return context.dataset.label !== 'Airports';
+                }
               }
+
             }
 
           }}
