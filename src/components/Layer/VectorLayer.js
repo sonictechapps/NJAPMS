@@ -13,10 +13,6 @@ const  VectorLayer = ({ source, style, zIndex = 0, visible, branchid, feature, b
 				focusFeature: branchid ==  feature?.properties?.Branch_ID,
 				visible,
 			});
-			// if (branchid ==  feature?.properties?.Branch_ID) {
-				
-			// 	//map.addLayer(vectorLayer);
-			// }
 			map.removeLayer(vectorLayer);
 			map.addLayer(vectorLayer);
 			vectorLayer.setZIndex(zIndex);
@@ -28,24 +24,6 @@ const  VectorLayer = ({ source, style, zIndex = 0, visible, branchid, feature, b
 			}
 		};
 	}, [map, visible, feature.properties.Branch_PCI, branchid])
-
-	// useEffect(()=> {
-	// 	if (branchid ===  feature?.properties?.Branch_ID) {
-	// 		let vectorLayer = new OLVectorLayer({
-	// 			source,
-	// 			style,
-	// 			title: 'abc',
-	// 			focusFeature: branchid ==  feature?.properties?.Branch_ID,
-	// 			visible,
-	// 		});
-	// 		map.removeLayer(vectorLayer);
-	// 		console.log('vectorLayer', vectorLayer)
-	// 		map.addLayer(vectorLayer);
-	// 		vectorLayer.setZIndex(zIndex);
-	// 	}
-		
-	// }, [branchid,])
-
 	return null;
 };
 

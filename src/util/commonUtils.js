@@ -39,9 +39,7 @@ export const getFeatureDetails = (feature, fn) => {
     ]
     axios.get(`https://services7.arcgis.com/N4ykIOFU2FfLoqPT/ArcGIS/rest/services/N87Prototype/FeatureServer/42/query?f=json&outFields=*&outSR=102100&spatialRel=esriSpatialRelIntersects&where=SECTION_NAME = '${feature.Section_Name}'`)
 					.then(res => {
-                        console.log('999999', res)
-                        fn(res?.data?.features, feature, pcidetails)
-						
+                        fn(res?.data?.features, feature, pcidetails)						
 					})
 }
 

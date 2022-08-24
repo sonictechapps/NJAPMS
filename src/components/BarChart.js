@@ -20,7 +20,7 @@ const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onB
     PointElement,
     Title,
     Legend
-  );
+  )
 
   const getAirPortName = (key) => {
     for (let airport of airtPortDetails) {
@@ -35,7 +35,8 @@ const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onB
   const getPCIDetails = (key) => {
     for (let i = 0; i < airportDataDetails.keys.length; i++) {
       if (airportDataDetails.keys[i] === key) {
-        return airportDataDetails.values[i][branchValue][aggValue].pci
+        const a = aggValue.toLowerCase()
+        return airportDataDetails.values[i][branchValue][a].pci
         break
       }
     }
@@ -56,12 +57,10 @@ const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onB
       {data !== {} &&
         <Bar
           data={data}
-
           options={{
             ticks: {
               maxTicksLimit: 0
             },
-
             animations: {
               tension: {
                 duration: 1000,

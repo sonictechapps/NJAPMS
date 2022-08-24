@@ -10,7 +10,6 @@ import {
   PointElement,
 } from 'chart.js';
 import { useState, useEffect } from "react"
-import axios from 'axios';
 import { PieChart } from './PieChart';
 import BarChart from './BarChart';
 import Card from '../atomiccomponent/Card';
@@ -18,8 +17,8 @@ import { getFeatureDetails, getPCIColor } from '../util/commonUtils'
 import { constantsDetails } from '../util/constants';
 
 function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
-  featureList, branchSelectedIndex, onBarChartIndexClick, legend, aggregationDetails, selectedyear, years,
-  chartType, branchOption, airtPortFeatureDetails, aggregationOption, aggregationIndex }) {
+  featureList, branchSelectedIndex, onBarChartIndexClick, selectedyear, years,
+  branchOption, aggregationOption, aggregationIndex }) {
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -160,52 +159,27 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
     let costData = []
     let backGroundColor = [];
     if (airportValue === 'All') {
-      airtPortFeatureDetails.forEach(obj => {
+      featureList.forEach(obj => {
         labels.push(obj.properties.Network_ID);
         data.push(obj[branchOption[branchSelectedIndex].value]);
       })
       backGroundColor = setColorArray(data)
-          setData({
-            labels: labels,
-            backgroundColor: 'red',
-            datasets: [
-              {
-                label: 'Airports',
-                data: data,
-                backgroundColor: backGroundColor
-              }
-            ],
-          })
-      // axios.get(`https://airportswebapi.azurewebsites.net/api/ExistingCondition/overall/Greater%20Than/0`)
-      //   .then((res) => {
-      //     res.data.forEach(obj => {
-      //       console.log('obj11', obj)
-      //       labels.push(obj.name);
-      //       data.push(obj.y);
-      //     })
-
-      //     backGroundColor = setColorArray(data)
-      //     setData({
-      //       labels: labels,
-      //       backgroundColor: 'red',
-      //       datasets: [
-      //         {
-      //           label: 'Airports',
-      //           data: data,
-      //           backgroundColor: backGroundColor
-      //         }
-      //       ],
-      //     })
-      //   })
+      setData({
+        labels: labels,
+        backgroundColor: 'red',
+        datasets: [
+          {
+            label: 'Airports',
+            data: data,
+            backgroundColor: backGroundColor
+          }
+        ],
+      })
     } else {
       featureList.length > 0 && featureList.map(feature => {
-        console.log('branchList', branchList)
-        if (Object.keys(branchList).includes(feature.properties.Branch_ID)) {
-          labels.push(feature.properties.Branch_ID);
-          data.push(feature.properties.Branch_PCI.toString());
-          costData.push(feature.properties?.Branch_COST?.toString() || '0')
-        }
-
+        labels.push(feature.properties.Branch_ID);
+        data.push(feature.properties.Branch_PCI.toString());
+        costData.push(feature.properties?.Branch_COST?.toString() || '0')
       })
       setCostArray(costData)
       if (branchSelectedIndex === 0) {
@@ -246,14 +220,7 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
 
   useEffect(() => {
     getdataCall()
-  }, [featureList, airtPortFeatureDetails, branchSelectedIndex]);
-
-  useEffect(() => {
-    if (airportValue !== '' && airportValue !== 'All') {
-      setBranchList(aggregationDetails[airportValue][years[selectedyear[0]].options[selectedyear[1]].value])
-
-    }
-  }, [aggregationDetails])
+  }, [featureList, branchSelectedIndex])
 
   const onBarChartClick = (index) => {
     onBarChartIndexClick(data.labels[index])
@@ -266,18 +233,22 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
           <div className='airport-chart-div'>
             <Card>
               <BarChart data={data} airportDataDetails={airportDataDetails} onBarChartClick={onBarChartClick}
-                airtPortDetails={airtPortDetails} airportValue={airportValue} chartType='pci' 
-                selectedyear={selectedyear} years={years} branchValue = {branchOption[branchSelectedIndex].value}
-                aggValue = {aggregationOption[aggregationIndex].value}
-                />
+                airtPortDetails={airtPortDetails} airportValue={airportValue} chartType='pci'
+                selectedyear={selectedyear} years={years} branchValue={branchOption[branchSelectedIndex].value}
+                aggValue={aggregationOption[aggregationIndex].value}
+              />
             </Card>
-            <Card>
-              <PieChart data={data} airportValue={airportValue} />
-            </Card>
+            {
+              (airportValue === 'All' || (airportValue !== 'All' && branchSelectedIndex === 0)) &&
+              <Card>
+                <PieChart data={data} airportValue={airportValue} />
+              </Card>
+            }
+
           </div>
         </div>
         {
-          (selectedyear[0] === 1 && airportValue !== 'All' ) && (
+          (selectedyear[0] === 1 && airportValue !== 'All') && (
             <div className='airport-landing airport-landing-cost'>
               <div className='airport-chart-div'>
                 <Card>
@@ -315,14 +286,6 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
             </div>
           )
         }
-
-
-
-
-        {/* <div className='airport-data-div'>
-        <AirportDataTable selectedyear={selectedyear} optionsGroup={optionsGroup} airportDataDetails={airportDataDetails} />
-      </div> */}
-        {console.log('pcidetils', pciDetails)}
         {
           pciDetails?.pcidetails?.length > 0 && pciDetails?.quantity?.length > 0 && selectedyear[0] === 0 &&
           branchSelectedIndex !== 0 && (

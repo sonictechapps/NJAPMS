@@ -37,16 +37,79 @@ const Landing = () => {
     const [response, setResponse] = useState()
 
     const getAggregationDetails = () => {
-        if (selectedDefaultYear[0] === 1)
+        if (selectedDefaultYear[0] === 1) {
             axios.get(`http://ec2-34-224-86-31.compute-1.amazonaws.com:9001/api/get-airportsummary-details/${airportValue}/${optionsGroup[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value}`).then(res => {
-                setAggregationDetails(res.data.response.body.airportdetails)
+                //setAirtPortFeatureDetails(res.data.response.body.airportdetails)
+                getAirportAPICall(airportValue, res.data.response.body.airportdetails)
             })
+        } else {
+            getAirportAPICall(airportValue)
+        }
+
+    }
+
+    const getAirportAPICall = (value, respose) => {
+        axios.all([axios.get(`https://services7.arcgis.com/N4ykIOFU2FfLoqPT/ArcGIS/rest/services/N87Prototype/FeatureServer/1/query?outFields=*&spatialRel=esriSpatialRelIntersects&where=Network_ID=%27${value}%27&f=geojson`),
+        axios.get(`https://services7.arcgis.com/N4ykIOFU2FfLoqPT/ArcGIS/rest/services/N87Prototype/FeatureServer/0/query?outFields=*&spatialRel=esriSpatialRelIntersects&where=Network_ID=%27${value}%27&f=geojson`)]
+        ).then(axios.spread((...res) => {
+            const ab = JSON.parse(JSON.stringify(res[0].data.features))
+            updatefeatureList(res[0].data.features, value, respose)
+            updateAirportDropDown(value)
+        }))
+    }
+
+    const getBranchPCI = (branchid, branchpci, res) => {
+
+        if (res) {
+            const year = optionsGroup[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value
+            const branchList = res[airportValue][year]
+            if (Object.keys(branchList).includes(branchid))
+                return parseInt(branchList[branchid]?.noFunding?.pci)
+            else {
+                return 1000
+            }
+        }
+
+        else
+            return branchpci
+    }
+
+    const getBranchCost = (branchid, res) => {
+        if (res) {
+            const year = optionsGroup[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value
+            const branchList = res[airportValue][year]
+            if (Object.keys(branchList).includes(branchid))
+                return parseInt(branchList[branchid]?.noFunding?.cost)
+        }
+    }
+
+    const updatefeatureList = (res, val, response) => {
+        const a = res.map(feature => {
+            feature.properties.Branch_PCI = getBranchPCI(feature.properties.Branch_ID, feature.properties.Branch_PCI, response)
+            feature.properties.Branch_COST = getBranchCost(feature.properties.Branch_ID, response)
+            return feature
+        })
+        const c = a.filter(fet => fet.properties.Branch_PCI !== 1000)
+        const b = JSON.parse(JSON.stringify(c))
+        setFeatureList(b)
+        setBranchOption([{
+            "id": "0",
+            "name": "Overall",
+            value: "Overall",
+            description: "Overall"
+        }, ...b?.map(branch => {
+            return {
+                ...branch,
+                name: branch.properties.Branch_ID,
+                value: branch.properties.Branch_ID
+            }
+        })])
+        setBranchSelectedIndex(0)
     }
 
     const getAllDetails = () => {
         axios.all([axios.get('https://services7.arcgis.com/N4ykIOFU2FfLoqPT/arcgis/rest/services/N87Prototype/FeatureServer/0/query?f=pgeojson&geometry=%7B%22spatialReference%22:%7B%22latestWkid%22:3857,%22wkid%22:102100%7D,%22xmin%22:-8766409.899970992,%22ymin%22:4383204.949986987,%22xmax%22:-8140237.764258992,%22ymax%22:5009377.085698988%7D&maxRecordCountFactor=3&outFields=*&outSR=102100&resultType=tile&returnExceededLimitFeatures=false&spatialRel=esriSpatialRelIntersects&where=1=1&geometryType=esriGeometryEnvelope&inSR=102100'),
         axios.get('http://ec2-34-224-86-31.compute-1.amazonaws.com:9001/api/get-input-details'),
-        axios.get('http://localhost:3004/input_pci')
         ]).then(axios.spread((...res) => {
             setResponse(res[0]?.data?.features)
             optionsGroup = []
@@ -75,25 +138,22 @@ const Landing = () => {
                     })
                 }
             }
-
-
-            //setAirtPortFeatureDetails(res[0]?.data?.features)
             setOptionsGroup(optionsGroup)
             setSelectedDefaultYear(getCurrentAssessmentYear())
-
-            setBranchOption(
+            setBranchOption([
                 res[1].data.response.body.branchlist.map(branch => {
                     return {
                         ...branch,
                         name: branch.description
                     }
-                }))
-            setAirportBranchAll(res[1].data.response.body.branchlist.map(branch => {
-                return {
-                    ...branch,
-                    name: branch.description
-                }
-            }))
+                })[0]])
+            setAirportBranchAll([
+                res[1].data.response.body.branchlist.map(branch => {
+                    return {
+                        ...branch,
+                        name: branch.description
+                    }
+                })[0]])
             const value = [{
                 "id": "0",
                 "description": "All Airports",
@@ -109,21 +169,14 @@ const Landing = () => {
                     }
                 })]
             setAirtPortDetails(value)
-            // setAggregationDetails(res[3].data.response.body.airportdetails[res[1].data.response.body.airportlist[0].networkId])
             setAggregationOption(res[1].data.response.body.aggregationlist.map(aggregation => {
                 return {
                     ...aggregation,
                     name: aggregation.description
                 }
             }))
-            //setAirtPortFeatureDetails(res[0]?.data?.features)
             setLegend(res[1].data.response.body.legend)
             setAirportValue(value[0].networkId)
-            getAirportPCIDetails(value[0].networkId, getCurrentAssessmentYear(), res[0]?.data?.features,
-                res[1].data.response.body.aggregationlist[0])
-            // if (res[1].data.response.body.airportlist[0].networkId === 'All') {
-
-            // }
         }))
     }
 
@@ -131,16 +184,15 @@ const Landing = () => {
         getAllDetails()
     }, [])
 
-    const getPCIDeetailsOnAggregation = (airportPCIDetails, features, airportPciKeys, isFuture, aggregationValue) => {
+    const getPCIDetailsOnAggregation = (airportPciKeys, isFuture, airportPCIDetails) => {
         let newFeature
-        if (features.length > 0) {
-            console.log('features-->', features)
-            newFeature = features.map(feature => {
+        if (response.length > 0) {
+            newFeature = response.map(feature => {
                 let obj
                 for (let key of airportPciKeys) {
                     if (key === feature.properties.Network_ID) {
-                        let agValue = aggregationValue.value
-                        if (isFuture) {
+                        let agValue = aggregationOption[aggregationIndex].value.toLowerCase()
+                        if (isFuture === 'Y') {
                             obj = {
                                 ...feature,
                                 apron: airportPCIDetails[key]?.apron !== null ?
@@ -172,14 +224,14 @@ const Landing = () => {
                 }
                 return obj
             })
-            setAirtPortFeatureDetails(newFeature)
+            setFeatureList(newFeature)
         }
     }
 
-    const getAirportPCIDetails = (value, selectedYear, features, aggregationValue) => {
+    const getAirportPCIDetails = () => {
         if (airportIndex === 0) {
-            let year = optionsGroup[selectedYear[0]].options[selectedYear[1]].value
-            let isFuture = optionsGroup[selectedYear[0]].options[selectedYear[1]].isFuture ? 'Y' : 'N'
+            let year = optionsGroup[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value
+            let isFuture = optionsGroup[selectedDefaultYear[0]].options[selectedDefaultYear[1]].isFuture ? 'Y' : 'N'
             axios.get(`http://ec2-34-224-86-31.compute-1.amazonaws.com:9001/api/get-pci-details/${year}/${isFuture}`).then(res => {
                 const airportPCIDetails = isFuture === 'Y' ? res.data.response.body.futuredetails :
                     res.data.response.body.currentdetails
@@ -187,30 +239,23 @@ const Landing = () => {
                 const airportPciValues = Object.values(airportPCIDetails)
                 setAirportDataDetails({
                     keys: airportPciKeys,
-                    values: airportPciValues,
-                    res: airportPCIDetails
+                    values: airportPciValues
                 })
-                getPCIDeetailsOnAggregation(airportPCIDetails, features, airportPciKeys, optionsGroup[selectedYear[0]].options[selectedYear[1]].isFuture, aggregationValue)
+                getPCIDetailsOnAggregation(airportPciKeys, isFuture, airportPCIDetails)
             })
         }
     }
     useEffect(() => {
+        setFeatureList([])
         if (selectedDefaultYear.length > 0 && airportValue) {
-            if (airportValue === 'All') {
-                getAirportPCIDetails(airportValue, selectedDefaultYear, response, aggregationOption[aggregationIndex])
-                setZoom(8.3)
+            if (airportValue === 'All' && response?.length > 0) {
+                getAirportPCIDetails()
             }
             else
                 getAggregationDetails()
         }
-       
-    }, [JSON.stringify(selectedDefaultYear), airportValue])
 
-    useEffect(() => {
-        if (airportDataDetails)
-            getPCIDeetailsOnAggregation(airportDataDetails.res, airtPortFeatureDetails, airportDataDetails.keys,
-                optionsGroup[selectedDefaultYear[0]].options[selectedDefaultYear[1]].isFuture, aggregationOption[aggregationIndex])
-    }, [aggregationIndex])
+    }, [JSON.stringify(selectedDefaultYear), airportValue, aggregationIndex])
 
     const onBranchDropDownChange = (index) => {
         setBranchSelectedIndex(index)
@@ -233,8 +278,6 @@ const Landing = () => {
             setBranchSelectedIndex(0)
             return
         }
-        // setBranchSelectedIndex('')
-
     }
 
     const getCurrentAssessmentYear = () => {
@@ -272,34 +315,20 @@ const Landing = () => {
         airtPortDetails.length > 0 && airtPortDetails.some((val, index) => {
             if (val.value === value) {
                 setAirportIndex(index)
+                setAirportValue(value)
             }
         })
     }
 
-
-    const getFeatureList = (value, airportvalue) => {
-        setFeatureList(value)
-        setBranchOption([{
-            "id": "0",
-            "name": "Overall",
-            value: "Overall",
-            description: "Overall"
-        }, ...value?.map(branch => {
-            return {
-                ...branch,
-                name: branch.properties.Branch_ID,
-                value: branch.properties.Branch_ID
-            }
-        })])
-        setBranchSelectedIndex(0)
-        setAirportValue(airportvalue)
-    }
-    const onBranchChange = (id) => {
-        setBranchSelectedIndex(branchOption.findIndex(branch => branch.name === id))
-    }
-
     const onBarChartClick = (value) => {
         setAirportValue(value)
+    }
+
+    const updateBranchId = (branchID) => {
+        const index = branchOption.findIndex(branch => {
+            return branch.value === branchID
+        })
+        setBranchSelectedIndex(index)
     }
 
     return (
@@ -350,14 +379,12 @@ const Landing = () => {
                 <div className="airport-layer">
                     <div className="airport-map">
                         <div style={{ position: 'relative', display: `${currentTab === 'map' ? 'block' : 'none'}` }}>
-                            
-
-                                <Map zoom={zoom} legend={legend} airportFeatureList={airtPortFeatureDetails}
-                                    updateAirportDropDown1={updateAirportDropDown} airtPortDetailsMap={airtPortDetails} featureList={featureList}
-                                    airportVal={airportValue} getFeatureList={getFeatureList} branchSelectedIndex={branchSelectedIndex}
-                                    airportselectedIndex={airportIndex} onBranchChange={onBranchChange} branchOption={branchOption}
+                            {branchOption &&
+                                <Map zoom={zoom} legend={legend} featureList={featureList}
+                                    airportValue={airportValue} branchSelectedIndex={branchSelectedIndex}
+                                    airportselectedIndex={airportIndex} branchOption={branchOption}
                                     years={optionsGroup} selectedDefaultYear={selectedDefaultYear} aggregationOption={aggregationOption}
-                                    aggregationIndex={aggregationIndex} aggregationDetails={aggregationDetails}
+                                    aggregationIndex={aggregationIndex} updateBranchId={updateBranchId} updateAirportDropDown= {updateAirportDropDown}
                                 >
                                     <Layers>
                                     </Layers>
@@ -366,14 +393,13 @@ const Landing = () => {
                                         <ZoomSliderControl />
                                     </Controls>
                                 </Map>
+                            }
 
-                            
 
                         </div>
                         <div style={{ position: 'relative', display: `${currentTab === 'data' ? 'block' : 'none'}`, minHeight: '70vh' }}>
-                            {(optionsGroup.length > 0 && airportDataDetails?.keys?.length > 0 && selectedDefaultYear.length > 0 && airportValue &&
-                                (airportValue === 'All' || (airportValue !== 'All' & Object.keys(aggregationDetails).length > 0))) && <AirportChart selectedyear={selectedDefaultYear} optionsGroup={optionsGroup} airportDataDetails={airportDataDetails}
-                                    airtPortDetails={airtPortDetails} legend={legend} airportValue={airportValue} featureList={featureList} branchSelectedIndex={branchSelectedIndex} onBarChartIndexClick={onBarChartClick}
+                            {airportValue && <AirportChart selectedyear={selectedDefaultYear} optionsGroup={optionsGroup} airportDataDetails={airportDataDetails}
+                                    airtPortDetails={airtPortDetails} airportValue={airportValue} featureList={featureList} branchSelectedIndex={branchSelectedIndex} onBarChartIndexClick={onBarChartClick}
                                     aggregationDetails={aggregationDetails} years={optionsGroup} branchOption={branchOption}
                                     airtPortFeatureDetails={airtPortFeatureDetails} aggregationOption={aggregationOption}
                                     aggregationIndex={aggregationIndex} />}

@@ -32,7 +32,7 @@ const OptionSelect = ({ options, id, selectedIndex, onItemSelectedCallback, sele
             <div id={`dropdown-${id}`} className='dropdown-root'>
                 <div id={`dropdown-div-outer-${id}`} ref={dropDownDivOuter} onClick={(e) => onULClick(e)}>
                     <span className={`dropdown-arrow`} id={`dropdown-placeholder-${id}`}>{selectedIndex !== '' && !isDisabled ?
-                        appendText + ': ' + options[selectedIndex].name : selectText}</span>
+                        appendText + ': ' + options[selectedIndex]?.name : selectText}</span>
                 </div>
             </div>
             {
