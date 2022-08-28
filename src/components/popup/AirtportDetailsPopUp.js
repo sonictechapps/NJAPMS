@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import ImageThumbnailPortal from '../portals/ImageThumbnailPortal'
 
-const AirtportDetailsPopUp = ({ pciDetails, airportName }) => {
+const AirtportDetailsPopUp = ({ pciDetails, airportName, airtPortDetails }) => {
     const [airportDetails, setAirportDetails] = useState(true)
     const [imageDetails, setImageDetails] = useState(false)
     const [airportDetailsList, setAirportDetailsList] = useState(true)
+    const [name, setName]= useState()
     const branchDetailsRef = useRef(null)
     const brancImagesRef = useRef(null)
     const [showModal, setShowModal] = useState(false)
@@ -12,6 +13,11 @@ const AirtportDetailsPopUp = ({ pciDetails, airportName }) => {
         branchDetailsRef.current.style.display = 'flex'
         brancImagesRef.current.style.display = 'none'
     }, [])
+
+    useEffect(()=> {
+        const airtport = airtPortDetails?.find(airport => airport.value === airportName)
+        setName(airtport.name)
+    }, [airportName])
 
     const onDetailsClick = (e) => {
         setAirportDetails(true)
@@ -79,7 +85,7 @@ const AirtportDetailsPopUp = ({ pciDetails, airportName }) => {
             {
                 pciDetails?.pcidetails?.length > 0 && (
                     <>
-                        <div className="airport-princenton-header">{airportName}</div>
+                        <div className="airport-princenton-header">{name}</div>
                         {/* <div className="airport-princenton-branch-header">Branch: {pciDetails.branchid}</div> */}
                         <div className='airport-details-tab'>
                             <div onClick={(e) => onDetailsClick(e)} style={getDetailsStyle()}>Branch Details</div>

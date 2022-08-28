@@ -84,9 +84,10 @@ const Landing = () => {
     }
 
     const updatefeatureList = (res, val, response) => {
-        const a = res.map(feature => {
+        const a = res.map((feature, i) => {
             feature.properties.Branch_PCI = getBranchPCI(feature.properties.Branch_ID, feature.properties.Branch_PCI, response)
             feature.properties.Branch_COST = getBranchCost(feature.properties.Branch_ID, response)
+            feature.properties.index = i
             return feature
         })
         const c = a.filter(fet => fet.properties.Branch_PCI !== 1000)
@@ -382,9 +383,9 @@ const Landing = () => {
                             {branchOption &&
                                 <Map zoom={zoom} legend={legend} featureList={featureList}
                                     airportValue={airportValue} branchSelectedIndex={branchSelectedIndex}
-                                    airportselectedIndex={airportIndex} branchOption={branchOption}
+                                    airportselectedIndex={airportIndex} branchOption={branchOption} airtPortDetails={airtPortDetails} 
                                     years={optionsGroup} selectedDefaultYear={selectedDefaultYear} aggregationOption={aggregationOption}
-                                    aggregationIndex={aggregationIndex} updateBranchId={updateBranchId} updateAirportDropDown= {updateAirportDropDown}
+                                    aggregationIndex={aggregationIndex} updateBranchId={updateBranchId} updateAirportDropDown={updateAirportDropDown}
                                 >
                                     <Layers>
                                     </Layers>
@@ -399,10 +400,10 @@ const Landing = () => {
                         </div>
                         <div style={{ position: 'relative', display: `${currentTab === 'data' ? 'block' : 'none'}`, minHeight: '70vh' }}>
                             {airportValue && <AirportChart selectedyear={selectedDefaultYear} optionsGroup={optionsGroup} airportDataDetails={airportDataDetails}
-                                    airtPortDetails={airtPortDetails} airportValue={airportValue} featureList={featureList} branchSelectedIndex={branchSelectedIndex} onBarChartIndexClick={onBarChartClick}
-                                    aggregationDetails={aggregationDetails} years={optionsGroup} branchOption={branchOption}
-                                    airtPortFeatureDetails={airtPortFeatureDetails} aggregationOption={aggregationOption}
-                                    aggregationIndex={aggregationIndex} />}
+                                airtPortDetails={airtPortDetails} airportValue={airportValue} featureList={featureList} branchSelectedIndex={branchSelectedIndex} onBarChartIndexClick={onBarChartClick}
+                                aggregationDetails={aggregationDetails} years={optionsGroup} branchOption={branchOption}
+                                airtPortFeatureDetails={airtPortFeatureDetails} aggregationOption={aggregationOption}
+                                aggregationIndex={aggregationIndex} />}
                         </div>
                         {
                             currentTab === 'data' && (

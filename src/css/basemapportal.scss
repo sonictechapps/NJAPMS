@@ -15,6 +15,9 @@
 
 .modal-show-basemap {
     display: flex !important;
+    div {
+        z-index: 1000000000;
+    }
 }
 
 .modal-hide {
@@ -74,7 +77,7 @@
         display: grid;
         column-gap: 50px;
         position: relative;
-        z-index: 111;
+        z-index: 10000000000000;
         row-gap: 20px;
         grid-template-columns: auto auto auto;
         padding: 30px;

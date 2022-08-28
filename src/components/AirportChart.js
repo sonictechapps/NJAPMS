@@ -41,7 +41,7 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
 
   useEffect(() => {
     if (branchSelectedIndex !== '' && airportValue !== 'All' && featureList.length > 0) {
-      getFeatureDetails(featureList[branchSelectedIndex].properties, returnPCiDetailsonBranch)
+      getFeatureDetails(featureList[branchSelectedIndex-1].properties, returnPCiDetailsonBranch)
     } else {
       setPCIDetails([])
     }
@@ -271,8 +271,8 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
                             <div className="branch-qty-details-cost">
                               <div>{years[selectedyear[0]].options[selectedyear[1]].value}</div>
                               <div>{branchOption[branchSelectedIndex].name}</div>
-                              <div>{data?.datasets[0]?.data[branchSelectedIndex]}</div>
-                              <div>{costdata?.datasets[0]?.data[branchSelectedIndex]}</div>
+                              <div>{data?.datasets[0]?.data[branchSelectedIndex-1]}</div>
+                              <div>{costdata?.datasets[0]?.data[branchSelectedIndex-1]}</div>
                             </div>
                           </div>
                         </div>

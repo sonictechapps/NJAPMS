@@ -26,7 +26,7 @@ import AirtportDetailsPopUp from "../popup/AirtportDetailsPopUp"
 import { getFeatureDetails, getPCIColor, getResponse, setResponse } from "../../util/commonUtils"
 
 const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselectedIndex, branchOption,
-	years, selectedDefaultYear, aggregationOption, aggregationIndex, featureList, updateBranchId,
+	years, selectedDefaultYear, aggregationOption, aggregationIndex, featureList, updateBranchId, airtPortDetails, airportIndex,
 	updateAirportDropDown }) => {
 	const mapRef = useRef();
 	const [map, setMap] = useState(null)
@@ -287,7 +287,21 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 			)
 		})
 
-	}, [branchOption])
+	}, [JSON.stringify(branchOption)])
+
+	useEffect(() => {
+		if (airportValue !== 'All' && branchOption.length > 1) {
+			if (branchSelectedIndex !== 0) {
+				getFeatureDetails(branchOption[branchSelectedIndex].properties, returnPCiDetailsonBranch)
+			} else {
+				setPCIDetails({
+					pcidetails: [],
+					quantity: []
+				})
+			}
+		}
+
+	}, [branchSelectedIndex])
 
 	useEffect(() => {
 		if (!map) return;
@@ -384,8 +398,8 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 
 						</div>
 						{
-							![0, ''].includes(branchSelectedIndex) && pciDetails?.pcidetails?.length > 0 && pciDetails?.quantity?.length > 0 && (<AirtportDetailsPopUp pciDetails={pciDetails}
-								airportName={airportValue} />)
+							![''].includes(branchSelectedIndex) && airportValue !== 'All' && pciDetails?.pcidetails?.length > 0 && pciDetails?.quantity?.length > 0 && (<AirtportDetailsPopUp pciDetails={pciDetails}
+								airportName={airportValue} airtPortDetails={airtPortDetails} />)
 						}
 					</div>
 				</MapContext.Provider>

@@ -11,7 +11,7 @@ const  VectorLayer = ({ source, style, zIndex = 0, visible, branchid, feature, b
 				style,
 				title: 'abc',
 				focusFeature: branchid ==  feature?.properties?.Branch_ID,
-				visible,
+				visible
 			});
 			map.removeLayer(vectorLayer);
 			map.addLayer(vectorLayer);
