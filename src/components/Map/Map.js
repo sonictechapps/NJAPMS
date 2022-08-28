@@ -146,9 +146,6 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 				element = document.getElementById('popup');
 				const airportSpan = document.getElementById('popup-overlay-text-airport1')
 				const pciOverallSpan = document.getElementById('popup-overlay-text-pci-overall1')
-				const pciRunwaySpan = document.getElementById('popup-overlay-text-pci-runway1')
-				const pcitaxiWaySpan = document.getElementById('popup-overlay-text-pci-taxiway1')
-				const pciApronSpan = document.getElementById('popup-overlay-text-pci-apron1')
 				if (feature?.values_?.airporttName) {
 					let geometry = feature.getGeometry()
 					let coordinate = geometry.getCoordinates()
@@ -159,9 +156,6 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 						})
 					airportSpan.innerHTML = feature.values_.airporttName
 					pciOverallSpan.innerHTML = `Overall: ${feature.values_.overAll}`
-					pciRunwaySpan.innerHTML = `Runway: ${feature.values_.runway}`
-					pcitaxiWaySpan.innerHTML = `Taxiway: ${feature.values_.taxiway}`
-					pciApronSpan.innerHTML = `Apron: ${feature.values_.apron}`
 					popup.setPosition(coordinate)
 				}
 			}, {
@@ -412,9 +406,6 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 			<div id="popup" className="overlay-container-popup">
 				<span className="popup-overlay-text-airport" id='popup-overlay-text-airport1'></span><br />
 				<span className="popup-overlay-text-pci-overall" id='popup-overlay-text-pci-overall1'></span><br />
-				<span className="popup-overlay-text-pci-apron" id='popup-overlay-text-pci-apron1'></span><br />
-				<span className="popup-overlay-text-pci-runway" id='popup-overlay-text-pci-runway1'></span><br />
-				<span className="popup-overlay-text-pci-taxiway" id='popup-overlay-text-pci-taxiway1'></span><br />
 			</div>
 		</>
 	)
