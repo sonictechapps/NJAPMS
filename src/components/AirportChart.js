@@ -40,7 +40,7 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
   }
 
   useEffect(() => {
-    if (branchSelectedIndex !== '' && airportValue !== 'All' && featureList.length > 0) {
+    if (branchSelectedIndex !== 0 && airportValue !== 'All' && featureList.length > 0) {
       getFeatureDetails(featureList[branchSelectedIndex-1].properties, returnPCiDetailsonBranch)
     } else {
       setPCIDetails([])
