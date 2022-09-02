@@ -140,7 +140,7 @@ const Landing = () => {
                 }
             }
             setOptionsGroup(optionsGroup)
-            setSelectedDefaultYear(getCurrentAssessmentYear())
+            setSelectedDefaultYear([0,(optionsGroup[0].options.length)-1])
             setBranchOption([
                 res[1].data.response.body.branchlist.map(branch => {
                     return {

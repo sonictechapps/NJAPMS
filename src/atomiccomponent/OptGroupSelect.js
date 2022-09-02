@@ -14,9 +14,11 @@ const OptGroupSelect = ({ options, id, defaultOption, selectedRootIndex, selecte
     }, [])
 
     useEffect(() => {
+        const val = selectedRootIndex === 0 ? ' (Inspected)' : ' (Predicted)'
         span = document.querySelector(`#dropdown-placeholder-${id}`)
         if (selectedRootIndex >= 0 && selectedIndex >= 0 && options.length > 0)
-            span.innerHTML = appendText + ': ' + options[selectedRootIndex].options[selectedIndex].name
+            span.innerHTML = appendText + ': ' + options[selectedRootIndex].options[selectedIndex].name + val
+            
     }, [selectedRootIndex, selectedIndex])
 
     const onULClick = (e) => {

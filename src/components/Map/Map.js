@@ -163,7 +163,6 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 					return layerCandidate.get('title') === 'airport'
 				}
 			})
-
 		})
 
 		olms(mapObject, 'https://basemaps-api.arcgis.com/arcgis/rest/services/styles/ArcGIS:DarkGray?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd')
