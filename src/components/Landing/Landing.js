@@ -11,6 +11,7 @@ import Map from "../Map/Map"
 import ToggleButton from "../../atomiccomponent/ToggleButton"
 import AirportChart from "../AirportChart"
 import { getPCIColor } from "../../util/commonUtils"
+import { constantsDetails } from "../../util/constants"
 
 const Landing = () => {
     const dropdoenDivRef = useRef()
@@ -38,7 +39,7 @@ const Landing = () => {
 
     const getAggregationDetails = () => {
         if (selectedDefaultYear[0] === 1) {
-            axios.get(`http://ec2-34-224-86-31.compute-1.amazonaws.com:9001/api/get-airportsummary-details/${airportValue}/${optionsGroup[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value}`).then(res => {
+            axios.get(`${constantsDetails.BASE_URL}api/get-airportsummary-details/${airportValue}/${optionsGroup[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value}`).then(res => {
                 //setAirtPortFeatureDetails(res.data.response.body.airportdetails)
                 getAirportAPICall(airportValue, res.data.response.body.airportdetails)
             })
@@ -77,6 +78,7 @@ const Landing = () => {
     const getBranchCost = (branchid, res) => {
         if (res) {
             const year = optionsGroup[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value
+            const aggVal = aggregationOption[aggregationIndex].value
             const branchList = res[airportValue][year]
             if (Object.keys(branchList).includes(branchid))
                 return parseInt(branchList[branchid]?.noFunding?.cost)
@@ -110,7 +112,7 @@ const Landing = () => {
 
     const getAllDetails = () => { 
         axios.all([axios.get('https://services7.arcgis.com/N4ykIOFU2FfLoqPT/arcgis/rest/services/N87Prototype/FeatureServer/0/query?f=pgeojson&geometry=%7B%22spatialReference%22:%7B%22latestWkid%22:3857,%22wkid%22:102100%7D,%22xmin%22:-8766409.899970992,%22ymin%22:4383204.949986987,%22xmax%22:-8140237.764258992,%22ymax%22:5009377.085698988%7D&maxRecordCountFactor=3&outFields=*&outSR=102100&resultType=tile&returnExceededLimitFeatures=false&spatialRel=esriSpatialRelIntersects&where=1=1&geometryType=esriGeometryEnvelope&inSR=102100'),
-        axios.get('http://ec2-34-224-86-31.compute-1.amazonaws.com:9001/api/get-input-details'),
+        axios.get(`${constantsDetails.BASE_URL}api/get-input-details`),
         ]).then(axios.spread((...res) => {
             setResponse(res[0]?.data?.features)
             optionsGroup = []
@@ -233,7 +235,7 @@ const Landing = () => {
         if (airportIndex === 0) {
             let year = optionsGroup[selectedDefaultYear[0]].options[selectedDefaultYear[1]].value
             let isFuture = optionsGroup[selectedDefaultYear[0]].options[selectedDefaultYear[1]].isFuture ? 'Y' : 'N'
-            axios.get(`http://ec2-34-224-86-31.compute-1.amazonaws.com:9001/api/get-pci-details/${year}/${isFuture}`).then(res => {
+            axios.get(`${constantsDetails.BASE_URL}api/get-pci-details/${year}/${isFuture}`).then(res => {
                 const airportPCIDetails = isFuture === 'Y' ? res.data.response.body.futuredetails :
                     res.data.response.body.currentdetails
                 const airportPciKeys = Object.keys(airportPCIDetails)
@@ -274,6 +276,7 @@ const Landing = () => {
         const value = airtPortDetails[index].value
         setAirportValue(value)
         setAirportIndex(index)
+        setBranchSelectedIndex(0)
         if (index === 0) {
             setBranchOption(isAirportBranchAll)
             setBranchSelectedIndex(0)
@@ -325,7 +328,8 @@ const Landing = () => {
         setAirportValue(value)
     }
 
-    const updateBranchId = (branchID) => {
+    const updateBranchId = (branchID, branchOption) => {
+        setBranchOption(branchOption)
         const index = branchOption.findIndex(branch => {
             return branch.value === branchID
         })

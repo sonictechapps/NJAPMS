@@ -263,7 +263,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 		map && map.on('singleclick', (e) => {
 			map.forEachFeatureAtPixel(e.pixel, (feature, layer) => {
 				getFeatureDetails(feature.values_, returnPCiDetailsonBranch)
-				updateBranchId(feature.values_.Branch_ID)
+				updateBranchId(feature.values_.Branch_ID, layer.values_.branchOption)
 				setBrnachId(feature.values_.Branch_ID)
 			}
 				, {
@@ -339,7 +339,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 										}),
 									})}
 									style={FeatureStyles.MultiPolygon(getPCIColorOnFeature(feature.properties.Branch_PCI), branchId === feature.properties.Branch_ID ? 3 : 0)} zIndex={2}
-									visible={showLayer} branchid={branchId} feature={feature}
+									visible={showLayer} branchid={branchId} feature={feature} branchOption= {branchOption}
 								/>
 							</>
 						))}

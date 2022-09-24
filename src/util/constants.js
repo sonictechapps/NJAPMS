@@ -13,4 +13,5 @@ export const constantsDetails = {
     '56-70_pci_text': '#000',
     '71-85_pci_text': '#000',
     '86-100_pci_text': '#fff',
+    BASE_URL: 'https://njapms-backend-service.azurewebsites.net/'
 }
