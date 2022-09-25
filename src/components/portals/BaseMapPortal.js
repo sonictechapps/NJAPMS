@@ -20,62 +20,62 @@ const BaseMapPortal = ({ showModal, onBaseMapchange }) => {
         {
             name: 'Navigation',
             value: 'ArcGIS:Navigation',
-            image: 'images/navigation.png'
+            image: 'images/navigation.PNG'
         },
         {
             name: 'Topographic',
             value: 'ArcGIS:Topographic',
-            image: 'images/topographic.png'
+            image: 'images/topographic.PNG'
         },
         {
             name: 'Light Gray',
             value: 'ArcGIS:LightGray',
-            image: 'images/lightgray.png'
+            image: 'images/lightgray.PNG'
         },
         {
             name: 'Dark gray',
             value: 'ArcGIS:DarkGray',
-            image: 'images/darkgray.png'
+            image: 'images/darkgray.PNG'
         },
         {
             name: 'Streets Relief',
             value: 'ArcGIS:StreetsRelief',
-            image: 'images/streetrelief.png'
+            image: 'images/streetrelief.PNG'
         },
         {
             name: 'Imagery',
             value: 'ArcGIS:Imagery:Standard',
-            image: 'images/imagery.png'
+            image: 'images/imagery.PNG'
         },
         {
             name: 'ChartedTerritory',
             value: 'ArcGIS:ChartedTerritory',
-            image: 'images/charterdterritory.png'
+            image: 'images/charterdterritory.PNG'
         },
         {
             name: 'ColoredPencil',
             value: 'ArcGIS:ColoredPencil',
-            image: 'images/coloredpencil.png'
+            image: 'images/coloredpencil.PNG'
         },
         {
             name: 'Nova',
             value: 'ArcGIS:Nova',
-            image: 'images/nova.png'
+            image: 'images/nova.PNG'
         },
         {
             name: 'Midcentury',
             value: 'ArcGIS:Midcentury',
-            image: 'images/midcentury.png'
+            image: 'images/midcentury.PNG'
         },
         {
             name: 'OSM',
             value: 'OSM:Standard',
-            image: 'images/standard.png'
+            image: 'images/standard.PNG'
         },
         {
             name: 'OSM:Streets',
             value: 'OSM:Streets',
-            image: 'images/osmstreet.png'
+            image: 'images/osmstreet.PNG'
         },
     ]
 

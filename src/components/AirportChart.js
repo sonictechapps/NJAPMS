@@ -161,8 +161,10 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
     if (airportValue === 'All') {
       featureList.forEach(obj => {
         labels.push(obj.properties.Network_ID);
-        data.push(obj[branchOption[branchSelectedIndex].value]);
+        data.push(obj[branchOption[branchSelectedIndex].value].pci)
+        costData.push(obj[branchOption[branchSelectedIndex].value].cost)
       })
+      setCostArray(costData)
       backGroundColor = setColorArray(data)
       setData({
         labels: labels,
@@ -175,6 +177,19 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
           }
         ],
       })
+      if (selectedyear[0] === 1) {
+        setCostData({
+          labels: labels,
+          backgroundColor: 'red',
+          datasets: [
+            {
+              label: 'Airports',
+              data: costData,
+              backgroundColor: branchSelectedIndex === 0 ? costData.map(cost => '#000080') : setSelectedCostColorArray(costData, labels)
+            }
+          ],
+        })
+      }
     } else {
       featureList.length > 0 && featureList.map(feature => {
         labels.push(feature.properties.Branch_ID);
@@ -248,12 +263,13 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
           </div>
         </div>
         {
-          (selectedyear[0] === 1 && airportValue !== 'All') && (
+          (selectedyear[0] === 1) && (
             <div className='airport-landing airport-landing-cost'>
               <div className='airport-chart-div'>
                 <Card>
                   <BarChart data={costdata} airportDataDetails={airportDataDetails} onBarChartClick={onBarChartClick}
-                    airtPortDetails={airtPortDetails} airportValue={airportValue} chartType='cost' />
+                    airtPortDetails={airtPortDetails} airportValue={airportValue} chartType='cost' 
+                    aggValue={aggregationOption[aggregationIndex].value} branchValue={branchOption[branchSelectedIndex].value} />
                 </Card>
                 {
                   data?.datasets[0]?.data?.length > 0 && costdata?.datasets[0]?.data?.length > 0 && branchSelectedIndex !== 0 && (

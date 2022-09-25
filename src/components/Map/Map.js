@@ -54,7 +54,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 
 	const getIconStyle = (feature, zoom = 0) => {
 		let iconImg
-		const pciValue = parseInt(feature[branchOption[branchSelectedIndex].value])
+		const pciValue = parseInt(feature[branchOption[branchSelectedIndex].value].pci)
 		if (pciValue >= 0 && pciValue <= 10) {
 			iconImg = '/images/pci_0_10.png'
 		} else if (pciValue >= 11 && pciValue <= 25) {
@@ -208,7 +208,8 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 				runway: featureItem.runway,
 				taxiway: featureItem.taxiway
 			})
-			feature.setStyle(getIconStyle(featureItem, zoomLevel));
+			if (airportValue === 'All')
+				feature.setStyle(getIconStyle(featureItem, zoomLevel));
 			return feature
 		}))
 
@@ -339,7 +340,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 										}),
 									})}
 									style={FeatureStyles.MultiPolygon(getPCIColorOnFeature(feature.properties.Branch_PCI), branchId === feature.properties.Branch_ID ? 3 : 0)} zIndex={2}
-									visible={showLayer} branchid={branchId} feature={feature} branchOption= {branchOption}
+									visible={showLayer} branchid={branchId} feature={feature} branchOption={branchOption}
 								/>
 							</>
 						))}

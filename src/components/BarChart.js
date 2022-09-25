@@ -36,7 +36,10 @@ const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onB
     for (let i = 0; i < airportDataDetails.keys.length; i++) {
       if (airportDataDetails.keys[i] === key) {
         const a = aggValue.toLowerCase()
-        return airportDataDetails.values[i][branchValue][a].pci
+        if (chartType === 'pci')
+          return airportDataDetails.values[i][branchValue][a].pci
+        else
+          return airportDataDetails.values[i][branchValue][a].cost
         break
       }
     }
@@ -108,7 +111,7 @@ const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onB
             },
             maintainAspectRatio: false,
             onClick: (event, element) => {
-              if (airportValue === 'All') {
+              if (airportValue === 'All' && chartType === 'pci') {
                 onBarChartClick(element[0].index)
               }
 

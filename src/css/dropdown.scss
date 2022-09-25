@@ -1,12 +1,12 @@
 .dropdown-div-inner {
     transition-property: max-height;
     transition-duration: 1s;
-    max-height: 0px;
+    max-height: 700px;
 
 
     &:hover {
         display: block;
-        max-height: 600px;
+        max-height: 700px;
     }
 
     .dropdown-ul {
@@ -24,7 +24,7 @@
         z-index: 200;
     
         &:hover {
-            max-height: 600px;
+            max-height: 700px;
         }
 
 
@@ -176,7 +176,7 @@
 .dropdown-div-outer {
     position: relative;
     height: 30px;
-    background-color: white;
+    background-color: red;
     border: 1px solid #ccc;
     font-size: 15px;
     border-radius: 5px;

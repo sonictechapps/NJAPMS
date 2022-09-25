@@ -45,16 +45,21 @@ const OptionSelect = ({ options, id, selectedIndex, onItemSelectedCallback, sele
                     </div>
                 )
             }
+            {
+                !isDisabled && (
+                    <div className={`dropdown-div-inner`} id={`dropdown-div-inner-${id}`}>
+                        <ul className={`dropdown-ul`} id={id} >
+                            <li className={'option-list-select'} value='NA'>{selectText}</li>
+                            {
+                                options?.length > 0 && options.map((item, index) => (<li className={'option-list'}
+                                    value={item.value} onClick={(e) => onItemSelectd(e, index)}>{item.name}</li>))
+                            }
+                        </ul>
+                    </div>
+                )
+            }
 
-            <div className={`dropdown-div-inner`} id={`dropdown-div-inner-${id}`}>
-                <ul className={`dropdown-ul`} id={id} >
-                    <li className={'option-list-select'} value='NA'>{selectText}</li>
-                    {
-                        options?.length > 0 && options.map((item, index) => (<li className={'option-list'}
-                            value={item.value} onClick={(e) => onItemSelectd(e, index)}>{item.name}</li>))
-                    }
-                </ul>
-            </div>
+
         </div>
     )
 }
