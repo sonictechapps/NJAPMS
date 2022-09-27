@@ -155,7 +155,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 							setAirportName(feature?.values_?.airporttName)
 						})
 					airportSpan.innerHTML = feature.values_.airporttName
-					pciOverallSpan.innerHTML = `Overall: ${feature.values_.overAll}`
+					pciOverallSpan.innerHTML = `Overall: ${feature.values_.overAll.pci}`
 					popup.setPosition(coordinate)
 				}
 			}, {
