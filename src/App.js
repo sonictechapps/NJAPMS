@@ -1,5 +1,5 @@
 import './App.scss';
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter, Link, Outlet, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import BubbleChart from './components/BubbleChart';
@@ -10,44 +10,24 @@ import Landing from './components/Landing/Landing';
 
 
 function App() {
+  const [headerClick, setHeaderClick] = useState(false)
+  const onHeaderIconClick = () => {
+    setHeaderClick(true)
+  }
+
+  const onResetHeaderClick = () => {
+    setHeaderClick(false)
+  }
   return (
     <div className="App container-fluid main-container" style={{ height: '100vh', backgroundColor: 'black' }} >
-
-
-    {/* <BrowserRouter>
-<nav
-        style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem",
-        }}
-      >
-        <ul>
-          <li>
-            <Link to="/home">Home</Link>
-          </li>
-          <li>
-            <Link to="/barchart">BarChart</Link> 
-          </li>
-          <li>
-            <Link to="/bubblechart">BubbleChart</Link> 
-          </li>
-        </ul>
-      </nav>
-  <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="home" element={<Home />} exact />
-    <Route path="barchart" element={<BarChart />} exact />
-    <Route path="bubblechart" element={<BubbleChart />} exact />
-  </Routes>
-</BrowserRouter> */}
-      < Header />
+      < Header onHeaderIconClick={onHeaderIconClick} />
       <div className='main-body'>
         <div className='body-content'>
-          <Landing />
+          <Landing headerClick={headerClick} onResetHeaderClick={onResetHeaderClick} />
         </div>
       </div>
     </ div>
-      );
+  );
 }
 
-      export default App
+export default App

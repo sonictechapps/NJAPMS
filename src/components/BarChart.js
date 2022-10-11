@@ -78,7 +78,7 @@ const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onB
                 ticks: { color: 'white', beginAtZero: true },
                 title: {
                   display: true,
-                  text: chartType === 'pci' ? 'P C I' : 'Cost',
+                  text: chartType === 'pci' ? 'Weighted Average PCI (%)' : 'Cost (Million $)',
                   color: 'white'
                 }
               },
@@ -86,7 +86,7 @@ const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onB
                 ticks: { color: 'white', beginAtZero: true },
                 title: {
                   display: true,
-                  text: airportValue !== 'All' ? 'Branch' : 'All Airports',
+                  text: airportValue !== 'All' ? 'Branch' : 'Airports',
                   color: 'white'
                 }
               },

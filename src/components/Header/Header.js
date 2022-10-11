@@ -1,12 +1,13 @@
 import React from 'react'
 import '../../css/header.scss'
 
-const Header = () => {
+const Header = ({ onHeaderIconClick }) => {
     return (
         <header>
             <div className='header'>
                 <div className='header-container'>
-                    <div className="logo-section">
+                    {/* <img src='images/banner_amjms.png' height='120px' width='100%' style={{zIndex: '-1'}}></img> */}
+                    <div className="logo-section" onClick={()=>onHeaderIconClick()}>
                         <img className='logo-banner' src='images/njdot_logo.png' alt='logo' />
                         <span className='logo-info'>New Jersey Department of Transportation</span>
                     </div>

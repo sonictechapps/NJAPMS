@@ -13,9 +13,10 @@ import AirportChart from "../AirportChart"
 import { getPCIColor } from "../../util/commonUtils"
 import { constantsDetails } from "../../util/constants"
 
-const Landing = () => {
+const Landing = ({headerClick, onResetHeaderClick}) => {
     const dropdoenDivRef = useRef()
     const [currentTab, setCurrentTab] = useState("map")
+    const [headerIconClick, setHeaderIconClick] = useState(headerClick)
     const [zoom, setZoom] = useState(8.3)
     const [airtPortDetails, setAirtPortDetails] = useState([])
     const [airtPortFeatureDetails, setAirtPortFeatureDetails] = useState([])
@@ -38,6 +39,21 @@ const Landing = () => {
     })
     const [aggregationDetails, setAggregationDetails] = useState({})
     const [response, setResponse] = useState()
+
+    useEffect(()=> {
+        if (headerClick) {
+            setAirportValue(airtPortDetails[0].networkId)
+            setAirportIndex(0)
+            setBranchSelectedIndex(0)
+            setSelectedDefaultYear([0, (optionsGroup[0].options.length) - 1])
+            setCurrentTab('map')
+            setBranchOption(isAirportBranchAll)
+            setAggregationOption(aggregationOptionAll)
+            setAggregationIndex(0)
+           // setHeaderIconClick(false)
+           onResetHeaderClick(false)
+        }
+    }, [headerClick])
 
     const getAggregationDetails = () => {
         if (selectedDefaultYear[0] === 1) {
@@ -434,7 +450,7 @@ const Landing = () => {
                     <div className="airport-map">
                         <div style={{ position: 'relative', display: `${currentTab === 'map' ? 'block' : 'none'}` }}>
                             {branchOption &&
-                                <Map zoom={zoom} legend={legend} featureList={featureList}
+                                <Map zoom={zoom} legend={legend} featureList={featureList} headerClick={headerClick}
                                     airportValue={airportValue} branchSelectedIndex={branchSelectedIndex}
                                     airportselectedIndex={airportIndex} branchOption={branchOption} airtPortDetails={airtPortDetails}
                                     years={optionsGroup} selectedDefaultYear={selectedDefaultYear} aggregationOption={aggregationOption}

@@ -161,8 +161,8 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
     if (airportValue === 'All') {
       featureList.forEach(obj => {
         labels.push(obj.properties.Network_ID);
-        data.push(obj[branchOption[branchSelectedIndex].value].pci)
-        costData.push(obj[branchOption[branchSelectedIndex].value].cost)
+        data.push(obj[branchOption[branchSelectedIndex].value]?.pci)
+        costData.push(obj[branchOption[branchSelectedIndex].value]?.cost)
       })
       setCostArray(costData)
       backGroundColor = setColorArray(data)
