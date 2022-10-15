@@ -25,7 +25,7 @@ import BaseMapPortal from "../portals/BaseMapPortal"
 import AirtportDetailsPopUp from "../popup/AirtportDetailsPopUp"
 import { getFeatureDetails, getPCIColor, getResponse, setResponse } from "../../util/commonUtils"
 
-const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselectedIndex, branchOption,
+const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselectedIndex, branchOption, headerClick,
 	years, selectedDefaultYear, aggregationOption, aggregationIndex, featureList, updateBranchId, airtPortDetails, airportIndex,
 	updateAirportDropDown }) => {
 	const mapRef = useRef();
@@ -99,6 +99,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 	}
 
 	useEffect(() => {
+		document.getElementsByClassName('ol-map')[0].style.width = '100%'
 		let options = {
 			view: new ol.View({ minZoom: zoom }),
 			layers: [],
@@ -108,6 +109,9 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 			]),
 		}
 		mapObject = new ol.Map(options);
+		setTimeout(() => { mapObject.updateSize(); }, 10000);
+		
+		//mapObject.calculateBounds();
 		mapObject.setTarget(mapRef.current);
 
 		const overLayContainerElement = document.querySelector('.overlay-container')
@@ -155,7 +159,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 							setAirportName(feature?.values_?.airporttName)
 						})
 					airportSpan.innerHTML = feature.values_.airporttName
-					pciOverallSpan.innerHTML = `Overall: ${feature.values_.overAll.pci}`
+					pciOverallSpan.innerHTML = `Overall PCI: ${feature.values_.overAll.pci}`
 					popup.setPosition(coordinate)
 				}
 			}, {
@@ -195,6 +199,19 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 			olms(map, `https://basemaps-api.arcgis.com/arcgis/rest/services/styles/${value}?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd`)
 		}
 	}
+
+	useEffect(() => {
+		if (headerClick) {
+			map.getLayers().getArray()
+				.forEach(layer => {
+					if (layer instanceof Tile) {
+						map.removeLayer(layer)
+					}
+
+				})
+			olms(map, `https://basemaps-api.arcgis.com/arcgis/rest/services/styles/ArcGIS:DarkGray?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd`)
+		}
+	}, [headerClick])
 
 	const getAirportDetails = (zoomLevel) => {
 		setCoordinateList(featureList.map(featureItem => {
@@ -369,7 +386,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 							{
 								princentonAirport.length > 0 && (
 									<>
-										<div className="airport-princenton-header">{`${airportName.split('- ')[1]}`}</div>
+										<div className="airport-princenton-header-All">{`${airportName.split('- ')[1]}`}</div>
 										<div className="airport-pci-list">
 											<div>Branch</div>
 											<div>No of Sections</div>

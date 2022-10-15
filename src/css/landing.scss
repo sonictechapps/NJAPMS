@@ -43,11 +43,15 @@
     }
 
     .branch-div-inner {
-        flex-basis: 20%;
+        flex-basis: 15%;
     }
 
 
     .aggregation-div-inner {
+        flex-basis: 20%;
+    }
+
+    .pci-div-inner {
         flex-basis: 20%;
     }
 
@@ -143,7 +147,6 @@
     bottom: 50px;
     right: 0px;
     z-index: 3000;
-    border-radius: 10px;
     overflow: auto;
 
     .branch-all-wrapper {
@@ -217,8 +220,7 @@
         background-color: yellow;
         color: black;
         text-align: center;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        
     }
 
     .airport-princenton-distress-header {
@@ -230,15 +232,29 @@
         text-align: center;
     }
 
-    .airport-princenton-header {
-        max-height: 30px;
+    .airport-princenton-header, .airport-princenton-header-All{
+        max-height: 100px;
+        height: 100px;
         width: 100%;
         font-weight: bold;
         background-color: black;
         color: white;
         text-align: center;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border: 2px solid white;
+        .name {
+            margin-bottom: 0px;
+        }
+        .county {
+            margin-top: 5px;
+            margin-bottom: 0px;
+        }
+        .website {
+            margin-top: 5px;
+        }
+    }
+
+    .airport-princenton-header-All {
+        height: 30px !important;
     }
 
     .airport-princenton-branch-header {

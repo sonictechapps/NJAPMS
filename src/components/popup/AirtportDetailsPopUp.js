@@ -5,7 +5,7 @@ const AirtportDetailsPopUp = ({ pciDetails, airportName, airtPortDetails }) => {
     const [airportDetails, setAirportDetails] = useState(true)
     const [imageDetails, setImageDetails] = useState(false)
     const [airportDetailsList, setAirportDetailsList] = useState(true)
-    const [name, setName]= useState()
+    const [aiPort, setAiPort]= useState()
     const branchDetailsRef = useRef(null)
     const brancImagesRef = useRef(null)
     const [showModal, setShowModal] = useState(false)
@@ -16,7 +16,7 @@ const AirtportDetailsPopUp = ({ pciDetails, airportName, airtPortDetails }) => {
 
     useEffect(()=> {
         const airtport = airtPortDetails?.find(airport => airport.value === airportName)
-        setName(airtport.name)
+        setAiPort(airtport)
     }, [airportName])
 
     const onDetailsClick = (e) => {
@@ -85,7 +85,15 @@ const AirtportDetailsPopUp = ({ pciDetails, airportName, airtPortDetails }) => {
             {
                 pciDetails?.pcidetails?.length > 0 && (
                     <>
-                        <div className="airport-princenton-header">{name}</div>
+                        <div className="airport-princenton-header">
+                            <p className='name'>{aiPort?.name}</p>
+                            <p className='county'>County: {aiPort?.county}</p>
+                            {
+                                aiPort?.website && aiPort?.website !== 'NA' && (
+                                    <a className='website' href={aiPort?.website} target="_blank">{aiPort?.website}</a>
+                                )
+                            }
+                        </div>
                         {/* <div className="airport-princenton-branch-header">Branch: {pciDetails.branchid}</div> */}
                         <div className='airport-details-tab'>
                             <div onClick={(e) => onDetailsClick(e)} style={getDetailsStyle()}>Branch Details</div>

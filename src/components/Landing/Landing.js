@@ -12,16 +12,36 @@ import ToggleButton from "../../atomiccomponent/ToggleButton"
 import AirportChart from "../AirportChart"
 import { getPCIColor } from "../../util/commonUtils"
 import { constantsDetails } from "../../util/constants"
+import OptionEditSelect from "../../atomiccomponent/OptionEditSelect"
 
-const Landing = () => {
+const Landing = ({ headerClick, onResetHeaderClick }) => {
     const dropdoenDivRef = useRef()
     const [currentTab, setCurrentTab] = useState("map")
+    const [headerIconClick, setHeaderIconClick] = useState(headerClick)
     const [zoom, setZoom] = useState(8.3)
     const [airtPortDetails, setAirtPortDetails] = useState([])
     const [airtPortFeatureDetails, setAirtPortFeatureDetails] = useState([])
     let [optionsGroup, setOptionsGroup] = useState([])
     const [branchOption, setBranchOption] = useState()
     const [aggregationOption, setAggregationOption] = useState([])
+    const [pciOption, setPciOption] = useState([{
+        id: '0',
+        name: '>',
+        value: 'gt',
+        filterValue: ''
+    },
+    {
+        id: '1',
+        name: '<',
+        value: 'lt',
+        filterValue: ''
+    },
+    {
+        id: '2',
+        name: '=',
+        value: 'eq',
+        filterValue: ''
+    }])
     const [aggregationOptionAll, setAggregationOptionAll] = useState([])
     const [aggregationOptionAirport, setAggregationOptionAirport] = useState([])
     const [legend, setLegend] = useState([])
@@ -31,13 +51,30 @@ const Landing = () => {
     const [airportIndex, setAirportIndex] = useState(0)
     const [airportValue, setAirportValue] = useState()
     const [featureList, setFeatureList] = useState([])
+    const [featureListNew, setFeatureListNew] = useState([])
     const [branchSelectedIndex, setBranchSelectedIndex] = useState(0)
     const [aggregationIndex, setAggregationIndex] = useState(0)
+    const [pciIndex, setPciIndex] = useState('')
     const [isAirportBranchAll, setAirportBranchAll] = useState({
 
     })
     const [aggregationDetails, setAggregationDetails] = useState({})
     const [response, setResponse] = useState()
+
+    useEffect(() => {
+        if (headerClick) {
+            setAirportValue(airtPortDetails[0].networkId)
+            setAirportIndex(0)
+            setBranchSelectedIndex(0)
+            setSelectedDefaultYear([0, (optionsGroup[0].options.length) - 1])
+            setCurrentTab('map')
+            setBranchOption(isAirportBranchAll)
+            setAggregationOption(aggregationOptionAll)
+            setAggregationIndex(0)
+            // setHeaderIconClick(false)
+            onResetHeaderClick(false)
+        }
+    }, [headerClick])
 
     const getAggregationDetails = () => {
         if (selectedDefaultYear[0] === 1) {
@@ -266,6 +303,7 @@ const Landing = () => {
                 return obj
             })
             setFeatureList(newFeature)
+            setFeatureListNew(newFeature)
         }
     }
 
@@ -385,6 +423,35 @@ const Landing = () => {
         setBranchSelectedIndex(index)
     }
 
+    const onPCIFilter = (pciOptions) => {
+        setPciOption(pciOption.map((item, index) => {
+            return {
+                ...item,
+                filterValue: pciOptions[index]
+            }
+        }))
+        if (pciOptions.every(item => item === '')) {
+            setFeatureList(featureListNew)
+        } else {
+            setFeatureList(featureListNew.filter((feature) => {
+                if (pciOptions[0] !== '' && pciOptions[1] !== '') {
+                    return parseInt(pciOptions[0]) < parseInt(feature?.overall?.pci) && parseInt(pciOptions[1]) > parseInt(feature?.overall?.pci)
+                }
+                if (pciOptions[0] !== '') {
+                    return parseInt(pciOptions[0]) < parseInt(feature?.overall?.pci)
+                }
+                if (pciOptions[1] !== '') {
+                    return parseInt(pciOptions[1]) > parseInt(feature?.overall?.pci)
+                }
+                if (pciOptions[2] !== '') {
+                    return parseInt(pciOptions[2]) === parseInt(feature?.overall?.pci)
+                }
+            }))
+        }
+
+
+    }
+
     return (
         <>
             <div className="dropdown-section" ref={dropdoenDivRef}>
@@ -421,6 +488,14 @@ const Landing = () => {
                         </div>
                     )
                 }
+                {
+                    pciOption.length > 0 && (
+                        <div className="pci-div-inner">
+                            <OptionEditSelect options={pciOption} selectedIndex={pciIndex} id={'select-pci'} onItemSelectedCallback={onPCIFilter}
+                                selectText={'PCI Value'} appendText='PCI Value' isDisabled={airportValue !== 'All'} />
+                        </div>
+                    )
+                }
                 <div className="toggle-div">
                     <ToggleButton toggleoptions={toggleOptions} onToggleValue={onToggleValue} />
                 </div>
@@ -434,7 +509,7 @@ const Landing = () => {
                     <div className="airport-map">
                         <div style={{ position: 'relative', display: `${currentTab === 'map' ? 'block' : 'none'}` }}>
                             {branchOption &&
-                                <Map zoom={zoom} legend={legend} featureList={featureList}
+                                <Map zoom={zoom} legend={legend} featureList={featureList} headerClick={headerClick}
                                     airportValue={airportValue} branchSelectedIndex={branchSelectedIndex}
                                     airportselectedIndex={airportIndex} branchOption={branchOption} airtPortDetails={airtPortDetails}
                                     years={optionsGroup} selectedDefaultYear={selectedDefaultYear} aggregationOption={aggregationOption}
