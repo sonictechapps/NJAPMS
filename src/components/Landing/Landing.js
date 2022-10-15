@@ -365,6 +365,12 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
             setBranchSelectedIndex(0)
             setAggregationOption(aggregationOptionAll)
         } else {
+            setPciOption(pciOption.map((item, index) => {
+                return {
+                    ...item,
+                    filterValue: ''
+                }
+            }))
             setAggregationOption(aggregationOptionAirport)
         }
     }
@@ -492,7 +498,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                     pciOption.length > 0 && (
                         <div className="pci-div-inner">
                             <OptionEditSelect options={pciOption} selectedIndex={pciIndex} id={'select-pci'} onItemSelectedCallback={onPCIFilter}
-                                selectText={'PCI Value'} appendText='PCI Value' isDisabled={airportValue !== 'All'} />
+                                selectText={'PCI Value'} appendText='PCI Value' isDisabled={airportValue !== 'All'} airportValue={airportValue} />
                         </div>
                     )
                 }
