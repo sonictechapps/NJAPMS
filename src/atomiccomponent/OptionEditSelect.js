@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import '../css/dropdown.scss'
 
-const OptionEditSelect = ({ options, id, selectedIndex, selectText, appendText, onItemSelectedCallback, isDisabled }) => {
+const OptionEditSelect = ({ options, id, selectedIndex, selectText, appendText, onItemSelectedCallback, isDisabled, airportValue }) => {
     let ul, span, dropdownDiv
     const dropDownDivOuter = useRef()
     const [editOptions, setEditOptions] = useState([])
@@ -16,6 +16,12 @@ const OptionEditSelect = ({ options, id, selectedIndex, selectText, appendText, 
         })
         setEditOptions(arr)
     }, [])
+
+    useEffect(()=> {
+        if (editOptions.some(item => item.filterValue !== '') && airportValue !== 'All') {
+            setEditOptions(editOptions.map(item => ''))
+        }
+    }, [airportValue])
 
     const onULClick = (e) => {
         ul = document.querySelector(`#${id}`)
@@ -37,8 +43,7 @@ const OptionEditSelect = ({ options, id, selectedIndex, selectText, appendText, 
 
     }
 
-    const getPCIText =  () => {
-       
+    const getPCIText =  () => {  
         if (options[0].filterValue !== '' && options[1].filterValue !== '') {
             return `${options[0].name} ${options[0].filterValue} AND ${options[1].name} ${options[1].filterValue}`
         }

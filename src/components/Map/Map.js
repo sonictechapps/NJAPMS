@@ -110,7 +110,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 		}
 		mapObject = new ol.Map(options);
 		setTimeout(() => { mapObject.updateSize(); }, 10000);
-		
+
 		//mapObject.calculateBounds();
 		mapObject.setTarget(mapRef.current);
 
@@ -156,7 +156,11 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 					axios.get(`https://services7.arcgis.com/N4ykIOFU2FfLoqPT/ArcGIS/rest/services/N87Prototype/FeatureServer/1/query?outFields=*&spatialRel=esriSpatialRelIntersects&where=Network_ID=%27${feature.values_.networkId}%27&f=geojson`)
 						.then(res => {
 							setPrincentonAirport(res.data.features)
-							setAirportName(feature?.values_?.airporttName)
+							setAirportName({
+								airportname: feature?.values_?.airporttName,
+								county: feature?.values_?.county,
+								website: feature?.values_?.website
+							})
 						})
 					airportSpan.innerHTML = feature.values_.airporttName
 					pciOverallSpan.innerHTML = `Overall PCI: ${feature.values_.overAll.pci}`
@@ -219,6 +223,8 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 				geometry: new Point(fromLonLat(toLonLat(featureItem.geometry?.coordinates))),
 				airporttName: featureItem.properties.Name,
 				networkId: featureItem.properties.Network_ID,
+				county: featureItem.properties.County,
+				website: featureItem.properties.Website,
 				id: featureItem.id,
 				apron: featureItem.apron,
 				overAll: featureItem.overall,
@@ -386,7 +392,15 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 							{
 								princentonAirport.length > 0 && (
 									<>
-										<div className="airport-princenton-header-All">{`${airportName.split('- ')[1]}`}</div>
+										<div className="airport-princenton-header">
+											<p className='name'>{`${airportName?.airportname?.split('- ')[1]}`}</p>
+											<p className='county'>County: {airportName?.county}</p>
+											{
+												airportName?.website && airportName?.website !== 'NA' && (
+													<a className='website' href={airportName?.website} target="_blank">{airportName?.website}</a>
+												)
+											}
+										</div>
 										<div className="airport-pci-list">
 											<div>Branch</div>
 											<div>No of Sections</div>
