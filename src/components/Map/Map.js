@@ -99,6 +99,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 	}
 
 	useEffect(() => {
+		document.getElementsByClassName('ol-map')[0].style.width = '100%'
 		let options = {
 			view: new ol.View({ minZoom: zoom }),
 			layers: [],
@@ -108,6 +109,9 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 			]),
 		}
 		mapObject = new ol.Map(options);
+		setTimeout(() => { mapObject.updateSize(); }, 10000);
+		
+		//mapObject.calculateBounds();
 		mapObject.setTarget(mapRef.current);
 
 		const overLayContainerElement = document.querySelector('.overlay-container')
@@ -196,7 +200,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 		}
 	}
 
-	useEffect(()=>  {
+	useEffect(() => {
 		if (headerClick) {
 			map.getLayers().getArray()
 				.forEach(layer => {
@@ -382,7 +386,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 							{
 								princentonAirport.length > 0 && (
 									<>
-										<div className="airport-princenton-header">{`${airportName.split('- ')[1]}`}</div>
+										<div className="airport-princenton-header-All">{`${airportName.split('- ')[1]}`}</div>
 										<div className="airport-pci-list">
 											<div>Branch</div>
 											<div>No of Sections</div>

@@ -12,8 +12,9 @@ import ToggleButton from "../../atomiccomponent/ToggleButton"
 import AirportChart from "../AirportChart"
 import { getPCIColor } from "../../util/commonUtils"
 import { constantsDetails } from "../../util/constants"
+import OptionEditSelect from "../../atomiccomponent/OptionEditSelect"
 
-const Landing = ({headerClick, onResetHeaderClick}) => {
+const Landing = ({ headerClick, onResetHeaderClick }) => {
     const dropdoenDivRef = useRef()
     const [currentTab, setCurrentTab] = useState("map")
     const [headerIconClick, setHeaderIconClick] = useState(headerClick)
@@ -23,6 +24,24 @@ const Landing = ({headerClick, onResetHeaderClick}) => {
     let [optionsGroup, setOptionsGroup] = useState([])
     const [branchOption, setBranchOption] = useState()
     const [aggregationOption, setAggregationOption] = useState([])
+    const [pciOption, setPciOption] = useState([{
+        id: '0',
+        name: '>',
+        value: 'gt',
+        filterValue: ''
+    },
+    {
+        id: '1',
+        name: '<',
+        value: 'lt',
+        filterValue: ''
+    },
+    {
+        id: '2',
+        name: '=',
+        value: 'eq',
+        filterValue: ''
+    }])
     const [aggregationOptionAll, setAggregationOptionAll] = useState([])
     const [aggregationOptionAirport, setAggregationOptionAirport] = useState([])
     const [legend, setLegend] = useState([])
@@ -32,15 +51,17 @@ const Landing = ({headerClick, onResetHeaderClick}) => {
     const [airportIndex, setAirportIndex] = useState(0)
     const [airportValue, setAirportValue] = useState()
     const [featureList, setFeatureList] = useState([])
+    const [featureListNew, setFeatureListNew] = useState([])
     const [branchSelectedIndex, setBranchSelectedIndex] = useState(0)
     const [aggregationIndex, setAggregationIndex] = useState(0)
+    const [pciIndex, setPciIndex] = useState('')
     const [isAirportBranchAll, setAirportBranchAll] = useState({
 
     })
     const [aggregationDetails, setAggregationDetails] = useState({})
     const [response, setResponse] = useState()
 
-    useEffect(()=> {
+    useEffect(() => {
         if (headerClick) {
             setAirportValue(airtPortDetails[0].networkId)
             setAirportIndex(0)
@@ -50,8 +71,8 @@ const Landing = ({headerClick, onResetHeaderClick}) => {
             setBranchOption(isAirportBranchAll)
             setAggregationOption(aggregationOptionAll)
             setAggregationIndex(0)
-           // setHeaderIconClick(false)
-           onResetHeaderClick(false)
+            // setHeaderIconClick(false)
+            onResetHeaderClick(false)
         }
     }, [headerClick])
 
@@ -282,6 +303,7 @@ const Landing = ({headerClick, onResetHeaderClick}) => {
                 return obj
             })
             setFeatureList(newFeature)
+            setFeatureListNew(newFeature)
         }
     }
 
@@ -401,6 +423,35 @@ const Landing = ({headerClick, onResetHeaderClick}) => {
         setBranchSelectedIndex(index)
     }
 
+    const onPCIFilter = (pciOptions) => {
+        setPciOption(pciOption.map((item, index) => {
+            return {
+                ...item,
+                filterValue: pciOptions[index]
+            }
+        }))
+        if (pciOptions.every(item => item === '')) {
+            setFeatureList(featureListNew)
+        } else {
+            setFeatureList(featureListNew.filter((feature) => {
+                if (pciOptions[0] !== '' && pciOptions[1] !== '') {
+                    return parseInt(pciOptions[0]) < parseInt(feature?.overall?.pci) && parseInt(pciOptions[1]) > parseInt(feature?.overall?.pci)
+                }
+                if (pciOptions[0] !== '') {
+                    return parseInt(pciOptions[0]) < parseInt(feature?.overall?.pci)
+                }
+                if (pciOptions[1] !== '') {
+                    return parseInt(pciOptions[1]) > parseInt(feature?.overall?.pci)
+                }
+                if (pciOptions[2] !== '') {
+                    return parseInt(pciOptions[2]) === parseInt(feature?.overall?.pci)
+                }
+            }))
+        }
+
+
+    }
+
     return (
         <>
             <div className="dropdown-section" ref={dropdoenDivRef}>
@@ -434,6 +485,14 @@ const Landing = ({headerClick, onResetHeaderClick}) => {
                         <div className="aggregation-div-inner">
                             <OptionSelect options={aggregationOption} selectedIndex={aggregationIndex} id={'select-aggregation'} onItemSelectedCallback={onAggregationChange}
                                 selectText={'Select Aggregation'} appendText='Aggregation' isDisabled={selectedDefaultYear[0] === 0} />
+                        </div>
+                    )
+                }
+                {
+                    pciOption.length > 0 && (
+                        <div className="pci-div-inner">
+                            <OptionEditSelect options={pciOption} selectedIndex={pciIndex} id={'select-pci'} onItemSelectedCallback={onPCIFilter}
+                                selectText={'PCI Value'} appendText='PCI Value' isDisabled={airportValue !== 'All'} />
                         </div>
                     )
                 }
