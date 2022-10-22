@@ -47,14 +47,19 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 	let element
 
 	useEffect(() => {
+		if (airportValue === 'All') {
+			getAirportDetails(8.3)
+		}
 		if (airportValue && airportValue !== 'All' && branchSelectedIndex !== '' && branchSelectedIndex !== '0') {
 			setBrnachId(branchOption[branchSelectedIndex]?.properties?.Branch_ID)
+
 		}
 	}, [branchSelectedIndex])
 
 	const getIconStyle = (feature, zoom = 0) => {
+		//console.log('99999', feature, branchOption, branchSelectedIndex, branchOption[branchSelectedIndex], feature[branchOption[branchSelectedIndex].value])
 		let iconImg
-		const pciValue = parseInt(feature[branchOption[branchSelectedIndex].value].pci)
+		const pciValue = parseInt(feature[branchOption[branchSelectedIndex]?.value]?.pci)
 		if (pciValue >= 0 && pciValue <= 10) {
 			iconImg = '/images/pci_0_10.png'
 		} else if (pciValue >= 11 && pciValue <= 25) {
@@ -135,14 +140,6 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 			})
 		})
 
-
-
-
-		popup = new Overlay({
-			element: document.getElementById('popup'),
-			offset: [-40, -30]
-		});
-		mapObject.addOverlay(popup)
 		mapObject.on('pointermove', function (evt) {
 			setPrincentonAirport([])
 			popup.setPosition(undefined);
@@ -163,7 +160,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 							})
 						})
 					airportSpan.innerHTML = feature.values_.airporttName
-					pciOverallSpan.innerHTML = `Overall PCI: ${feature.values_.overAll.pci}`
+					pciOverallSpan.innerHTML = `Overall PCI: ${feature.values_[branchOption[feature.values_.branchSelectedIndex].value]?.pci}`
 					popup.setPosition(coordinate)
 				}
 			}, {
@@ -172,6 +169,14 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 				}
 			})
 		})
+
+
+		popup = new Overlay({
+			element: document.getElementById('popup'),
+			offset: [-40, -30]
+		});
+		mapObject.addOverlay(popup)
+		
 
 		olms(mapObject, 'https://basemaps-api.arcgis.com/arcgis/rest/services/styles/ArcGIS:DarkGray?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd')
 		setMap(mapObject)
@@ -227,9 +232,10 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 				website: featureItem.properties.Website,
 				id: featureItem.id,
 				apron: featureItem.apron,
-				overAll: featureItem.overall,
+				overall: featureItem.overall,
 				runway: featureItem.runway,
-				taxiway: featureItem.taxiway
+				taxiway: featureItem.taxiway,
+				branchSelectedIndex: branchSelectedIndex
 			})
 			if (airportValue === 'All')
 				feature.setStyle(getIconStyle(featureItem, zoomLevel));
@@ -265,7 +271,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 		map && map.on('moveend', (e) => {
 			if (featureList?.length > 0) {
 				let newZoom = map.getView().getZoom();
-				getAirportDetails(newZoom)
+				//getAirportDetails(newZoom)
 				setZoom(newZoom)
 			}
 
@@ -281,6 +287,8 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 				}
 			})
 		})
+
+		
 	}, [featureList])
 
 	useEffect(() => {
@@ -318,12 +326,21 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 			}
 		}
 
+		
+
 	}, [branchSelectedIndex])
 
 	useEffect(() => {
 		if (!map) return;
 		map.getView().setCenter(center)
 	}, [center])
+
+	useEffect(()=>  {
+		setPCIDetails({
+			pcidetails: [],
+			quantity: []
+		})
+	},[airportValue])
 
 
 
@@ -423,7 +440,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 
 						</div>
 						{
-							![''].includes(branchSelectedIndex) && airportValue !== 'All' && pciDetails?.pcidetails?.length > 0 && pciDetails?.quantity?.length > 0 && (<AirtportDetailsPopUp pciDetails={pciDetails}
+							![''].includes(branchSelectedIndex) && (airportValue !== 'All' || (pciDetails?.pcidetails?.length > 0 && pciDetails?.quantity?.length > 0)) && (<AirtportDetailsPopUp pciDetails={pciDetails}
 								airportName={airportValue} airtPortDetails={airtPortDetails} />)
 						}
 					</div>

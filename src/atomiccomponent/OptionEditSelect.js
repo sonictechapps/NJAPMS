@@ -17,7 +17,7 @@ const OptionEditSelect = ({ options, id, selectedIndex, selectText, appendText, 
         setEditOptions(arr)
     }, [])
 
-    useEffect(()=> {
+    useEffect(() => {
         if (editOptions.some(item => item.filterValue !== '') && airportValue !== 'All') {
             setEditOptions(editOptions.map(item => ''))
         }
@@ -35,15 +35,37 @@ const OptionEditSelect = ({ options, id, selectedIndex, selectText, appendText, 
 
     const onEditChange = (val, index) => {
         let v = parseInt(val)
-        if (val === '' || (v >= 0 && v <= 100)) {
-            editOptions[index] = val
+        if (val !== '' && v >= 0 && v <= 100) {
+            // const a = editOptions.map((i,in1) => {
+            //     if (in1 !== index) {
+            //         return ''
+            //     } else {
+            //         return val
+            //     }
+            // })
+            // console.log('ppp1', a)
+            setEditOptions(editOptions.map((i, in1) => {
+                if (in1 !== index) {
+                    return ''
+                } else {
+                   return val
+                }
+            }))
+        } 
+        if (val=== ''){
+            editOptions[index] = ''
             let arr = JSON.parse(JSON.stringify(editOptions))
             setEditOptions(arr)
         }
+        // if (val === '' || (v >= 0 && v <= 100)) {
+        //     editOptions[index] = val
+        //     let arr = JSON.parse(JSON.stringify(editOptions))
+        //     setEditOptions(arr)
+        // }
 
     }
 
-    const getPCIText =  () => {  
+    const getPCIText = () => {
         if (options[0].filterValue !== '' && options[1].filterValue !== '') {
             return `${options[0].name} ${options[0].filterValue} AND ${options[1].name} ${options[1].filterValue}`
         }
@@ -64,7 +86,7 @@ const OptionEditSelect = ({ options, id, selectedIndex, selectText, appendText, 
         <div style={{ position: 'relative' }}>
             <div id={`dropdown-${id}`} className='dropdown-root'>
                 <div id={`dropdown-div-outer-${id}`} ref={dropDownDivOuter} onClick={(e) => onULClick(e)}>
-                    <span className={`dropdown-arrow`} id={`dropdown-placeholder-${id}`}>{options.some(item=> item.filterValue !== '') && !isDisabled ?
+                    <span className={`dropdown-arrow`} id={`dropdown-placeholder-${id}`}>{options.some(item => item.filterValue !== '') && !isDisabled ?
                         appendText + ': ' + getPCIText() : selectText}</span>
                 </div>
             </div>

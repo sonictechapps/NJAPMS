@@ -161,8 +161,8 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
     if (airportValue === 'All') {
       featureList.forEach(obj => {
         labels.push(obj.properties.Network_ID);
-        data.push(obj[branchOption[branchSelectedIndex].value]?.pci)
-        costData.push(obj[branchOption[branchSelectedIndex].value]?.cost)
+        data.push(obj[branchOption[branchSelectedIndex]?.value]?.pci)
+        costData.push(obj[branchOption[branchSelectedIndex]?.value]?.cost)
       })
       setCostArray(costData)
       backGroundColor = setColorArray(data)
@@ -192,8 +192,8 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
       }
     } else {
       featureList.length > 0 && featureList.map(feature => {
-        labels.push(feature.properties.Branch_ID);
-        data.push(feature.properties.Branch_PCI.toString());
+        labels.push(feature.properties?.Branch_ID);
+        data.push(feature.properties?.Branch_PCI?.toString());
         costData.push(feature.properties?.Branch_COST?.toString() || '0')
       })
       setCostArray(costData)
@@ -235,7 +235,7 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
 
   useEffect(() => {
     getdataCall()
-  }, [featureList, branchSelectedIndex])
+  }, [featureList,branchSelectedIndex])
 
   const onBarChartClick = (index) => {
     onBarChartIndexClick(data.labels[index])
@@ -249,7 +249,7 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
             <Card>
               <BarChart data={data} airportDataDetails={airportDataDetails} onBarChartClick={onBarChartClick}
                 airtPortDetails={airtPortDetails} airportValue={airportValue} chartType='pci'
-                selectedyear={selectedyear} years={years} branchValue={branchOption[branchSelectedIndex].value}
+                selectedyear={selectedyear} years={years} branchValue={branchOption[branchSelectedIndex]?.value}
                 aggValue={aggregationOption[aggregationIndex].value}
               />
             </Card>
@@ -269,7 +269,7 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
                 <Card>
                   <BarChart data={costdata} airportDataDetails={airportDataDetails} onBarChartClick={onBarChartClick}
                     airtPortDetails={airtPortDetails} airportValue={airportValue} chartType='cost' 
-                    aggValue={aggregationOption[aggregationIndex].value} branchValue={branchOption[branchSelectedIndex].value} />
+                    aggValue={aggregationOption[aggregationIndex].value} branchValue={branchOption[branchSelectedIndex]?.value} />
                 </Card>
                 {
                   data?.datasets[0]?.data?.length > 0 && costdata?.datasets[0]?.data?.length > 0 && branchSelectedIndex !== 0 && (
@@ -286,7 +286,7 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
                           <div style={{ height: '74%', overflowY: 'auto' }}>
                             <div className="branch-qty-details-cost">
                               <div>{years[selectedyear[0]].options[selectedyear[1]].value}</div>
-                              <div>{branchOption[branchSelectedIndex].name}</div>
+                              <div>{branchOption[branchSelectedIndex]?.name}</div>
                               <div>{data?.datasets[0]?.data[branchSelectedIndex-1]}</div>
                               <div>{costdata?.datasets[0]?.data[branchSelectedIndex-1]}</div>
                             </div>
