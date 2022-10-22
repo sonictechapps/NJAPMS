@@ -51,7 +51,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
     const [airportIndex, setAirportIndex] = useState(0)
     const [airportValue, setAirportValue] = useState()
     const [featureList, setFeatureList] = useState([])
-    const [featureListNew, setFeatureListNew] = useState([])
+    const [featureListNew, setFeatureListNew] = useState()
     const [branchSelectedIndex, setBranchSelectedIndex] = useState(0)
     const [aggregationIndex, setAggregationIndex] = useState(0)
     const [pciIndex, setPciIndex] = useState('')
@@ -144,7 +144,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                 value: branch.properties.Branch_ID
             }
         })])
-        setBranchSelectedIndex(0)
+        // setBranchSelectedIndex(0)
     }
 
     const getAllDetails = () => {
@@ -181,19 +181,19 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
             setOptionsGroup(optionsGroup)
             setSelectedDefaultYear([0, (optionsGroup[0].options.length) - 1])
             setBranchOption([
-                res[1].data.response.body.branchlist.map(branch => {
+                ...res[1].data.response.body.branchlist.map(branch => {
                     return {
                         ...branch,
                         name: branch.description
                     }
-                })[0]])
+                })])
             setAirportBranchAll([
-                res[1].data.response.body.branchlist.map(branch => {
+                ...res[1].data.response.body.branchlist.map(branch => {
                     return {
                         ...branch,
                         name: branch.description
                     }
-                })[0]])
+                })])
             const value = [{
                 "id": "0",
                 "description": "All Airports",
@@ -238,8 +238,9 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
 
     const getPCIDetailsOnAggregation = (airportPciKeys, isFuture, airportPCIDetails) => {
         let newFeature
-        if (response.length > 0) {
-            newFeature = response.map(feature => {
+        let a = featureListNew || response
+        if (a.length > 0) {
+            newFeature = a.map(feature => {
                 let obj
                 for (let key of airportPciKeys) {
                     if (key === feature.properties.Network_ID) {
@@ -288,12 +289,12 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                                         airportPCIDetails[key]?.Overall : ''
                                 },
                                 runway: {
-                                    pci: airportPCIDetails[key]?.runway ?
-                                        airportPCIDetails[key]?.runway : ''
+                                    pci: airportPCIDetails[key]?.RW ?
+                                        airportPCIDetails[key]?.RW : ''
                                 },
                                 taxiway: {
-                                    pci: airportPCIDetails[key]?.taxiway ?
-                                        airportPCIDetails[key]?.taxiway : ''
+                                    pci: airportPCIDetails[key]?.TW ?
+                                        airportPCIDetails[key]?.TW : ''
                                 },
                             }
                         }
@@ -302,8 +303,26 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                 }
                 return obj
             })
-            setFeatureList(newFeature)
-            setFeatureListNew(newFeature)
+            if (pciOption.every(item => item.filterValue === '')) {
+                setFeatureList(newFeature)
+            } else {
+                setFeatureList(newFeature.filter((feature) => {
+
+                    if (pciOption[0].filterValue !== '') {
+                        return parseInt(pciOption[0].filterValue) < parseInt(feature[branchOption[branchSelectedIndex].value].pci)
+                    }
+                    if (pciOption[1].filterValue !== '') {
+                        return parseInt(pciOption[1].filterValue) > parseInt(feature[branchOption[branchSelectedIndex].value].pci)
+                    }
+                    if (pciOption[2].filterValue !== '') {
+                        return parseInt(pciOption[2].filterValue) === parseInt(feature[branchOption[branchSelectedIndex].value].pci)
+                    }
+                }))
+            }
+            // onPCIFilter(pciOption)
+            //setFeatureList(newFeature)
+            if (!featureListNew)
+                setFeatureListNew(newFeature)
         }
     }
 
@@ -334,7 +353,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                 getAggregationDetails()
         }
 
-    }, [JSON.stringify(selectedDefaultYear), airportValue, aggregationIndex])
+    }, [JSON.stringify(selectedDefaultYear), airportValue, aggregationIndex, branchSelectedIndex])
 
     const onBranchDropDownChange = (index) => {
         setBranchSelectedIndex(index)
@@ -345,8 +364,18 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
     }
 
     const onAssessmentYearChange = (rootIndex, index) => {
+
         setSelectedDefaultYear([rootIndex, index])
         setAggregationIndex(0)
+        if (airportValue === 'All') {
+            if (rootIndex === 0) {
+                setBranchOption(isAirportBranchAll)
+            } else {
+                setBranchOption([isAirportBranchAll[0]])
+                setBranchSelectedIndex(0)
+            }
+        }
+
         // if (rootIndex === 0) {
         //     setAggregationIndex('')
         // } else {
@@ -440,9 +469,6 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
             setFeatureList(featureListNew)
         } else {
             setFeatureList(featureListNew.filter((feature) => {
-                if (pciOptions[0] !== '' && pciOptions[1] !== '') {
-                    return parseInt(pciOptions[0]) < parseInt(feature?.overall?.pci) && parseInt(pciOptions[1]) > parseInt(feature?.overall?.pci)
-                }
                 if (pciOptions[0] !== '') {
                     return parseInt(pciOptions[0]) < parseInt(feature?.overall?.pci)
                 }
@@ -454,8 +480,6 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                 }
             }))
         }
-
-
     }
 
     return (
