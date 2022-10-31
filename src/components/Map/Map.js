@@ -145,6 +145,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 			popup.setPosition(undefined);
 			mapObject.forEachFeatureAtPixel(evt.pixel, function (feature) {
 				element = document.getElementById('popup');
+				element.style.display = 'block'
 				const airportSpan = document.getElementById('popup-overlay-text-airport1')
 				const pciOverallSpan = document.getElementById('popup-overlay-text-pci-overall1')
 				if (feature?.values_?.airporttName) {
@@ -176,7 +177,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 			offset: [-40, -30]
 		});
 		mapObject.addOverlay(popup)
-		
+
 
 		olms(mapObject, 'https://basemaps-api.arcgis.com/arcgis/rest/services/styles/ArcGIS:DarkGray?type=style&token=AAPK28d10d3ca2884d1c98ed6454eabcaaf330MqQ37jRDEJB70Rie9TAOx7LDeioNkVxD57HhnOby0DsK5V0v3asEZNtubkaxtd')
 		setMap(mapObject)
@@ -278,9 +279,14 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 		})
 
 		map && map.on('singleclick', (e) => {
+			setPrincentonAirport([])
 			map.forEachFeatureAtPixel(e.pixel, function (feature) {
 				if (feature?.values_?.networkId) {
 					if (airportValue === 'All') {
+						let elem = document.getElementById('popup')
+						console.log('elem', elem)
+						elem.style.display = 'none'
+						
 						setBrnachId('')
 						updateAirportDropDown(feature?.values_?.networkId)
 					}
@@ -288,7 +294,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 			})
 		})
 
-		
+
 	}, [featureList])
 
 	useEffect(() => {
@@ -326,7 +332,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 			}
 		}
 
-		
+
 
 	}, [branchSelectedIndex])
 
@@ -335,12 +341,13 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 		map.getView().setCenter(center)
 	}, [center])
 
-	useEffect(()=>  {
+	useEffect(() => {
 		setPCIDetails({
 			pcidetails: [],
 			quantity: []
 		})
-	},[airportValue])
+
+	}, [airportValue])
 
 
 

@@ -28,11 +28,6 @@ const OptionEditSelect = ({ options, id, selectedIndex, selectText, appendText, 
         ul.classList.toggle('active')
     }
 
-    const onEditBlur = () => {
-        onItemSelectedCallback(editOptions)
-
-    }
-
     const onEditChange = (val, index) => {
         let v = parseInt(val)
         if (val !== '' && v >= 0 && v <= 100) {
@@ -44,19 +39,22 @@ const OptionEditSelect = ({ options, id, selectedIndex, selectText, appendText, 
             //     }
             // })
             // console.log('ppp1', a)
-            setEditOptions(editOptions.map((i, in1) => {
+            let arr = editOptions.map((i, in1) => {
                 if (in1 !== index) {
                     return ''
                 } else {
                    return val
                 }
-            }))
+            })
+            setEditOptions(arr)
+            onItemSelectedCallback(arr)
         } 
         if (val=== ''){
             editOptions[index] = ''
             let arr = JSON.parse(JSON.stringify(editOptions))
             setEditOptions(arr)
-        }
+            onItemSelectedCallback(arr)
+        }  
         // if (val === '' || (v >= 0 && v <= 100)) {
         //     editOptions[index] = val
         //     let arr = JSON.parse(JSON.stringify(editOptions))
@@ -111,7 +109,7 @@ const OptionEditSelect = ({ options, id, selectedIndex, selectText, appendText, 
                                         <div>
 
                                             <input type="number" min="0" max="100" value={editOptions[index]} onChange={(e) => onEditChange(e.target.value, index)}
-                                                onBlur={() => onEditBlur()} />
+                                               />
                                         </div>
                                     </div>
                                 </li>))
