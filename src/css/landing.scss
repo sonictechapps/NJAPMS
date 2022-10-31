@@ -254,12 +254,17 @@
     }
 
     .airport-princenton-branch-header {
-        max-height: 30px;
+        height: 40px;
         width: 100%;
         font-weight: bold;
         background-color: #A4A5A5;
         color: white;
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        p {
+            margin: 0px !important;
+        }
     }
 
     .airport-pci-list-value {

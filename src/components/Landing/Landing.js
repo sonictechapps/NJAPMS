@@ -393,6 +393,24 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
             setBranchOption(isAirportBranchAll)
             setBranchSelectedIndex(0)
             setAggregationOption(aggregationOptionAll)
+            setPciOption([{
+                id: '0',
+                name: '>',
+                value: 'gt',
+                filterValue: ''
+            },
+            {
+                id: '1',
+                name: '<',
+                value: 'lt',
+                filterValue: ''
+            },
+            {
+                id: '2',
+                name: '=',
+                value: 'eq',
+                filterValue: ''
+            }])
         } else {
             setPciOption(pciOption.map((item, index) => {
                 return {

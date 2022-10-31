@@ -23,6 +23,11 @@ const AirtportDetailsPopUp = ({ pciDetails, airportName, airtPortDetails }) => {
         setAiPort(airtport)
     }, [airportName])
 
+    useEffect(() => {
+        setAirportDetails(true)
+        setImageDetails(false)
+    }, [pciDetails.branchid])
+
     const onDetailsClick = (e) => {
         setAirportDetails(true)
         setImageDetails(false)
@@ -105,13 +110,17 @@ const AirtportDetailsPopUp = ({ pciDetails, airportName, airtPortDetails }) => {
                                             <div onClick={(e) => onDetailsClick(e)} style={getDetailsStyle()}>Branch Details</div>
                                             <div onClick={(e) => onImagesClick(e)} style={getImageStyle()}>Image</div>
                                         </div>
-                                        <div className="airport-princenton-branch-header">{`Branch- ${pciDetails.branchid}, Section- ${pciDetails.section}`}</div>
+                                        <div className="airport-princenton-branch-header">
+                                            <img src='images/right_arrow.png' className="right_arrow" onClick={onRightArrowClick}
+                                                style={{ display: airportDetailsList ? 'block' : 'none' }} />
+                                            <img src='images/left_arrow.png' className="left_arrow" onClick={onLeftArrowClick}
+                                                style={{ display: !airportDetailsList ? 'block' : 'none' }} />
+                                            <p>{`Branch- ${pciDetails.branchid}, Section- ${pciDetails.section}`}</p></div>
                                         <div className='branch-image-div-holder'>
                                             <div className='branch-all-wrapper' ref={branchDetailsRef}>
                                                 <div className='branch-details' style={{ flexBasis: airportDetailsList ? '100%' : '0%' }}>
                                                     {/* <div className="airport-princenton-distress-header">{`Branch Details`}</div> */}
-                                                    <img src='images/right_arrow.png' className="right_arrow" onClick={onRightArrowClick}
-                                                        style={{ display: airportDetailsList ? 'block' : 'none' }} />
+
                                                     {
                                                         pciDetails.pcidetails.map((value, index) => (
                                                             <div className="airport-pci-details-list airport-pci-list-value">
@@ -145,8 +154,7 @@ const AirtportDetailsPopUp = ({ pciDetails, airportName, airtPortDetails }) => {
                                                             ))
                                                         }
                                                     </div>
-                                                    <img src='images/left_arrow.png' className="left_arrow" onClick={onLeftArrowClick}
-                                                        style={{ display: !airportDetailsList ? 'block' : 'none' }} />
+
                                                 </div>
                                             </div>
                                             <div ref={brancImagesRef} style={{ height: '100%', width: '100%', display: !airportDetailsList ? 'block' : 'none' }}>
