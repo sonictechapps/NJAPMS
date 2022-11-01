@@ -27,7 +27,7 @@ import { getFeatureDetails, getPCIColor, getResponse, setResponse } from "../../
 
 const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselectedIndex, branchOption, headerClick,
 	years, selectedDefaultYear, aggregationOption, aggregationIndex, featureList, updateBranchId, airtPortDetails, airportIndex,
-	updateAirportDropDown }) => {
+	updateAirportDropDown, onLegendFilterClick }) => {
 	const mapRef = useRef();
 	const [map, setMap] = useState(null)
 	const [zoom, setZoom] = useState(8.3)
@@ -57,7 +57,6 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 	}, [branchSelectedIndex])
 
 	const getIconStyle = (feature, zoom = 0) => {
-		//console.log('99999', feature, branchOption, branchSelectedIndex, branchOption[branchSelectedIndex], feature[branchOption[branchSelectedIndex].value])
 		let iconImg
 		const pciValue = parseInt(feature[branchOption[branchSelectedIndex]?.value]?.pci)
 		if (pciValue >= 0 && pciValue <= 10) {
@@ -284,7 +283,6 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 				if (feature?.values_?.networkId) {
 					if (airportValue === 'All') {
 						let elem = document.getElementById('popup')
-						console.log('elem', elem)
 						elem.style.display = 'none'
 						
 						setBrnachId('')
@@ -405,7 +403,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 						<div className="map-pci-details">
 							{
 								legend.map(pci => (
-									<div className="pci-item" style={{ backgroundColor: getPCIColor(pci).color }}>
+									<div className="pci-item" style={{ backgroundColor: getPCIColor(pci).color }} onClick={() => onLegendFilterClick(pci.min, pci.max)}>
 										<p style={{ color: getPCIColor(pci).textColor }}>{pci.description}</p>
 										<p style={{ color: getPCIColor(pci).textColor }}>{`(${pci.min}-${pci.max})`}</p>
 									</div>

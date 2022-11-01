@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import '../css/dropdown.scss'
 
-const OptionEditSelect = ({ options, id, selectedIndex, selectText, appendText, onItemSelectedCallback, isDisabled, airportValue }) => {
+const OptionEditSelect = ({ options, id, selectedIndex, selectText, appendText, onItemSelectedCallback, isDisabled, airportValue, selectedDefaultYear }) => {
     let ul, span, dropdownDiv
     const dropDownDivOuter = useRef()
     const [editOptions, setEditOptions] = useState([])
@@ -22,6 +22,13 @@ const OptionEditSelect = ({ options, id, selectedIndex, selectText, appendText, 
             setEditOptions(editOptions.map(item => ''))
         }
     }, [airportValue])
+
+    useEffect(() => {
+        if (editOptions.some(item => item.filterValue !== '')) {
+            setEditOptions(editOptions.map(item => ''))
+        }
+    }, [JSON.stringify(selectedDefaultYear)])
+
 
     const onULClick = (e) => {
         ul = document.querySelector(`#${id}`)
