@@ -321,8 +321,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
             }
             // onPCIFilter(pciOption)
             //setFeatureList(newFeature)
-            if (!featureListNew)
-                setFeatureListNew(newFeature)
+            setFeatureListNew(newFeature)
         }
     }
 
@@ -364,7 +363,24 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
     }
 
     const onAssessmentYearChange = (rootIndex, index) => {
-
+        setPciOption([{
+            id: '0',
+            name: '>',
+            value: 'gt',
+            filterValue: ''
+        },
+        {
+            id: '1',
+            name: '<',
+            value: 'lt',
+            filterValue: ''
+        },
+        {
+            id: '2',
+            name: '=',
+            value: 'eq',
+            filterValue: ''
+        }])
         setSelectedDefaultYear([rootIndex, index])
         setAggregationIndex(0)
         if (airportValue === 'All') {
@@ -488,16 +504,23 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
         } else {
             setFeatureList(featureListNew.filter((feature) => {
                 if (pciOptions[0] !== '') {
-                    return parseInt(pciOptions[0]) < parseInt(feature?.overall?.pci)
+                    return parseInt(pciOptions[0]) < parseInt(feature[branchOption[branchSelectedIndex].value]?.pci)
                 }
                 if (pciOptions[1] !== '') {
-                    return parseInt(pciOptions[1]) > parseInt(feature?.overall?.pci)
+                    return parseInt(pciOptions[1]) > parseInt(feature[branchOption[branchSelectedIndex].value]?.pci)
                 }
                 if (pciOptions[2] !== '') {
-                    return parseInt(pciOptions[2]) === parseInt(feature?.overall?.pci)
+                    return parseInt(pciOptions[2]) === parseInt(feature[branchOption[branchSelectedIndex].value]?.pci)
                 }
             }))
         }
+    }
+
+    const onLegendFilterClick = (pcimin, pcimax) => {
+        if (airportValue === 'All')
+            setFeatureList(featureListNew.filter((feature) => {
+                return parseInt(feature[branchOption[branchSelectedIndex].value]?.pci) >= parseInt(pcimin) && parseInt(feature[branchOption[branchSelectedIndex].value]?.pci) <= parseInt(pcimax)
+            }))
     }
 
     return (
@@ -540,7 +563,8 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                     pciOption.length > 0 && (
                         <div className="pci-div-inner">
                             <OptionEditSelect options={pciOption} selectedIndex={pciIndex} id={'select-pci'} onItemSelectedCallback={onPCIFilter}
-                                selectText={'PCI Value'} appendText='PCI Value' isDisabled={airportValue !== 'All'} airportValue={airportValue} />
+                                selectText={'PCI Value'} appendText='PCI Value' isDisabled={airportValue !== 'All'} airportValue={airportValue}
+                                selectedDefaultYear={selectedDefaultYear} />
                         </div>
                     )
                 }
@@ -562,6 +586,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                                     airportselectedIndex={airportIndex} branchOption={branchOption} airtPortDetails={airtPortDetails}
                                     years={optionsGroup} selectedDefaultYear={selectedDefaultYear} aggregationOption={aggregationOption}
                                     aggregationIndex={aggregationIndex} updateBranchId={updateBranchId} updateAirportDropDown={updateAirportDropDown}
+                                    onLegendFilterClick={onLegendFilterClick}
                                 >
                                     <Layers>
                                     </Layers>
@@ -586,7 +611,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                                 <div className="pci-details pci-details-data">
                                     {
                                         legend.map(pci => (
-                                            <div className="pci-item" style={{ backgroundColor: getPCIColor(pci).color }}>
+                                            <div className="pci-item" style={{ backgroundColor: getPCIColor(pci).color }} onClick={() => onLegendFilterClick(pci.min, pci.max)}>
                                                 <p style={{ color: getPCIColor(pci).textColor }}>{pci.description}</p>
                                                 <p style={{ color: getPCIColor(pci).textColor }}>{`(${pci.min}-${pci.max})`}</p>
                                             </div>
