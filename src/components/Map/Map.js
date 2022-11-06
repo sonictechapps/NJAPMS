@@ -159,8 +159,9 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 								website: feature?.values_?.website
 							})
 						})
-					airportSpan.innerHTML = feature.values_.airporttName
-					pciOverallSpan.innerHTML = `Overall PCI: ${feature.values_[branchOption[feature.values_.branchSelectedIndex].value]?.pci}`
+					const pci = parseInt(feature.values_[branchOption[feature.values_.branchSelectedIndex].value]?.pci)
+						airportSpan.innerHTML = feature.values_.airporttName
+					pciOverallSpan.innerHTML = `Overall PCI: ${pci}`
 					popup.setPosition(coordinate)
 				}
 			}, {
@@ -284,7 +285,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 					if (airportValue === 'All') {
 						let elem = document.getElementById('popup')
 						elem.style.display = 'none'
-						
+
 						setBrnachId('')
 						updateAirportDropDown(feature?.values_?.networkId)
 					}

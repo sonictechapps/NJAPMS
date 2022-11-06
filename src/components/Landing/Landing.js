@@ -530,7 +530,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                     airtPortDetails.length > 0 && (
                         <div className="airport-div-inner">
                             <OptionSelect options={airtPortDetails} id={'select-airport-details'} onItemSelectedCallback={onAirportValueChange}
-                                selectedIndex={airportIndex} selectText={'Select Airport'} appendText='Airport' />
+                                selectedIndex={airportIndex} selectText={'Select Airport'} />
                         </div>
                     )
                 }
@@ -555,7 +555,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                     aggregationOption.length > 0 && (
                         <div className="aggregation-div-inner">
                             <OptionSelect options={aggregationOption} selectedIndex={aggregationIndex} id={'select-aggregation'} onItemSelectedCallback={onAggregationChange}
-                                selectText={'Select Aggregation'} appendText='Aggregation' isDisabled={selectedDefaultYear[0] === 0} />
+                                selectText={'Select Aggregation'} isDisabled={selectedDefaultYear[0] === 0} />
                         </div>
                     )
                 }
