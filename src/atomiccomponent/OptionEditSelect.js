@@ -45,23 +45,22 @@ const OptionEditSelect = ({ options, id, selectedIndex, selectText, appendText, 
             //         return val
             //     }
             // })
-            // console.log('ppp1', a)
             let arr = editOptions.map((i, in1) => {
                 if (in1 !== index) {
                     return ''
                 } else {
-                   return val
+                    return val
                 }
             })
             setEditOptions(arr)
             onItemSelectedCallback(arr)
-        } 
-        if (val=== ''){
+        }
+        if (val === '') {
             editOptions[index] = ''
             let arr = JSON.parse(JSON.stringify(editOptions))
             setEditOptions(arr)
             onItemSelectedCallback(arr)
-        }  
+        }
         // if (val === '' || (v >= 0 && v <= 100)) {
         //     editOptions[index] = val
         //     let arr = JSON.parse(JSON.stringify(editOptions))
@@ -115,8 +114,9 @@ const OptionEditSelect = ({ options, id, selectedIndex, selectText, appendText, 
                                         <div><p>{item.name}</p></div>
                                         <div>
 
-                                            <input type="number" min="0" max="100" value={editOptions[index]} onChange={(e) => onEditChange(e.target.value, index)}
-                                               />
+                                            <input type="number" min="0" max="100" onKeyDown={(e) => { if (e.key === '.') { e.preventDefault() } }}
+                                                value={editOptions[index]} onChange={(e) => onEditChange(e.target.value, index)}
+                                            />
                                         </div>
                                     </div>
                                 </li>))

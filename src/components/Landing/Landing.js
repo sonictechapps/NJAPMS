@@ -573,7 +573,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                 </div>
 
             </div>
-            <div style={{ textAlign: 'right', display: 'inline', float: 'right' }} onClick={onArrowClick}>
+            <div style={{ textAlign: 'right', display: 'inline', float: 'right', visibility: 'hidden' }} onClick={onArrowClick}>
                 <img src='images/down_arow.png' className="down_arrow" />
             </div>
             <section className="landing" style={{ backgroundColor: 'black' }}>
