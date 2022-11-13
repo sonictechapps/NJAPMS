@@ -47,6 +47,10 @@ const BarChart = ({ data, airportDataDetails, airtPortDetails, airportValue, onB
   }
 
   const footer = (tooltipItem, data) => {
+    if (chartType === 'pci') {
+      tooltipItem.formattedValue = parseInt(tooltipItem.formattedValue)
+      //tooltipItem.label = parseInt(getPCIDetails(tooltipItem.label))
+    }
     if (airportValue !== 'All') {
       return `${chartType === 'pci' ? 'PCI: ' : 'Cost: '}` + tooltipItem.formattedValue;
     } else {
