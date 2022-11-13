@@ -191,9 +191,7 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
         })
       }
     } else {
-      console.log('featurelist', featureList)
       const filterFeatureList = featureList.filter((item,index) => {
-       // console.log('tempBranchArr', item.value)
         const i = featureList.findIndex((a)=> a.properties.Branch_ID === item.properties.Branch_ID)
         return i === index
     })

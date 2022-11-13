@@ -146,7 +146,6 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
         })]
 
         setBranchOption(tempBranchArr.filter((item, index) => {
-            console.log('tempBranchArr', item.value)
             const i = tempBranchArr.findIndex((a) => a.value === item.value)
             return i === index
         }))
@@ -207,7 +206,6 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                 if (x > y) { return 1; }
                 return 0;
             })
-            console.log('airportSort', airportSort)
             const value = [{
                 "id": "0",
                 "description": "All Airports",
