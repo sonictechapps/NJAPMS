@@ -2,18 +2,15 @@
     transition-property: max-height;
     transition-duration: 1s;
     max-height: 700px;
-
+    visibility: hidden;
     input {
-        height: 0px;
+        height: 30px;
     }
 
     &:hover {
         display: block;
         max-height: 700px;
-
-        input {
-            height: 30px;
-        }
+        visibility: visible;
     }
 
     .dropdown-ul {
@@ -137,7 +134,7 @@
         }
 
         +.dropdown-div-inner {
-            display: block;
+            visibility: visible;
             max-height: 600px;
 
             .dropdown-ul {
@@ -145,6 +142,7 @@
             }
 
             input {
+                
                 height: 30px;
             }
         }

@@ -191,7 +191,13 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
         })
       }
     } else {
-      featureList.length > 0 && featureList.map(feature => {
+      console.log('featurelist', featureList)
+      const filterFeatureList = featureList.filter((item,index) => {
+       // console.log('tempBranchArr', item.value)
+        const i = featureList.findIndex((a)=> a.properties.Branch_ID === item.properties.Branch_ID)
+        return i === index
+    })
+    filterFeatureList.length > 0 && filterFeatureList.map(feature => {
         labels.push(feature.properties?.Branch_ID);
         data.push(feature.properties?.Branch_PCI?.toString());
         costData.push(feature.properties?.Branch_COST?.toString() || '0')
@@ -339,9 +345,9 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
                         {
                           pciDetails.quantity.map((value) => (
                             <div className="branch-qty-details">
-                              <div>{value.attributes.DISTRESS}</div>
+                              <div>{value.attributes.DISTRESS_MECHANISM}</div>
                               <div>{value.attributes.DISTRESS_SEVERITY}</div>
-                              <div>{value.attributes.DISTRESS_QUANTITY}</div>
+                              <div>{Math.round(parseFloat(value.attributes.DISTRESS_QUANTITY))}</div>
                               <div>{value.attributes.DISTRESS_UNITS}</div>
                             </div>
                           ))
