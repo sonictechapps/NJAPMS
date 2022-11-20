@@ -111,10 +111,17 @@ const AirtportDetailsPopUp = ({ pciDetails, airportName, airtPortDetails }) => {
                                             <div onClick={(e) => onImagesClick(e)} style={getImageStyle()}>Image</div>
                                         </div>
                                         <div className="airport-princenton-branch-header">
-                                            <img src='images/right_arrow.png' className="right_arrow" onClick={onRightArrowClick}
-                                                style={{ display: airportDetailsList ? 'block' : 'none' }} />
-                                            <img src='images/left_arrow.png' className="left_arrow" onClick={onLeftArrowClick}
-                                                style={{ display: !airportDetailsList ? 'block' : 'none' }} />
+                                            {
+                                                !imageDetails && (
+                                                    <>
+                                                        <img src='images/right_arrow.png' className="right_arrow" onClick={onRightArrowClick}
+                                                            style={{ display: airportDetailsList ? 'block' : 'none' }} />
+                                                        <img src='images/left_arrow.png' className="left_arrow" onClick={onLeftArrowClick}
+                                                            style={{ display: !airportDetailsList ? 'block' : 'none' }} />
+                                                    </>
+                                                )
+                                            }
+
                                             <p>{`Branch- ${pciDetails.branchid}, Section- ${pciDetails.section}`}</p></div>
                                         <div className='branch-image-div-holder'>
                                             <div className='branch-all-wrapper' ref={branchDetailsRef}>

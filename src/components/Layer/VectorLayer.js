@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import MapContext from "../Map/MapContext";
 import OLVectorLayer from "ol/layer/Vector";
 
-const  VectorLayer = ({ source, style, zIndex = 0, visible, branchid, feature, branchSelectedIndex, branchOption }) => {
+const  VectorLayer = ({ source, style, zIndex = 0, visible, branchid, feature, branchSelectedIndex, branchOption, sectionId }) => {
 	const { map } = useContext(MapContext)
 	useEffect(() => {
 		if (!map) return;
@@ -28,7 +28,7 @@ const  VectorLayer = ({ source, style, zIndex = 0, visible, branchid, feature, b
 				map.removeLayer(vectorLayer);
 			}
 		};
-	}, [map, visible, feature.properties.Branch_PCI, branchid, branchOption])
+	}, [map, visible, feature.properties.Branch_PCI, branchid, branchOption, sectionId])
 	return null;
 };
 
