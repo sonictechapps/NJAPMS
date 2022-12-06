@@ -575,7 +575,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                     pciOption.length > 0 && (
                         <div className="pci-div-inner">
                             <OptionEditSelect options={pciOption} selectedIndex={pciIndex} id={'select-pci'} onItemSelectedCallback={onPCIFilter}
-                                selectText={'PCI Value'} appendText='PCI Value' isDisabled={airportValue !== 'All'} airportValue={airportValue}
+                                selectText={'PCI Filter'} appendText='PCI Filter' isDisabled={airportValue !== 'All'} airportValue={airportValue}
                                 selectedDefaultYear={selectedDefaultYear} />
                         </div>
                     )

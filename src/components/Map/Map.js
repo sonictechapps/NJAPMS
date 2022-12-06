@@ -42,6 +42,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 		quantity: []
 	})
 	const [branchId, setBrnachId] = useState('')
+	const [sectionId, setSetionId] = useState('')
 	const [saveFeatureList, setSaveFeatureList] = useState([])
 	let popup
 	let element
@@ -51,6 +52,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 			getAirportDetails(8.3)
 		}
 		if (airportValue && airportValue !== 'All' && branchSelectedIndex !== '' && branchSelectedIndex !== '0') {
+			setSetionId(branchOption[branchSelectedIndex]?.properties?.OBJECTID)
 			setBrnachId(branchOption[branchSelectedIndex]?.properties?.Branch_ID)
 
 		}
@@ -160,7 +162,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 							})
 						})
 					const pci = parseInt(feature.values_[branchOption[feature.values_.branchSelectedIndex].value]?.pci)
-						airportSpan.innerHTML = feature.values_.airporttName
+					airportSpan.innerHTML = feature.values_.airporttName
 					pciOverallSpan.innerHTML = `Overall PCI: ${pci}`
 					popup.setPosition(coordinate)
 				}
@@ -302,6 +304,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 				getFeatureDetails(feature.values_, returnPCiDetailsonBranch)
 				updateBranchId(feature.values_.Branch_ID, layer.values_.branchOption)
 				setBrnachId(feature.values_.Branch_ID)
+				setSetionId(feature.values_.OBJECTID)
 			}
 				, {
 					layerFilter: (layerCandidate) => {
@@ -375,9 +378,10 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 			<div className="map-details">
 				<MapContext.Provider value={{ map }}>
 					<div ref={mapRef} className="ol-map">
+						
 						<BaseMapPortal showModal={showBaseMap} onBaseMapchange={onBaseMapchange} />
 						{children}
-						{airportValue && airportValue !== 'All' && featureList.length > 0 && featureList.map(feature => (
+						{airportValue && airportValue !== 'All' && (featureList.length > 0 || sectionId !== '') && featureList.map(feature => (
 							<>
 								<VectorLayer
 									source={vectorObject({
@@ -385,8 +389,9 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 											featureProjection: get("EPSG:3857"),
 										}),
 									})}
-									style={FeatureStyles.MultiPolygon(getPCIColorOnFeature(feature.properties.Branch_PCI), branchId === feature.properties.Branch_ID ? 3 : 0)} zIndex={2}
-									visible={showLayer} branchid={branchId} feature={feature} branchOption={branchOption}
+									style={FeatureStyles.MultiPolygon(getPCIColorOnFeature(feature.properties.Branch_PCI), branchId === feature.properties.Branch_ID && sectionId === feature.properties.OBJECTID ? 3 : 0)} zIndex={2}
+									visible={showLayer} branchid={branchId} sectionId = {sectionId}
+									feature={feature} branchOption={branchOption}
 								/>
 							</>
 						))}
