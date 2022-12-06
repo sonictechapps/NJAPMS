@@ -36,7 +36,6 @@
             border-bottom: 1px solid #EEE;
             padding: 10px;
             cursor: pointer;
-
             &:hover {
                 background-color: gray;
             }
@@ -67,6 +66,7 @@
             width: 100%;
             border: none;
             border-bottom: 1px solid #EEE;
+            word-wrap: break-word;
             text-align: left;
             outline: none;
             font-size: 15px;
@@ -273,7 +273,14 @@
 #dropdown-div-inner-select-airport-details {
     .dropdown-ul {
         overflow: auto !important;
+        .option-list-select {
+            font-size: 12px;
+        }
+        .option-list {
+            font-size: 12px;
+        }
     }
+
 }
 
 .option-edit-div {
