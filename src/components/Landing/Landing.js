@@ -217,7 +217,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                     return {
                         ...airport,
                         value: airport.networkId,
-                        name: airport.description
+                        name: airport.description.replace('Airport ', '')
                     }
                 })]
             setAirtPortDetails(value)
