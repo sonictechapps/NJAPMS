@@ -27,7 +27,7 @@ import { getFeatureDetails, getPCIColor, getResponse, setResponse } from "../../
 
 const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselectedIndex, branchOption, headerClick,
 	years, selectedDefaultYear, aggregationOption, aggregationIndex, featureList, updateBranchId, airtPortDetails, airportIndex,
-	updateAirportDropDown, onLegendFilterClick }) => {
+	updateAirportDropDown, onLegendFilterClick, sectionSelectedIndex }) => {
 	const mapRef = useRef();
 	const [map, setMap] = useState(null)
 	const [zoom, setZoom] = useState(8.3)
@@ -50,13 +50,18 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 	useEffect(() => {
 		if (airportValue === 'All') {
 			getAirportDetails(8.3)
-		}
-		if (airportValue && airportValue !== 'All' && branchSelectedIndex !== '' && branchSelectedIndex !== '0') {
-			setSetionId(branchOption[branchSelectedIndex]?.properties?.OBJECTID)
-			setBrnachId(branchOption[branchSelectedIndex]?.properties?.Branch_ID)
-
-		}
-	}, [branchSelectedIndex])
+		}		
+			if (airportValue && airportValue !== 'All' && branchSelectedIndex !== '' && branchSelectedIndex !== '0' && sectionSelectedIndex) {
+				setSetionId(branchOption[branchSelectedIndex]?.sec_arr[sectionSelectedIndex]?.properties?.OBJECTID)
+				setBrnachId(branchOption[branchSelectedIndex]?.sec_arr[sectionSelectedIndex]?.properties?.Branch_ID)
+	
+			} else if (airportValue && airportValue !== 'All' && branchSelectedIndex !== '' && branchSelectedIndex !== '0') {
+				setSetionId(branchOption[branchSelectedIndex]?.properties?.OBJECTID)
+				setBrnachId(branchOption[branchSelectedIndex]?.properties?.Branch_ID)
+	
+			}
+		
+	}, [branchSelectedIndex, sectionSelectedIndex])
 
 	const getIconStyle = (feature, zoom = 0) => {
 		let iconImg
@@ -131,7 +136,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 			overlayLayer.setPosition(undefined)
 			mapObject.forEachFeatureAtPixel(e.pixel, (feature, layer) => {
 				let clickeCordinate = e.coordinate
-				overLayPCIValue.innerHTML = `PCI: ${feature.get('Branch_PCI')}`
+				overLayPCIValue.innerHTML = `PCI: ${feature.get('Section_PCI')}`
 				overLayBranchID.innerHTML = `Branch Id: ${feature.get('Branch_ID')}`
 				overlayLayer.setPosition(clickeCordinate)
 			}, {
@@ -324,9 +329,13 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 
 	useEffect(() => {
 		if (airportValue !== 'All' && branchOption.length > 1) {
-			if (branchSelectedIndex !== 0) {
+			if (branchSelectedIndex !== 0 && !sectionSelectedIndex) {
 				getFeatureDetails(branchOption[branchSelectedIndex].properties, returnPCiDetailsonBranch)
-			} else {
+			} else if (branchSelectedIndex !== 0 && sectionSelectedIndex) {
+				getFeatureDetails(branchOption[branchSelectedIndex]?.sec_arr[sectionSelectedIndex]?.properties, returnPCiDetailsonBranch)
+			}
+			
+			else {
 				setPCIDetails({
 					pcidetails: [],
 					quantity: []
@@ -336,7 +345,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 
 
 
-	}, [branchSelectedIndex])
+	}, [branchSelectedIndex, sectionSelectedIndex])
 
 	useEffect(() => {
 		if (!map) return;
@@ -389,7 +398,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 											featureProjection: get("EPSG:3857"),
 										}),
 									})}
-									style={FeatureStyles.MultiPolygon(getPCIColorOnFeature(feature.properties.Branch_PCI), branchId === feature.properties.Branch_ID && sectionId === feature.properties.OBJECTID ? 3 : 0)} zIndex={2}
+									style={FeatureStyles.MultiPolygon(getPCIColorOnFeature(feature.properties.Section_PCI), branchId === feature.properties.Branch_ID && sectionId === feature.properties.OBJECTID ? 3 : 0)} zIndex={2}
 									visible={showLayer} branchid={branchId} sectionId = {sectionId}
 									feature={feature} branchOption={branchOption}
 								/>

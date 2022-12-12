@@ -53,6 +53,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
     const [featureList, setFeatureList] = useState([])
     const [featureListNew, setFeatureListNew] = useState()
     const [branchSelectedIndex, setBranchSelectedIndex] = useState(0)
+    const [sectionSelectedIndex, setSectionSelectedIndex] = useState()
     const [aggregationIndex, setAggregationIndex] = useState(0)
     const [pciIndex, setPciIndex] = useState('')
     const [isAirportBranchAll, setAirportBranchAll] = useState({
@@ -145,9 +146,26 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
             }
         })]
 
-        setBranchOption(tempBranchArr.filter((item, index) => {
+        const filteredArr = tempBranchArr.filter((item, index) => {
             const i = tempBranchArr.findIndex((a) => a.value === item.value)
             return i === index
+        })
+
+        setBranchOption(filteredArr.map(item => {
+            let section_arr = []
+            for (let i of b) {
+                if (i?.properties?.Branch_ID === item?.properties?.Branch_ID) {
+                    section_arr.push({
+                        ...i,
+                        value: i.properties.Section_ID,
+                        name: i.properties.Section_Name
+                    })
+                }
+            }
+            return {
+                ...item,
+                sec_arr: section_arr.length > 1 ? section_arr : []
+            }
         }))
         // setBranchSelectedIndex(0)
     }
@@ -217,7 +235,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                     return {
                         ...airport,
                         value: airport.networkId,
-                        name: airport.description.replace('Airport ', '')
+                        name: airport.description
                     }
                 })]
             setAirtPortDetails(value)
@@ -368,6 +386,10 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
 
     const onBranchDropDownChange = (index) => {
         setBranchSelectedIndex(index)
+    }
+
+    const onItemSectionSelectedCallback = (index) => {
+        setSectionSelectedIndex(index)
     }
 
     const onAggregationChange = (index) => {
@@ -559,6 +581,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                     branchOption?.length > 0 && (
                         <div className="branch-div-inner">
                             <OptionSelect options={branchOption} id={'select-branch'} onItemSelectedCallback={onBranchDropDownChange}
+                            onItemSectionSelectedCallback = {onItemSectionSelectedCallback}
                                 selectedIndex={branchSelectedIndex} selectText={'Select Branch'} appendText='Branch' />
                         </div>
                     )
@@ -594,7 +617,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                         <div style={{ position: 'relative', display: `${currentTab === 'map' ? 'block' : 'none'}` }}>
                             {branchOption &&
                                 <Map zoom={zoom} legend={legend} featureList={featureList} headerClick={headerClick}
-                                    airportValue={airportValue} branchSelectedIndex={branchSelectedIndex}
+                                    airportValue={airportValue} branchSelectedIndex={branchSelectedIndex} sectionSelectedIndex = {sectionSelectedIndex}
                                     airportselectedIndex={airportIndex} branchOption={branchOption} airtPortDetails={airtPortDetails}
                                     years={optionsGroup} selectedDefaultYear={selectedDefaultYear} aggregationOption={aggregationOption}
                                     aggregationIndex={aggregationIndex} updateBranchId={updateBranchId} updateAirportDropDown={updateAirportDropDown}

@@ -6,7 +6,7 @@ export const getFeatureDetails = (feature, fn) => {
     const pcidetails = [
         {
             "name": "PCI",
-            "value": feature.Branch_PCI
+            "value": feature.Section_PCI
         },
         {
             "name": "Surface",

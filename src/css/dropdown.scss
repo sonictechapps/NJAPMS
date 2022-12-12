@@ -1,15 +1,16 @@
 .dropdown-div-inner {
     transition-property: max-height;
     transition-duration: 1s;
-    max-height: 700px;
-    visibility: hidden;
+    max-height: 0px;
+    visibility: visible;
+
     input {
         height: 30px;
     }
 
     &:hover {
         display: block;
-        max-height: 700px;
+        max-height: 400px;
         visibility: visible;
     }
 
@@ -28,7 +29,7 @@
         z-index: 200;
 
         &:hover {
-            max-height: 700px;
+            max-height: 400px;
         }
 
 
@@ -36,12 +37,24 @@
             border-bottom: 1px solid #EEE;
             padding: 10px;
             cursor: pointer;
+
             &:hover {
                 background-color: gray;
             }
 
             &:last-child {
                 border-bottom: none;
+            }
+
+        }
+
+        .option-list-child-expand {
+            &::after {
+                content: '\002B';
+                color: black;
+                font-weight: bold;
+                float: right;
+                margin-left: 5px;
             }
         }
 
@@ -135,14 +148,14 @@
 
         +.dropdown-div-inner {
             visibility: visible;
-            max-height: 600px;
+            max-height: 400px;
 
             .dropdown-ul {
-                max-height: 600px;
+                max-height: 400px;
             }
 
             input {
-                
+
                 height: 30px;
             }
         }
@@ -256,11 +269,16 @@
 
 #dropdown-div-inner-select-year {
     overflow: hidden !important;
+    .dropdown-ul {
+        overflow: auto !important;
+
+    }
 }
 
 #dropdown-select-year {
     overflow: hidden !important;
 }
+
 
 #dropdown-div-inner-select-pci {
     overflow: hidden !important;
@@ -273,9 +291,11 @@
 #dropdown-div-inner-select-airport-details {
     .dropdown-ul {
         overflow: auto !important;
+
         .option-list-select {
             font-size: 12px;
         }
+
         .option-list {
             font-size: 12px;
         }
@@ -302,6 +322,35 @@
         //    }
     }
 }
+
+.dropdown-ul-inner {
+
+    list-style: none;
+    text-align: left;
+    font-size: 12px;
+    font-weight: bold;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+
+    .dropdown-li-inner {
+        border-bottom: 1px solid #eee;
+        padding: 10px;
+        cursor: pointer;
+        &:hover {
+            background-color: rgb(228, 160, 160);
+        }
+    }
+
+}
+
+.active-accordion-list {
+    &::after {
+        content: "\2212" !important;
+    }
+
+}
+
 
 @media all and (max-width: 760px) {
     .dropdown-div-outer {
