@@ -638,7 +638,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                             {airportValue && <AirportChart selectedyear={selectedDefaultYear} optionsGroup={optionsGroup} airportDataDetails={airportDataDetails}
                                 airtPortDetails={airtPortDetails} airportValue={airportValue} featureList={featureList} branchSelectedIndex={branchSelectedIndex} onBarChartIndexClick={onBarChartClick}
                                 aggregationDetails={aggregationDetails} years={optionsGroup} branchOption={branchOption}
-                                airtPortFeatureDetails={airtPortFeatureDetails} aggregationOption={aggregationOption}
+                                airtPortFeatureDetails={airtPortFeatureDetails} aggregationOption={aggregationOption} sectionSelectedIndex = {sectionSelectedIndex}
                                 aggregationIndex={aggregationIndex} />}
                         </div>
                         {

@@ -18,7 +18,7 @@ import { constantsDetails } from '../util/constants';
 
 function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
   featureList, branchSelectedIndex, onBarChartIndexClick, selectedyear, years,
-  branchOption, aggregationOption, aggregationIndex }) {
+  branchOption, aggregationOption, aggregationIndex, sectionSelectedIndex }) {
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -40,13 +40,17 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
   }
 
   useEffect(() => {
-    if (branchSelectedIndex !== 0 && airportValue !== 'All' && featureList.length > 0) {
+    if (branchSelectedIndex !== 0 && sectionSelectedIndex !== undefined && airportValue !== 'All') {
+      getFeatureDetails(branchOption[branchSelectedIndex]?.sec_arr[sectionSelectedIndex]?.properties, returnPCiDetailsonBranch)
+    }
+    else if (branchSelectedIndex !== 0 && airportValue !== 'All' && featureList.length > 0) {
       getFeatureDetails(featureList[branchSelectedIndex-1].properties, returnPCiDetailsonBranch)
-    } else {
+    } 
+    else {
       setPCIDetails([])
     }
 
-  }, [branchSelectedIndex])
+  }, [branchSelectedIndex, sectionSelectedIndex])
 
   const [data, setData] = useState({
     "labels": ['Failed', 'Failed', 'Very Good', 'Poor', 'Fair', 'Satisfactory', 'Good'],
