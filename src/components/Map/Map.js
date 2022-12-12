@@ -331,7 +331,7 @@ const Map = ({ children, legend, airportValue, branchSelectedIndex, airportselec
 		if (airportValue !== 'All' && branchOption.length > 1) {
 			if (branchSelectedIndex !== 0 && !sectionSelectedIndex) {
 				getFeatureDetails(branchOption[branchSelectedIndex].properties, returnPCiDetailsonBranch)
-			} else if (branchSelectedIndex !== 0 && sectionSelectedIndex) {
+			} else if (branchSelectedIndex !== 0 && sectionSelectedIndex && airportValue !== 'All') {
 				getFeatureDetails(branchOption[branchSelectedIndex]?.sec_arr[sectionSelectedIndex]?.properties, returnPCiDetailsonBranch)
 			}
 			
