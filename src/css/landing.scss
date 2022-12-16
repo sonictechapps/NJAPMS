@@ -114,7 +114,6 @@
 
 .pci-details {
     background-color: rebeccapurple;
-    height: 50px;
     position: absolute;
     z-index: 5;
     display: flex;
@@ -125,7 +124,6 @@
 
 .map-pci-details {
     background-color: rebeccapurple;
-    height: 50px;
     position: absolute;
     z-index: 5;
     display: flex;
@@ -324,8 +322,6 @@
         margin: 0px;
         padding: 0px;
         font-weight: bold;
-        font-size: 12px;
-
         &:first-child {
             margin-top: 5px !important;
         }
@@ -379,7 +375,6 @@
             width: 100%;
             display: flex;
             justify-content: center;
-            font-size: 100%;
 
             .pci-details-container-inner {
                 flex-basis: 100%;
@@ -549,5 +544,23 @@
 .airport-details-holder {
     margin-right: 36px;
     margin-left: 30px;
+}
+
+.airport-section-details {
+    height: 40px;
+    width: 100%;
+    font-weight: bold;
+    background-color: #A4A5A5;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+        margin: 0px !important;
+    }
+}
+
+.pci-details-container-deta {
+    height: fit-content !important;
 }
 

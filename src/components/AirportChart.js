@@ -316,11 +316,17 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
             <div className='airport-landing'>
               <div className='airport-chart-desc-div'>
                 <Card styles={{ marginRight: '30px' }}>
-                  <div className='pci-details-container'>
+                  <div className='pci-details-container pci-details-container-deta'>
                     <div className='pci-details-container-inner'>
                       <div className="airport-princenton-header">{`Branch Details`}</div>
+                      <div className='airport-section-details'>
+                        <p>{`Branch - ${pciDetails.pcidetails[8].value} , Section - ${pciDetails.pcidetails[9].value}`}</p>
+                      </div>
                       {
-                        pciDetails.pcidetails.map((value, index) => (
+                         pciDetails.pcidetails.filter(value => {
+                            return value.name !== 'Branch ID' && value.name !== 'Section ID'
+                         }).
+                        map((value, index) => (
                           <div className='branch-item-wrapper' >
 
                             <div>{value.name}</div>
