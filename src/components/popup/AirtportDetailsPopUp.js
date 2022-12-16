@@ -129,7 +129,10 @@ const AirtportDetailsPopUp = ({ pciDetails, airportName, airtPortDetails }) => {
                                                     {/* <div className="airport-princenton-distress-header">{`Branch Details`}</div> */}
 
                                                     {
-                                                        pciDetails.pcidetails.map((value, index) => (
+                                                        
+                                                        pciDetails.pcidetails.filter(value => {
+                                                            return value.name !== 'Branch ID' && value.name !== 'Section ID'
+                                                        }).map((value, index) => (
                                                             <div className="airport-pci-details-list airport-pci-list-value">
                                                                 <div>{value.name}</div>
                                                                 <div>{value.value}</div>
