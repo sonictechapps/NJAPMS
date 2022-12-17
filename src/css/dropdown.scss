@@ -37,6 +37,10 @@
             border-bottom: 1px solid #EEE;
             padding: 10px;
             cursor: pointer;
+            white-space: nowrap;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
 
             &:hover {
                 background-color: gray;
@@ -197,7 +201,6 @@
     height: 30px;
     background-color: red;
     border: 1px solid #ccc;
-    font-size: 15px;
     border-radius: 5px;
     margin: auto;
     transition: all 2s;
@@ -287,14 +290,6 @@
 #dropdown-div-inner-select-airport-details {
     .dropdown-ul {
         overflow: auto !important;
-
-        .option-list-select {
-            font-size: 12px;
-        }
-
-        .option-list {
-            font-size: 12px;
-        }
     }
 
 }
@@ -331,7 +326,12 @@
     .dropdown-li-inner {
         border-bottom: 1px solid #eee;
         padding: 10px;
+        white-space: nowrap;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
         cursor: pointer;
+
         &:hover {
             background-color: rgb(228, 160, 160);
         }

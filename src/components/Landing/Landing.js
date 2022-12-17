@@ -158,7 +158,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
                     section_arr.push({
                         ...i,
                         value: i.properties.Section_ID,
-                        name: i.properties.Section_Name
+                        name: `Section - ${i.properties.Section_ID}`
                     })
                 }
             }
@@ -524,6 +524,7 @@ const Landing = ({ headerClick, onResetHeaderClick }) => {
             return branch.value === branchID
         })
         setBranchSelectedIndex(index)
+        setSectionSelectedIndex(undefined)
     }
 
     const onPCIFilter = (pciOptions) => {
