@@ -40,7 +40,7 @@ function AirportChart({ airportDataDetails, airtPortDetails, airportValue,
   }
 
   useEffect(() => {
-    if (branchSelectedIndex !== 0 && sectionSelectedIndex !== undefined && airportValue !== 'All') {
+    if (branchSelectedIndex !== 0 && sectionSelectedIndex !== undefined && airportValue !== 'All' && branchOption[branchSelectedIndex]?.sec_arr[sectionSelectedIndex]?.properties) {
       getFeatureDetails(branchOption[branchSelectedIndex]?.sec_arr[sectionSelectedIndex]?.properties, returnPCiDetailsonBranch)
     }
     else if (branchSelectedIndex !== 0 && airportValue !== 'All' && featureList.length > 0) {
