@@ -20,7 +20,7 @@ const OptionSelect = ({ options, id, selectedIndex, onItemSelectedCallback, sele
         event.stopPropagation()
         if (!item?.sec_arr || item?.sec_arr?.length === 0) {
             span = document.querySelector(`#dropdown-placeholder-${id}`)
-            span.innerHTML = appendText + ': ' + options[index].name
+            span.innerHTML = appendText ? appendText + ': ' + options[index].name : options[index].name
             ul && ul.classList.toggle('active')
             onItemSelectedCallback(index)
             onItemSectionSelectedCallback && onItemSectionSelectedCallback(undefined)
@@ -32,7 +32,7 @@ const OptionSelect = ({ options, id, selectedIndex, onItemSelectedCallback, sele
             for (let j = 0; j < collapseArr.length; j++) {
                 collapseArr[j].classList.remove("active-accordion-list")
                 let panel = collapseArr[j].nextElementSibling
-                panel.style.maxHeight = null
+                if (panel)  panel.style.maxHeight = null
             }
         } else {
             let id1 = `option-list-${id}`
@@ -58,7 +58,7 @@ const OptionSelect = ({ options, id, selectedIndex, onItemSelectedCallback, sele
     const onSubItemSelected = (event, index, mainindex, item) => {
         event.stopPropagation()
         span = document.querySelector(`#dropdown-placeholder-${id}`)
-        span.innerHTML = appendText + ': ' + options[mainindex].name
+        span.innerHTML = appendText ? appendText + ': ' + options[mainindex].name : options[mainindex].name
         ul && ul.classList.toggle('active')
         onItemSelectedCallback(mainindex)
         onItemSectionSelectedCallback(index)
